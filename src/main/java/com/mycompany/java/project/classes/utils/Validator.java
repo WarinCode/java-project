@@ -3,7 +3,6 @@ import java.sql.SQLException;
 import com.mycompany.java.project.classes.User;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.db.Authorization;
-
 import java.sql.SQLException;
 
 public final class Validator {

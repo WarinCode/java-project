@@ -61,14 +61,15 @@ public class Database implements SQLQueries {
         this.rs = this.statement.executeQuery(query);
 
         while(this.rs.next()){
-            Book book = new Book();
-            book.setBookId(this.rs.getInt("book_id"))
+            Book book = new Book()
+                    .setBookId(this.rs.getInt("book_id"))
                     .setBookName(this.rs.getString("book_name"))
                     .setPrice(this.rs.getDouble("price"))
                     .setIsbn(this.rs.getString("isbn"))
                     .setAuthorName(this.rs.getString("author_name"))
                     .setImageUrl(this.rs.getString("image_url"))
-                    .setRemain(this.rs.getInt("remain"));
+                    .setRemain(this.rs.getInt("remain"))
+                    .getInstance();
             books.add(book);
         }
 
@@ -82,12 +83,13 @@ public class Database implements SQLQueries {
         this.connect();
         this.rs = this.statement.executeQuery(query);
         while(this.rs.next()){
-            user = new User();
-            user.setUserId(this.rs.getInt("user_id"))
+            user = new User()
+                    .setUserId(this.rs.getInt("user_id"))
                     .setUsername(this.rs.getString("username"))
                     .setPassword(this.rs.getString("password"))
                     .setEmail(this.rs.getString("email"))
-                    .setGender(this.rs.getString("gender"));
+                    .setGender(this.rs.getString("gender"))
+                    .getInstance();
         }
 
         this.disconnect();
