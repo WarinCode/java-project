@@ -39,6 +39,11 @@ public class Database implements SQLQueries {
 
     private void connect() throws SQLException {
         this.connection = DriverManager.getConnection(this.ci.getUrl(), this.ci.getUsername(), this.ci.getPassword());
+//        this.connection = DriverManager.getConnection(
+//                "jdbc:mysql://avnadmin:AVNS_BkelXlquVHIRXirleTn@public-mysql-3912050c-java-project-493kjda.i.aivencloud.com:27653/jbook?ssl-mode=REQUIRED",
+//                "avnadmin",
+//                "AVNS_BkelXlquVHIRXirleTn"
+//                );
         this.statement = this.connection.createStatement();
     }
 

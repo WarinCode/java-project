@@ -7,6 +7,7 @@ import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
 public final class Authorization {
     public static int authorizedUserId;
     public static boolean isValidUser;
+    public static boolean isLoggedIn;
 
     public static boolean isAuthorized(User userParam) throws SQLException, JBookException {
         Database db = new Database();
@@ -18,6 +19,7 @@ public final class Authorization {
         if(isValidUser){
             authorizedUserId = user.getUserId();
             System.out.println("The user has successfully logged in.");
+            isLoggedIn = true;
         }
 
         return isValidUser;
