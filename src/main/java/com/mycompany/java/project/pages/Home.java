@@ -81,27 +81,39 @@ public class Home extends javax.swing.JFrame implements PageHandling {
             .addGap(0, 104, Short.MAX_VALUE)
         );
 
+        HomeBook1Button.setBackground(new java.awt.Color(0, 0, 0));
         HomeBook1Button.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        HomeBook1Button.setForeground(new java.awt.Color(255, 255, 255));
         HomeBook1Button.setText("Add Book");
         HomeBook1Button.setPreferredSize(new java.awt.Dimension(200, 200));
 
+        HomeEditButton.setBackground(new java.awt.Color(0, 0, 0));
         HomeEditButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        HomeEditButton.setForeground(new java.awt.Color(255, 255, 255));
         HomeEditButton.setText("Edit");
         HomeEditButton.setPreferredSize(new java.awt.Dimension(200, 200));
 
+        HomeDeleteButton.setBackground(new java.awt.Color(0, 0, 0));
         HomeDeleteButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        HomeDeleteButton.setForeground(new java.awt.Color(255, 255, 255));
         HomeDeleteButton.setText("Delete");
         HomeDeleteButton.setPreferredSize(new java.awt.Dimension(200, 200));
 
+        HomeSaleButton.setBackground(new java.awt.Color(0, 0, 0));
         HomeSaleButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        HomeSaleButton.setForeground(new java.awt.Color(255, 255, 255));
         HomeSaleButton.setText("Sale");
         HomeSaleButton.setPreferredSize(new java.awt.Dimension(200, 200));
 
+        HomeSaleshistoryButton.setBackground(new java.awt.Color(0, 0, 0));
         HomeSaleshistoryButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        HomeSaleshistoryButton.setForeground(new java.awt.Color(255, 255, 255));
         HomeSaleshistoryButton.setText("Sales history");
         HomeSaleshistoryButton.setPreferredSize(new java.awt.Dimension(200, 200));
 
+        HomeUserSettingButton.setBackground(new java.awt.Color(0, 0, 0));
         HomeUserSettingButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        HomeUserSettingButton.setForeground(new java.awt.Color(255, 255, 255));
         HomeUserSettingButton.setText("User setting");
         HomeUserSettingButton.setToolTipText("");
         HomeUserSettingButton.setPreferredSize(new java.awt.Dimension(200, 200));
@@ -113,14 +125,13 @@ public class Home extends javax.swing.JFrame implements PageHandling {
 
         HomeLogoutButton.setBackground(new java.awt.Color(255, 0, 0));
         HomeLogoutButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        HomeLogoutButton.setForeground(new java.awt.Color(255, 255, 255));
         HomeLogoutButton.setText("Logout");
         HomeLogoutButton.setPreferredSize(new java.awt.Dimension(200, 200));
 
-        HomeUsernameLable.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         HomeUsernameLable.setForeground(new java.awt.Color(255, 255, 255));
         HomeUsernameLable.setText("Username");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Email");
 
@@ -172,6 +183,12 @@ public class Home extends javax.swing.JFrame implements PageHandling {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         HomeBook7Button.setToolTipText("");
 
         HomeBook8Button.setToolTipText("");
@@ -215,17 +232,19 @@ public class Home extends javax.swing.JFrame implements PageHandling {
                 .addContainerGap(13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(HomeBook2Button, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(HomeBook3Button, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(HomeBook4Button, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(HomeBook4Button, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(HomeBook2Button, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(HomeBook3Button, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(HomeBook5Button, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(HomeBook6Button, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(HomeBook7Button, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(HomeBook8Button, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(HomeBook8Button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(HomeBook5Button, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(HomeBook6Button, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(HomeBook7Button, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17))
         );
@@ -236,6 +255,10 @@ public class Home extends javax.swing.JFrame implements PageHandling {
     private void HomeUserSettingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeUserSettingButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_HomeUserSettingButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
