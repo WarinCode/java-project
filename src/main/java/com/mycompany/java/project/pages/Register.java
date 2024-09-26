@@ -26,21 +26,177 @@ public class Register extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        RegisterUsername = new javax.swing.JLabel();
+        RegisterUsernameField = new javax.swing.JTextField();
+        RegisterBackToLoginButton = new javax.swing.JButton();
+        RegisterEmailField = new javax.swing.JPasswordField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        RegisterLoginButton = new javax.swing.JButton();
+        RegisterPossword = new javax.swing.JLabel();
+        RegisterEmail = new javax.swing.JLabel();
+        RegisterPosswordFile = new javax.swing.JPasswordField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(432, 313));
+        setSize(new java.awt.Dimension(432, 313));
+
+        RegisterUsername.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        RegisterUsername.setText("Username:");
+
+        RegisterUsernameField.setBackground(new java.awt.Color(204, 204, 204));
+        RegisterUsernameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegisterUsernameFieldActionPerformed(evt);
+            }
+        });
+
+        RegisterBackToLoginButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        RegisterBackToLoginButton.setText("Back to Login page");
+
+        RegisterEmailField.setBackground(new java.awt.Color(204, 204, 204));
+        RegisterEmailField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegisterEmailFieldActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Create you account");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(130, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel4)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        RegisterLoginButton.setBackground(new java.awt.Color(51, 51, 51));
+        RegisterLoginButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        RegisterLoginButton.setForeground(new java.awt.Color(255, 255, 255));
+        RegisterLoginButton.setText("Login");
+        RegisterLoginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegisterLoginButtonActionPerformed(evt);
+            }
+        });
+
+        RegisterPossword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        RegisterPossword.setText("Password:");
+
+        RegisterEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        RegisterEmail.setText("Email:");
+
+        RegisterPosswordFile.setBackground(new java.awt.Color(204, 204, 204));
+        RegisterPosswordFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegisterPosswordFileActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(RegisterEmail)
+                    .addComponent(RegisterPossword))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(RegisterUsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(RegisterPosswordFile, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(RegisterEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(RegisterLoginButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(RegisterBackToLoginButton, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))))
+                .addContainerGap(85, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(42, 42, 42)
+                    .addComponent(RegisterUsername)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(115, Short.MAX_VALUE)
+                .addComponent(RegisterUsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RegisterEmail)
+                    .addComponent(RegisterEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RegisterPossword)
+                    .addComponent(RegisterPosswordFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(RegisterLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(RegisterBackToLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(38, 38, 38)
+                    .addComponent(RegisterUsername)
+                    .addContainerGap(191, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void RegisterUsernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterUsernameFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RegisterUsernameFieldActionPerformed
+
+    private void RegisterEmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterEmailFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RegisterEmailFieldActionPerformed
+
+    private void RegisterLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterLoginButtonActionPerformed
+        // TODO add your handling code here:
+        Database db = new Database();
+        try {
+            User checkUser = new User(this.getUsername(), this.getPassword());
+            if(Authorization.isAuthorized(checkUser)){
+                User user = db.getUser("SELECT * FROM users WHERE user_id = " + Authorization.authorizedUserId);
+                this.destroy();
+                Home home = new Home(user);
+                home.display();
+                return;
+            }
+
+            throw new JBookException("Login failed!");
+        } catch(SQLException | JBookException e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_RegisterLoginButtonActionPerformed
+
+    private void RegisterPosswordFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterPosswordFileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RegisterPosswordFileActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +234,15 @@ public class Register extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton RegisterBackToLoginButton;
+    private javax.swing.JLabel RegisterEmail;
+    private javax.swing.JPasswordField RegisterEmailField;
+    private javax.swing.JButton RegisterLoginButton;
+    private javax.swing.JLabel RegisterPossword;
+    private javax.swing.JPasswordField RegisterPosswordFile;
+    private javax.swing.JLabel RegisterUsername;
+    private javax.swing.JTextField RegisterUsernameField;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
