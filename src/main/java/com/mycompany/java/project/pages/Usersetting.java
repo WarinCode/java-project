@@ -324,7 +324,6 @@ public class Usersetting extends javax.swing.JFrame {
     private javax.swing.JTextField UserPasswordField;
     private javax.swing.JTextField UserUsernameField;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
     // End of variables declaration//GEN-END:variables
 }
