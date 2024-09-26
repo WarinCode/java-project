@@ -1,15 +1,24 @@
 package com.mycompany.java.project.pages;
 import com.mycompany.java.project.classes.User;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
-import com.mycompany.java.project.interfaces.SetUser;
-import com.mycompany.java.project.interfaces.GetUser;
 import com.mycompany.java.project.interfaces.PageHandling;
+import com.mycompany.java.project.classes.utils.Helper;
 
-public class Usersetting extends javax.swing.JFrame implements PageHandling, GetUser, SetUser{
-    public Usersetting() {
+import javax.swing.*;
+
+public class Usersetting extends javax.swing.JFrame implements PageHandling {
+    public Usersetting(User user) {
+        this.user = user;
         initComponents();
         this.setTitle("User settings");
-//        this.setResizable(false);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        this.UserUsernameField.setText(this.user.getUsername());
+        this.UserEmailField.setText(this.user.getEmail());
+        this.UserGenderField.setText(this.user.getGender());
+        this.jPasswordField1.setText(this.user.getPassword());
+
         this.display();
     }
 
@@ -24,8 +33,6 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
         UserUsernameField = new javax.swing.JTextField();
         EmailField = new javax.swing.JPanel();
         UserEmailField = new javax.swing.JTextField();
-        PasswordField = new javax.swing.JPanel();
-        UserPasswordField = new javax.swing.JTextField();
         AvatarField = new javax.swing.JPanel();
         UserAvatarField = new javax.swing.JTextField();
         UserLable4 = new javax.swing.JLabel();
@@ -40,9 +47,9 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
         UserLable6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(300, 470));
         setSize(new java.awt.Dimension(300, 470));
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
@@ -91,19 +98,6 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
         EmailFieldLayout.setVerticalGroup(
             EmailFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(UserEmailField, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-        );
-
-        PasswordField.setBackground(new java.awt.Color(204, 204, 204));
-
-        javax.swing.GroupLayout PasswordFieldLayout = new javax.swing.GroupLayout(PasswordField);
-        PasswordField.setLayout(PasswordFieldLayout);
-        PasswordFieldLayout.setHorizontalGroup(
-            PasswordFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(UserPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-        );
-        PasswordFieldLayout.setVerticalGroup(
-            PasswordFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(UserPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
         AvatarField.setBackground(new java.awt.Color(204, 204, 204));
@@ -167,6 +161,11 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
         });
 
         jButton2.setText("Close");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -194,9 +193,9 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
                             .addComponent(UserLable2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(UserLable3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(EmailField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPasswordField1))))
                 .addContainerGap(26, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(69, 69, 69)
@@ -217,9 +216,9 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(EmailField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(UserLable2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(UserLable3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -248,16 +247,17 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public static void main(String args[]) {
-        Usersetting usersetting = new Usersetting();
-    }
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.destroy();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
+    private User user = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AgeField;
     private javax.swing.JPanel AvatarField;
     private javax.swing.JPanel EmailField;
     private javax.swing.JPanel GenderField;
-    private javax.swing.JPanel PasswordField;
     private javax.swing.JTextField UserAgeField;
     private javax.swing.JTextField UserAvatarField;
     private javax.swing.JTextField UserEmailField;
@@ -270,70 +270,20 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
     private javax.swing.JLabel UserLable4;
     private javax.swing.JLabel UserLable5;
     private javax.swing.JLabel UserLable6;
-    private javax.swing.JTextField UserPasswordField;
     private javax.swing.JTextField UserUsernameField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
-
-    @Override
-    public String getUsername() {
-        return "";
-    }
-
-    @Override
-    public int getUserId() {
-        return 0;
-    }
-
-    @Override
-    public String getPassword() {
-        return "";
-    }
-
-    @Override
-    public String getEmail() {
-        return "";
-    }
-
-    @Override
-    public String getGender() {
-        return "";
-    }
+    private javax.swing.JPasswordField jPasswordField1;
+    // End of variables declaration//GEN-END:variables
 
     @Override
     public void display() {
-
+        this.setVisible(true);
     }
 
     @Override
     public void destroy() {
-
+        this.dispose();
     }
-
-    @Override
-    public User setUserId(int userId) throws JBookException {
-        return null;
-    }
-
-    @Override
-    public User setUsername(String username) throws JBookException {
-        return null;
-    }
-
-    @Override
-    public User setPassword(String password) throws JBookException {
-        return null;
-    }
-
-    @Override
-    public User setEmail(String email) throws JBookException {
-        return null;
-    }
-
-    @Override
-    public User setGender(String gender) throws JBookException {
-        return null;
-    }
-    // End of variables declaration//GEN-END:variables
 }

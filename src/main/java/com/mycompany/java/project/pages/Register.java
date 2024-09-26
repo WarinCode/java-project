@@ -51,6 +51,7 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
         RegisterBackToLoginButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         RegisterBackToLoginButton.setText("Back to Login page");
         RegisterBackToLoginButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        RegisterBackToLoginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         RegisterBackToLoginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RegisterBackToLoginButtonActionPerformed(evt);
@@ -85,6 +86,7 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
         RegisterLoginButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         RegisterLoginButton.setForeground(new java.awt.Color(255, 255, 255));
         RegisterLoginButton.setText("Register");
+        RegisterLoginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         RegisterLoginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RegisterLoginButtonActionPerformed(evt);

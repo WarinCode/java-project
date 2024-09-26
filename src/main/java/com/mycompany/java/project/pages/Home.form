@@ -70,18 +70,22 @@
               <EmptySpace pref="13" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton2" alignment="3" min="-2" pref="225" max="-2" attributes="0"/>
-                          <Component id="HomeBook2Button" alignment="3" min="-2" pref="225" max="-2" attributes="0"/>
-                          <Component id="HomeBook3Button" alignment="3" min="-2" pref="225" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="HomeBook4Button" alignment="0" min="-2" pref="225" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jButton2" alignment="3" min="-2" pref="225" max="-2" attributes="0"/>
+                              <Component id="HomeBook2Button" alignment="3" min="-2" pref="225" max="-2" attributes="0"/>
+                              <Component id="HomeBook3Button" alignment="3" min="-2" pref="225" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="HomeBook5Button" alignment="3" min="-2" pref="225" max="-2" attributes="0"/>
-                          <Component id="HomeBook6Button" alignment="3" min="-2" pref="225" max="-2" attributes="0"/>
-                          <Component id="HomeBook7Button" alignment="3" min="-2" pref="225" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="HomeBook8Button" alignment="1" min="-2" pref="225" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="HomeBook5Button" alignment="3" min="-2" pref="225" max="-2" attributes="0"/>
+                              <Component id="HomeBook6Button" alignment="3" min="-2" pref="225" max="-2" attributes="0"/>
+                              <Component id="HomeBook7Button" alignment="3" min="-2" pref="225" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Component id="filler1" min="-2" max="-2" attributes="0"/>
@@ -256,6 +260,9 @@
               <Dimension value="[200, 200]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HomeLogoutButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="HomeUsernameLable">
           <Properties>
