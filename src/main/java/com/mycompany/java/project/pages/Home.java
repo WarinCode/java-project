@@ -19,6 +19,8 @@ public class Home extends javax.swing.JFrame implements PageHandling {
         this.user = user;
         initComponents();
         this.setTitle("Home page");
+        this.display();
+        this.jTextField1.setText("Username: " + this.user.getUsername());
 
     }
 

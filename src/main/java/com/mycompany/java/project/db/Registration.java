@@ -24,6 +24,7 @@ public final class Registration {
 
         if(isAccountCreated){
             System.out.println("User account created successfully.");
+            return;
         }
 
         throw new JBookException("An error occurred. Email name cannot be empty!");
