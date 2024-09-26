@@ -29,9 +29,13 @@ public class Usersetting extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         UserLable0 = new javax.swing.JLabel();
         UserField = new javax.swing.JPanel();
+        UserUsernameField = new javax.swing.JTextField();
         EmailField = new javax.swing.JPanel();
+        UserEmailField = new javax.swing.JTextField();
         PasswordField = new javax.swing.JPanel();
+        UserPasswordField = new javax.swing.JTextField();
         AvatarField = new javax.swing.JPanel();
+        UserAvatarField = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         SettingUpdateData = new javax.swing.JButton();
         SettingCloseData = new javax.swing.JButton();
@@ -40,8 +44,10 @@ public class Usersetting extends javax.swing.JFrame {
         UserLable2 = new javax.swing.JLabel();
         UserLable3 = new javax.swing.JLabel();
         GenderField = new javax.swing.JPanel();
+        UserGenderField = new javax.swing.JTextField();
         UserLable5 = new javax.swing.JLabel();
         AgeField = new javax.swing.JPanel();
+        UserAgeField = new javax.swing.JTextField();
         UserLable6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -76,11 +82,11 @@ public class Usersetting extends javax.swing.JFrame {
         UserField.setLayout(UserFieldLayout);
         UserFieldLayout.setHorizontalGroup(
             UserFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(UserUsernameField)
         );
         UserFieldLayout.setVerticalGroup(
             UserFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
+            .addComponent(UserUsernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
         EmailField.setBackground(new java.awt.Color(204, 204, 204));
@@ -89,11 +95,11 @@ public class Usersetting extends javax.swing.JFrame {
         EmailField.setLayout(EmailFieldLayout);
         EmailFieldLayout.setHorizontalGroup(
             EmailFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 202, Short.MAX_VALUE)
+            .addComponent(UserEmailField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
         );
         EmailFieldLayout.setVerticalGroup(
             EmailFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
+            .addComponent(UserEmailField, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
         PasswordField.setBackground(new java.awt.Color(204, 204, 204));
@@ -102,11 +108,11 @@ public class Usersetting extends javax.swing.JFrame {
         PasswordField.setLayout(PasswordFieldLayout);
         PasswordFieldLayout.setHorizontalGroup(
             PasswordFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 202, Short.MAX_VALUE)
+            .addComponent(UserPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
         );
         PasswordFieldLayout.setVerticalGroup(
             PasswordFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
+            .addComponent(UserPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
         AvatarField.setBackground(new java.awt.Color(204, 204, 204));
@@ -115,11 +121,11 @@ public class Usersetting extends javax.swing.JFrame {
         AvatarField.setLayout(AvatarFieldLayout);
         AvatarFieldLayout.setHorizontalGroup(
             AvatarFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(UserAvatarField)
         );
         AvatarFieldLayout.setVerticalGroup(
             AvatarFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
+            .addComponent(UserAvatarField, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
         jPanel8.setBackground(new java.awt.Color(51, 51, 51));
@@ -155,11 +161,11 @@ public class Usersetting extends javax.swing.JFrame {
         GenderField.setLayout(GenderFieldLayout);
         GenderFieldLayout.setHorizontalGroup(
             GenderFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(UserGenderField)
         );
         GenderFieldLayout.setVerticalGroup(
             GenderFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
+            .addComponent(UserGenderField, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
         UserLable5.setText("Gender :");
@@ -170,11 +176,11 @@ public class Usersetting extends javax.swing.JFrame {
         AgeField.setLayout(AgeFieldLayout);
         AgeFieldLayout.setHorizontalGroup(
             AgeFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 202, Short.MAX_VALUE)
+            .addComponent(UserAgeField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
         );
         AgeFieldLayout.setVerticalGroup(
             AgeFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
+            .addComponent(UserAgeField, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
         UserLable6.setText("Age:");
@@ -303,7 +309,11 @@ public class Usersetting extends javax.swing.JFrame {
     private javax.swing.JPanel PasswordField;
     private javax.swing.JButton SettingCloseData;
     private javax.swing.JButton SettingUpdateData;
+    private javax.swing.JTextField UserAgeField;
+    private javax.swing.JTextField UserAvatarField;
+    private javax.swing.JTextField UserEmailField;
     private javax.swing.JPanel UserField;
+    private javax.swing.JTextField UserGenderField;
     private javax.swing.JLabel UserLabel1;
     private javax.swing.JLabel UserLable0;
     private javax.swing.JLabel UserLable2;
@@ -311,6 +321,8 @@ public class Usersetting extends javax.swing.JFrame {
     private javax.swing.JLabel UserLable4;
     private javax.swing.JLabel UserLable5;
     private javax.swing.JLabel UserLable6;
+    private javax.swing.JTextField UserPasswordField;
+    private javax.swing.JTextField UserUsernameField;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;

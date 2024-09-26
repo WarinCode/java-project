@@ -177,21 +177,21 @@ public class Register extends javax.swing.JFrame {
 
     private void RegisterLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterLoginButtonActionPerformed
         // TODO add your handling code here:
-        Database db = new Database();
-        try {
-            User checkUser = new User(this.getUsername(), this.getPassword());
-            if(Authorization.isAuthorized(checkUser)){
-                User user = db.getUser("SELECT * FROM users WHERE user_id = " + Authorization.authorizedUserId);
-                this.destroy();
-                Home home = new Home(user);
-                home.display();
-                return;
-            }
-
-            throw new JBookException("Login failed!");
-        } catch(SQLException | JBookException e){
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        Database db = new Database();
+//        try {
+//            User checkUser = new User(this.getUsername(), this.getPassword());
+//            if(Authorization.isAuthorized(checkUser)){
+//                User user = db.getUser("SELECT * FROM users WHERE user_id = " + Authorization.authorizedUserId);
+//                this.destroy();
+//                Home home = new Home(user);
+//                home.display();
+//                return;
+//            }
+//
+//            throw new JBookException("Login failed!");
+//        } catch(SQLException | JBookException e){
+//            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_RegisterLoginButtonActionPerformed
 
     private void RegisterPosswordFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterPosswordFileActionPerformed
