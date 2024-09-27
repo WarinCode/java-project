@@ -6,4 +6,6 @@ public interface GetUser {
     public String getPassword();
     public String getEmail();
     public String getGender();
+    public String getAvatar();
+    public int getAge();
 }
