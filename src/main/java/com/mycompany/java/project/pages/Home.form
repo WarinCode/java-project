@@ -38,7 +38,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="HomeBook5Button" min="-2" pref="175" max="-2" attributes="0"/>
-                          <Component id="HomeBook0Button" min="-2" pref="175" max="-2" attributes="0"/>
+                          <Component id="jButton2" min="-2" pref="175" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -73,7 +73,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="HomeBook4Button" alignment="0" min="-2" pref="225" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="HomeBook0Button" alignment="3" min="-2" pref="225" max="-2" attributes="0"/>
+                              <Component id="jButton2" alignment="3" min="-2" pref="225" max="-2" attributes="0"/>
                               <Component id="HomeBook2Button" alignment="3" min="-2" pref="225" max="-2" attributes="0"/>
                               <Component id="HomeBook3Button" alignment="3" min="-2" pref="225" max="-2" attributes="0"/>
                           </Group>
@@ -333,9 +333,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="HomeBook5Button">
     </Component>
-    <Component class="javax.swing.JButton" name="HomeBook0Button">
+    <Component class="javax.swing.JButton" name="jButton2">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HomeBook0ButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="HomeBook2Button">

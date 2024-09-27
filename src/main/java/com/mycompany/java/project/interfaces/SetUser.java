@@ -8,4 +8,6 @@ public interface SetUser {
     public User setPassword(String password) throws JBookException;
     public User setEmail(String email) throws JBookException;
     public User setGender(String gender) throws JBookException;
+    public User setAvatar(String avatar) throws JBookException;
+    public User setAge(int age) throws JBookException;
 }
