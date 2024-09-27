@@ -1,10 +1,12 @@
 package com.mycompany.java.project.pages;
 import javax.swing.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.db.Database;
 import com.mycompany.java.project.db.Authorization;
 import com.mycompany.java.project.classes.User;
+import com.mycompany.java.project.classes.Book;
 import com.mycompany.java.project.interfaces.GetUser;
 import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.classes.utils.Helper;
@@ -147,8 +149,9 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser {
 
             if(Authorization.isAuthorized(checkUser)){
                 User user = db.getUser("SELECT * FROM users WHERE user_id = " + Authorization.authorizedUserId);
+                ArrayList<Book> books = db.getBooks("SELECT * FROM books");
                 this.destroy();
-                Home home = new Home(user);
+                Home home = new Home(user, books);
                 return;
             }
 
