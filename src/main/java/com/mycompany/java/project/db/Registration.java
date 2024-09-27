@@ -11,7 +11,7 @@ public final class Registration {
     public static void createUser(User user) throws SQLException, JBookException {
         isAccountCreated = false;
         if(Validator.isDuplicateUser(user)){
-            throw new JBookException("An error occurred. This user is already in use!");
+            throw new SQLException("An error occurred. This user is already in use!");
         }
         if(Validator.isInvalidString(user.getEmail())){
             throw new JBookException("An error occurred. Email name cannot be empty!");

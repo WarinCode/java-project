@@ -9,6 +9,8 @@ public class User implements UserInterface {
     private String password = null;
     private String email = null;
     private String gender = null;
+    private String avatar = null;
+    private int age;
 
     public User(){}
     public User(String username) throws JBookException {
@@ -47,6 +49,16 @@ public class User implements UserInterface {
     @Override
     public String getGender() {
         return this.gender;
+    }
+
+    @Override
+    public String getAvatar() {
+        return this.avatar;
+    }
+
+    @Override
+    public int getAge() {
+        return this.age;
     }
 
     @Override
@@ -106,7 +118,27 @@ public class User implements UserInterface {
     }
 
     @Override
+    public User setAvatar(String avatar) throws JBookException {
+        if(avatar != null && Validator.isInvalidString(avatar)){
+            throw new JBookException("Invalid avatar!");
+        }
+
+        this.avatar = avatar;
+        return this.getInstance();
+    }
+
+    @Override
+    public User setAge(int age) throws JBookException {
+        if(age < 0){
+            throw new JBookException("Invalid age!");
+        }
+
+        this.age = age;
+        return this.getInstance();
+    }
+
+    @Override
     public String toString(){
-        return "userId = " + this.getUserId() + ", username = " + this.getUsername() + ", password = " + this.getPassword() + ", email = " + this.getEmail() + ", gender = " + this.getGender();
+        return "userId = " + this.getUserId() + ", username = " + this.getUsername() + ", password = " + this.getPassword() + ", email = " + this.getEmail() + ", gender = " + this.getGender() + ", avatar = " + this.getAvatar() + ", age = " + this.getAge();
     }
 }

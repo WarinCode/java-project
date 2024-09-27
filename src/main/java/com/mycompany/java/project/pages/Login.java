@@ -38,21 +38,11 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser {
         jLabel1.setText("Username or Email:");
 
         LoginUsernameField.setBackground(new java.awt.Color(183, 183, 183));
-        LoginUsernameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LoginUsernameFieldActionPerformed(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Password:");
 
         LoginPasswordField.setBackground(new java.awt.Color(183, 183, 183));
-        LoginPasswordField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LoginPasswordFieldActionPerformed(evt);
-            }
-        });
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -147,19 +137,11 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void LoginUsernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginUsernameFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LoginUsernameFieldActionPerformed
-
-    private void LoginPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginPasswordFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LoginPasswordFieldActionPerformed
-
     private void LoginloginFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginloginFieldActionPerformed
         // TODO add your handling code here:
         try {
             Database db = new Database();
-            User checkUser = new User(this.getUsername(), this.getPassword());
+            User checkUser = new User(this.getUsername(), this.getPassword(), this.getEmail());
 
             if(Authorization.isAuthorized(checkUser)){
                 User user = db.getUser("SELECT * FROM users WHERE user_id = " + Authorization.authorizedUserId);
@@ -171,6 +153,9 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser {
             throw new JBookException("Login failed!");
         } catch(SQLException | JBookException e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            this.LoginUsernameField.setText("");
+            this.LoginPasswordField.setText("");
+            this.LoginUsernameField.grabFocus();
         }
     }//GEN-LAST:event_LoginloginFieldActionPerformed
 
@@ -218,6 +203,16 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser {
     @Override
     public String getGender() {
         return null;
+    }
+
+    @Override
+    public String getAvatar() {
+        return null;
+    }
+
+    @Override
+    public int getAge() {
+        return 0;
     }
 
     @Override

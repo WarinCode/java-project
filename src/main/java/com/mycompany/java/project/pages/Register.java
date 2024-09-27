@@ -239,6 +239,16 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
     }
 
     @Override
+    public String getAvatar() {
+        return null;
+    }
+
+    @Override
+    public int getAge() {
+        return 0;
+    }
+
+    @Override
     public void display() {
         this.setVisible(true);
     }

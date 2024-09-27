@@ -1,15 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.java.project.pages;
+import java.util.ArrayList;
 import com.mycompany.java.project.classes.User;
+import com.mycompany.java.project.classes.Book;
+import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.interfaces.PageHandling;
 
-/**
- *
- * @author warin
- */
+
 public class Home extends javax.swing.JFrame implements PageHandling {
 
     /**
@@ -19,9 +15,11 @@ public class Home extends javax.swing.JFrame implements PageHandling {
         this.user = user;
         initComponents();
         this.setTitle("Home page");
-        this.display();
-        this.jTextField1.setText("Username: " + this.user.getUsername());
 
+        this.HomeUsernameLable.setText("Username: " + this.user.getUsername());
+        this.jLabel2.setText("Email: " + this.user.getEmail());
+
+        this.display();
     }
 
     @Override
@@ -128,6 +126,11 @@ public class Home extends javax.swing.JFrame implements PageHandling {
         HomeLogoutButton.setForeground(new java.awt.Color(255, 255, 255));
         HomeLogoutButton.setText("Logout");
         HomeLogoutButton.setPreferredSize(new java.awt.Dimension(200, 200));
+        HomeLogoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HomeLogoutButtonActionPerformed(evt);
+            }
+        });
 
         HomeUsernameLable.setForeground(new java.awt.Color(255, 255, 255));
         HomeUsernameLable.setText("Username");
@@ -254,17 +257,34 @@ public class Home extends javax.swing.JFrame implements PageHandling {
 
     private void HomeUserSettingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeUserSettingButtonActionPerformed
         // TODO add your handling code here:
+        Usersetting usersetting = new Usersetting(this.user.getInstance());
     }//GEN-LAST:event_HomeUserSettingButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void HomeLogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeLogoutButtonActionPerformed
+        // TODO add your handling code here:
+        this.destroy();
+        Login login = new Login();
+    }//GEN-LAST:event_HomeLogoutButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
+    public static void main(String []args){
+        try {
+            User user = new User("a", "asdf", "a@email.com");
+            Home home = new Home(user);
+        } catch(JBookException e){
+            e.printStackTrace();
+        }
+    }
+
     private User user = null;
+    private ArrayList<Book> books = new ArrayList<Book>(0);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton HomeBook1Button;
     private javax.swing.JButton HomeBook2Button;

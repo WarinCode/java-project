@@ -3,18 +3,43 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.java.project.pages;
+import javax.swing.*;
+import com.mycompany.java.project.classes.User;
+import com.mycompany.java.project.classes.customs.exceptions.JBookException;
+import com.mycompany.java.project.classes.utils.Validator;
+import com.mycompany.java.project.interfaces.PageHandling;
+import com.mycompany.java.project.interfaces.GetUser;
+import com.mycompany.java.project.db.Database;
+import static com.mycompany.java.project.classes.utils.Helper.getString;
+import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
+
+
+import java.sql.SQLException;
 
 /**
  *
  * @author PC
  */
-public class Usersetting extends javax.swing.JFrame {
+public class Usersetting extends javax.swing.JFrame implements PageHandling, GetUser{
 
     /**
      * Creates new form Usersetting
      */
-    public Usersetting() {
+    public Usersetting(User user) {
+        this.user = user;
         initComponents();
+        this.setTitle("User settings");
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.setResizable(false);
+
+        this.UserUsernameField.setText(this.user.getUsername());
+        this.UserEmailField.setText(this.user.getEmail());
+        this.jPasswordField1.setText(this.user.getPassword());
+        this.UserGenderField.setText(this.user.getGender());
+        this.UserAvatarField.setText(this.user.getAvatar());
+        this.UserAgeField.setText(Integer.toString(this.user.getAge()));
+
+        this.display();
     }
 
     /**
@@ -32,8 +57,6 @@ public class Usersetting extends javax.swing.JFrame {
         UserUsernameField = new javax.swing.JTextField();
         EmailField = new javax.swing.JPanel();
         UserEmailField = new javax.swing.JTextField();
-        PasswordField = new javax.swing.JPanel();
-        UserPasswordField = new javax.swing.JTextField();
         AvatarField = new javax.swing.JPanel();
         UserAvatarField = new javax.swing.JTextField();
         SettingCloseData = new javax.swing.JButton();
@@ -48,10 +71,11 @@ public class Usersetting extends javax.swing.JFrame {
         UserAgeField = new javax.swing.JTextField();
         UserLable6 = new javax.swing.JLabel();
         SettingUpdateData = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(300, 470));
-        setSize(new java.awt.Dimension(300, 470));
+        setPreferredSize(new java.awt.Dimension(350, 530));
+        setSize(new java.awt.Dimension(350, 530));
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setForeground(new java.awt.Color(255, 0, 0));
@@ -105,21 +129,6 @@ public class Usersetting extends javax.swing.JFrame {
             .addComponent(UserEmailField, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
-        PasswordField.setBackground(new java.awt.Color(204, 204, 204));
-
-        UserPasswordField.setBackground(new java.awt.Color(204, 204, 204));
-
-        javax.swing.GroupLayout PasswordFieldLayout = new javax.swing.GroupLayout(PasswordField);
-        PasswordField.setLayout(PasswordFieldLayout);
-        PasswordFieldLayout.setHorizontalGroup(
-            PasswordFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(UserPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-        );
-        PasswordFieldLayout.setVerticalGroup(
-            PasswordFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(UserPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-        );
-
         AvatarField.setBackground(new java.awt.Color(204, 204, 204));
 
         UserAvatarField.setBackground(new java.awt.Color(204, 204, 204));
@@ -137,6 +146,11 @@ public class Usersetting extends javax.swing.JFrame {
 
         SettingCloseData.setBackground(new java.awt.Color(242, 242, 242));
         SettingCloseData.setText("Close");
+        SettingCloseData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingCloseDataActionPerformed(evt);
+            }
+        });
 
         UserLable4.setText("Avatar:");
 
@@ -181,9 +195,17 @@ public class Usersetting extends javax.swing.JFrame {
         UserLable6.setText("Age:");
 
         SettingUpdateData.setBackground(new java.awt.Color(0, 0, 0));
-        SettingUpdateData.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        SettingUpdateData.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         SettingUpdateData.setForeground(new java.awt.Color(255, 255, 255));
         SettingUpdateData.setText("Update data");
+        SettingUpdateData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingUpdateDataActionPerformed(evt);
+            }
+        });
+
+        jPasswordField1.setBackground(new java.awt.Color(204, 204, 204));
+        jPasswordField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -195,34 +217,30 @@ public class Usersetting extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(UserLable2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(UserLable3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(EmailField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPasswordField1)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(UserLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(UserLable4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(UserLable5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(UserLable6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(AvatarField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(UserField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(GenderField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(AgeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(UserLable2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(UserLable3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(AvatarField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(UserField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(GenderField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(AgeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(SettingUpdateData, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                                .addComponent(SettingCloseData, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(49, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SettingUpdateData)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(SettingCloseData, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)))
-                .addGap(77, 77, 77))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,8 +258,10 @@ public class Usersetting extends javax.swing.JFrame {
                             .addComponent(UserLable2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(UserLable3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(UserLable3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(AvatarField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -257,55 +277,72 @@ public class Usersetting extends javax.swing.JFrame {
                         .addComponent(UserLable6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33)
                 .addComponent(SettingUpdateData, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SettingCloseData, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                .addGap(54, 54, 54))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(SettingCloseData, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void SettingCloseDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingCloseDataActionPerformed
+        // TODO add your handling code here:
+        this.destroy();
+    }//GEN-LAST:event_SettingCloseDataActionPerformed
+
+    private void SettingUpdateDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingUpdateDataActionPerformed
+        // TODO add your handling code here:
+        User user = null;
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+
+            user = new User()
+                    .setUserId(this.getUserId())
+                    .setUsername(this.getUsername())
+                    .setPassword(this.getPassword())
+                    .setEmail(this.getEmail())
+                    .setAge(this.getAge())
+                    .setAvatar(this.getAvatar())
+                    .setGender(this.getGender())
+                    .getInstance();
+
+            if(Validator.isDuplicateUser(user.getUserId(), user.getUsername(), user.getEmail())){
+                throw new SQLException("An error occurred. This user is already in use!");
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Usersetting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Usersetting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Usersetting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Usersetting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Please enter your age field.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } catch(SQLException | JBookException e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Usersetting().setVisible(true);
+        System.out.println(user);
+
+        try {
+            Database db = new Database();
+            String query = "UPDATE users SET username = " + getSingleQuotes(user.getUsername()) + ", password = " + getSingleQuotes(user.getPassword()) +
+                    ", email = " + getSingleQuotes(user.getEmail()) + ", gender = " + getSingleQuotes(user.getGender()) +
+                    ", avatar = " + getSingleQuotes(user.getAvatar()) + ", age = " + user.getAge() +
+                    " WHERE user_id = " + user.getUserId();
+            int result = db.update(query);
+            if(result == 1){
+                JOptionPane.showMessageDialog(this, "Updated user settings", "Success", JOptionPane.INFORMATION_MESSAGE);
+                this.destroy();
+                this.user = user;
+                return;
             }
-        });
-    }
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_SettingUpdateDataActionPerformed
 
+
+    private User user = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AgeField;
     private javax.swing.JPanel AvatarField;
     private javax.swing.JPanel EmailField;
     private javax.swing.JPanel GenderField;
-    private javax.swing.JPanel PasswordField;
     private javax.swing.JButton SettingCloseData;
     private javax.swing.JButton SettingUpdateData;
     private javax.swing.JTextField UserAgeField;
@@ -320,8 +357,54 @@ public class Usersetting extends javax.swing.JFrame {
     private javax.swing.JLabel UserLable4;
     private javax.swing.JLabel UserLable5;
     private javax.swing.JLabel UserLable6;
-    private javax.swing.JTextField UserPasswordField;
     private javax.swing.JTextField UserUsernameField;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
     // End of variables declaration//GEN-END:variables
+
+
+    @Override
+    public String getUsername() {
+        return this.UserUsernameField.getText();
+    }
+
+    @Override
+    public int getUserId() {
+        return this.user.getUserId();
+    }
+
+    @Override
+    public String getPassword() {
+        return getString(this.jPasswordField1.getPassword());
+    }
+
+    @Override
+    public String getEmail() {
+        return this.UserEmailField.getText();
+    }
+
+    @Override
+    public String getGender() {
+        return this.UserGenderField.getText() == null ? null : this.UserGenderField.getText();
+    }
+
+    @Override
+    public String getAvatar() {
+        return this.UserAvatarField.getText() == null ? null : this.UserAvatarField.getText();
+    }
+
+    @Override
+    public int getAge() throws NumberFormatException {
+        return Integer.parseInt(this.UserAgeField.getText().isEmpty() ? "0" : this.UserAgeField.getText());
+    }
+
+    @Override
+    public void display() {
+        this.setVisible(true);
+    }
+
+    @Override
+    public void destroy() {
+        this.dispose();
+    }
 }
