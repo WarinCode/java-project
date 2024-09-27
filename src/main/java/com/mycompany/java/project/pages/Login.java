@@ -72,6 +72,7 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser {
         LoginloginField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         LoginloginField.setForeground(new java.awt.Color(255, 255, 255));
         LoginloginField.setText("Login");
+        LoginloginField.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         LoginloginField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LoginloginFieldActionPerformed(evt);
@@ -82,6 +83,7 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser {
         LoginRegisterField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         LoginRegisterField.setText("Register");
         LoginRegisterField.setBorder(null);
+        LoginRegisterField.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         LoginRegisterField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LoginRegisterFieldActionPerformed(evt);
@@ -131,7 +133,7 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser {
                 .addComponent(LoginloginField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(LoginRegisterField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
