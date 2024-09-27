@@ -18,7 +18,9 @@ public final class Registration {
         }
 
         Database db = new Database();
-        String query = "INSERT INTO users VALUES(DEFAULT(user_id), " + getSingleQuotes(user.getUsername()) + ", " + getSingleQuotes(user.getPassword()) + ", " + getSingleQuotes(user.getEmail()) + ", " + getSingleQuotes(user.getGender()) + ")";
+        String query = "INSERT INTO users VALUES(DEFAULT(user_id), " + getSingleQuotes(user.getUsername()) + ", " +
+                getSingleQuotes(user.getPassword()) + ", " + getSingleQuotes(user.getEmail()) + ", " +
+                getSingleQuotes(user.getGender()) + ", DEFAULT(gender), DEFAULT(avatar))";
 //        System.out.println(query);
         isAccountCreated = db.insert(query) == 1;
 
