@@ -3,25 +3,30 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.java.project.pages;
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.imageio.ImageIO;
+import com.mycompany.java.project.interfaces.PageHandling;
+
 /**
  *
  * @author astro
  */
-public class Sale extends javax.swing.JFrame {
+public class Sale extends javax.swing.JFrame implements PageHandling{
 
     /**
      * Creates new form Sale
      */
     public Sale() {
         initComponents();
+        this.setTitle("Sale page");
+        this.setResizable(false);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        this.display();
         
         Image image = null;
         String image_url = "https://th.bing.com/th/id/OIP.akrHHWFNHrdQm9WDFUwY3AHaHa?rs=1&pid=ImgDetMain";
@@ -45,8 +50,6 @@ public class Sale extends javax.swing.JFrame {
             ImagePanel.add(label, BorderLayout.CENTER);
 //            ImagePanel.setSize(1,2);
             ImagePanel.revalidate();
-            
-            
         } else {
             System.out.println("Failed to load image");
         }
@@ -228,6 +231,7 @@ public class Sale extends javax.swing.JFrame {
 
     private void CloseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseButtonActionPerformed
         // TODO add your handling code here:
+        this.destroy();
     }//GEN-LAST:event_CloseButtonActionPerformed
 
     private void OrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrderButtonActionPerformed
@@ -274,6 +278,16 @@ public class Sale extends javax.swing.JFrame {
         }
         );
 }
+
+    @Override
+    public void display() {
+        this.setVisible(true);
+    }
+
+    @Override
+    public void destroy() {
+        this.dispose();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ClearButton;

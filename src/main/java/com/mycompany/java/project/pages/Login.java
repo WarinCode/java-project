@@ -149,7 +149,7 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser {
 
             if(Authorization.isAuthorized(checkUser)){
                 User user = db.getUser("SELECT * FROM users WHERE user_id = " + Authorization.authorizedUserId);
-                ArrayList<Book> books = db.getBooks("SELECT * FROM books");
+                ArrayList<Book> books = db.getBooks("SELECT * FROM books WHERE book_id IN(11, 17, 21, 15, 26, 16)");
                 this.destroy();
                 Home home = new Home(user, books);
                 return;

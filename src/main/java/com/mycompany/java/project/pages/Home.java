@@ -17,12 +17,14 @@ public class Home extends javax.swing.JFrame implements PageHandling {
     public Home(User user, ArrayList<Book> books) {
         this.user = user;
         this.books = books;
+
         initComponents();
         this.setTitle("Home page");
+        this.setResizable(false);
 
-        addImage(this.user.getAvatar(), this.HomeProfilePanel);
-        this.HomeUsernameLable.setText("Username: " + this.user.getUsername());
-        this.jLabel2.setText("Email: " + this.user.getEmail());
+        addImage(this.user.getAvatar(), this.userAvatar);
+        this.jTextField1.setText("Username: " + this.user.getUsername());
+        this.jTextField2.setText("Email: " + this.user.getEmail());
 
         this.panels[0] = this.jPanel4;
         this.panels[1] = this.jPanel3;
@@ -57,16 +59,16 @@ public class Home extends javax.swing.JFrame implements PageHandling {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        HomeProfilePanel = new javax.swing.JPanel();
-        HomeBook1Button = new javax.swing.JButton();
-        HomeEditButton = new javax.swing.JButton();
-        HomeDeleteButton = new javax.swing.JButton();
-        HomeSaleButton = new javax.swing.JButton();
-        HomeSaleshistoryButton = new javax.swing.JButton();
-        HomeUserSettingButton = new javax.swing.JButton();
-        HomeLogoutButton = new javax.swing.JButton();
-        HomeUsernameLable = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        userAvatar = new javax.swing.JPanel();
+        addButton = new javax.swing.JButton();
+        editButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
+        saleButton = new javax.swing.JButton();
+        salesHistoryButton = new javax.swing.JButton();
+        userSettingButton = new javax.swing.JButton();
+        logoutButton = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -82,78 +84,105 @@ public class Home extends javax.swing.JFrame implements PageHandling {
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setPreferredSize(new java.awt.Dimension(300, 100));
 
-        HomeProfilePanel.setDoubleBuffered(false);
+        userAvatar.setDoubleBuffered(false);
 
-        javax.swing.GroupLayout HomeProfilePanelLayout = new javax.swing.GroupLayout(HomeProfilePanel);
-        HomeProfilePanel.setLayout(HomeProfilePanelLayout);
-        HomeProfilePanelLayout.setHorizontalGroup(
-            HomeProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout userAvatarLayout = new javax.swing.GroupLayout(userAvatar);
+        userAvatar.setLayout(userAvatarLayout);
+        userAvatarLayout.setHorizontalGroup(
+            userAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 129, Short.MAX_VALUE)
         );
-        HomeProfilePanelLayout.setVerticalGroup(
-            HomeProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        userAvatarLayout.setVerticalGroup(
+            userAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 104, Short.MAX_VALUE)
         );
 
-        HomeBook1Button.setBackground(new java.awt.Color(0, 0, 0));
-        HomeBook1Button.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        HomeBook1Button.setForeground(new java.awt.Color(255, 255, 255));
-        HomeBook1Button.setText("Add Book");
-        HomeBook1Button.setPreferredSize(new java.awt.Dimension(200, 200));
-
-        HomeEditButton.setBackground(new java.awt.Color(0, 0, 0));
-        HomeEditButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        HomeEditButton.setForeground(new java.awt.Color(255, 255, 255));
-        HomeEditButton.setText("Edit");
-        HomeEditButton.setPreferredSize(new java.awt.Dimension(200, 200));
-
-        HomeDeleteButton.setBackground(new java.awt.Color(0, 0, 0));
-        HomeDeleteButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        HomeDeleteButton.setForeground(new java.awt.Color(255, 255, 255));
-        HomeDeleteButton.setText("Delete");
-        HomeDeleteButton.setPreferredSize(new java.awt.Dimension(200, 200));
-
-        HomeSaleButton.setBackground(new java.awt.Color(0, 0, 0));
-        HomeSaleButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        HomeSaleButton.setForeground(new java.awt.Color(255, 255, 255));
-        HomeSaleButton.setText("Sale");
-        HomeSaleButton.setPreferredSize(new java.awt.Dimension(200, 200));
-
-        HomeSaleshistoryButton.setBackground(new java.awt.Color(0, 0, 0));
-        HomeSaleshistoryButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        HomeSaleshistoryButton.setForeground(new java.awt.Color(255, 255, 255));
-        HomeSaleshistoryButton.setText("Sales history");
-        HomeSaleshistoryButton.setPreferredSize(new java.awt.Dimension(200, 200));
-
-        HomeUserSettingButton.setBackground(new java.awt.Color(0, 0, 0));
-        HomeUserSettingButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        HomeUserSettingButton.setForeground(new java.awt.Color(255, 255, 255));
-        HomeUserSettingButton.setText("User setting");
-        HomeUserSettingButton.setToolTipText("");
-        HomeUserSettingButton.setPreferredSize(new java.awt.Dimension(200, 200));
-        HomeUserSettingButton.addActionListener(new java.awt.event.ActionListener() {
+        addButton.setBackground(new java.awt.Color(0, 0, 0));
+        addButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        addButton.setForeground(new java.awt.Color(255, 255, 255));
+        addButton.setText("Add Book");
+        addButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addButton.setPreferredSize(new java.awt.Dimension(200, 200));
+        addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HomeUserSettingButtonActionPerformed(evt);
+                addButtonActionPerformed(evt);
             }
         });
 
-        HomeLogoutButton.setBackground(new java.awt.Color(255, 0, 0));
-        HomeLogoutButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        HomeLogoutButton.setForeground(new java.awt.Color(255, 255, 255));
-        HomeLogoutButton.setText("Logout");
-        HomeLogoutButton.setBorder(null);
-        HomeLogoutButton.setPreferredSize(new java.awt.Dimension(200, 200));
-        HomeLogoutButton.addActionListener(new java.awt.event.ActionListener() {
+        editButton.setBackground(new java.awt.Color(0, 0, 0));
+        editButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        editButton.setForeground(new java.awt.Color(255, 255, 255));
+        editButton.setText("Edit");
+        editButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        editButton.setPreferredSize(new java.awt.Dimension(200, 200));
+        editButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HomeLogoutButtonActionPerformed(evt);
+                editButtonActionPerformed(evt);
             }
         });
 
-        HomeUsernameLable.setForeground(new java.awt.Color(255, 255, 255));
-        HomeUsernameLable.setText("Username");
+        deleteButton.setBackground(new java.awt.Color(0, 0, 0));
+        deleteButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        deleteButton.setForeground(new java.awt.Color(255, 255, 255));
+        deleteButton.setText("Delete");
+        deleteButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        deleteButton.setPreferredSize(new java.awt.Dimension(200, 200));
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Email");
+        saleButton.setBackground(new java.awt.Color(0, 0, 0));
+        saleButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        saleButton.setForeground(new java.awt.Color(255, 255, 255));
+        saleButton.setText("Sale");
+        saleButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        saleButton.setPreferredSize(new java.awt.Dimension(200, 200));
+        saleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saleButtonActionPerformed(evt);
+            }
+        });
+
+        salesHistoryButton.setBackground(new java.awt.Color(0, 0, 0));
+        salesHistoryButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        salesHistoryButton.setForeground(new java.awt.Color(255, 255, 255));
+        salesHistoryButton.setText("Sales history");
+        salesHistoryButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        salesHistoryButton.setPreferredSize(new java.awt.Dimension(200, 200));
+
+        userSettingButton.setBackground(new java.awt.Color(0, 0, 0));
+        userSettingButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        userSettingButton.setForeground(new java.awt.Color(255, 255, 255));
+        userSettingButton.setText("User setting");
+        userSettingButton.setToolTipText("");
+        userSettingButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        userSettingButton.setPreferredSize(new java.awt.Dimension(200, 200));
+        userSettingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userSettingButtonActionPerformed(evt);
+            }
+        });
+
+        logoutButton.setBackground(new java.awt.Color(255, 0, 0));
+        logoutButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        logoutButton.setForeground(new java.awt.Color(255, 255, 255));
+        logoutButton.setText("Logout");
+        logoutButton.setBorder(null);
+        logoutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutButton.setPreferredSize(new java.awt.Dimension(200, 200));
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
+
+        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField1.setText("Username");
+
+        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField2.setText("Email");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -163,43 +192,43 @@ public class Home extends javax.swing.JFrame implements PageHandling {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(HomeUserSettingButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                        .addComponent(HomeSaleshistoryButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(HomeSaleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(HomeDeleteButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(HomeEditButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(HomeBook1Button, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(HomeLogoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(userSettingButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                        .addComponent(salesHistoryButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(saleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(deleteButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(editButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(addButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(HomeProfilePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(HomeUsernameLable, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(userAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(HomeProfilePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(HomeUsernameLable, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(HomeBook1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(HomeEditButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(HomeDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(HomeSaleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(saleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(HomeSaleshistoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(salesHistoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(HomeUserSettingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userSettingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(HomeLogoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -360,16 +389,36 @@ public class Home extends javax.swing.JFrame implements PageHandling {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void HomeUserSettingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeUserSettingButtonActionPerformed
+    private void userSettingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSettingButtonActionPerformed
         // TODO add your handling code here:
         Usersetting usersetting = new Usersetting(this.user.getInstance());
-    }//GEN-LAST:event_HomeUserSettingButtonActionPerformed
+    }//GEN-LAST:event_userSettingButtonActionPerformed
 
-    private void HomeLogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeLogoutButtonActionPerformed
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         // TODO add your handling code here:
         this.destroy();
         Login login = new Login();
-    }//GEN-LAST:event_HomeLogoutButtonActionPerformed
+    }//GEN-LAST:event_logoutButtonActionPerformed
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        // TODO add your handling code here:
+        AddBook addBook = new AddBook();
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        // TODO add your handling code here:
+        DeleteBook deleteBook =new DeleteBook();
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void saleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleButtonActionPerformed
+        // TODO add your handling code here:
+        Sale sale = new Sale();
+    }//GEN-LAST:event_saleButtonActionPerformed
+
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        // TODO add your handling code here:
+        EditBook editBook = new EditBook();
+    }//GEN-LAST:event_editButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -390,17 +439,10 @@ public class Home extends javax.swing.JFrame implements PageHandling {
     private ArrayList<Book> books = null;
     private JPanel []panels = new JPanel[6];
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton HomeBook1Button;
-    private javax.swing.JButton HomeDeleteButton;
-    private javax.swing.JButton HomeEditButton;
-    private javax.swing.JButton HomeLogoutButton;
-    private javax.swing.JPanel HomeProfilePanel;
-    private javax.swing.JButton HomeSaleButton;
-    private javax.swing.JButton HomeSaleshistoryButton;
-    private javax.swing.JButton HomeUserSettingButton;
-    private javax.swing.JLabel HomeUsernameLable;
+    private javax.swing.JButton addButton;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JButton editButton;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
@@ -409,5 +451,12 @@ public class Home extends javax.swing.JFrame implements PageHandling {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JLabel jTextField1;
+    private javax.swing.JLabel jTextField2;
+    private javax.swing.JButton logoutButton;
+    private javax.swing.JButton saleButton;
+    private javax.swing.JButton salesHistoryButton;
+    private javax.swing.JPanel userAvatar;
+    private javax.swing.JButton userSettingButton;
     // End of variables declaration//GEN-END:variables
 }
