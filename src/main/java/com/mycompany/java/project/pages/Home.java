@@ -8,6 +8,8 @@ import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import static com.mycompany.java.project.classes.utils.Helper.addImage;
 import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.db.Database;
+import com.mycompany.java.project.db.Authorization;
+
 
 public class Home extends javax.swing.JFrame implements PageHandling {
 
@@ -22,9 +24,7 @@ public class Home extends javax.swing.JFrame implements PageHandling {
         this.setTitle("Home page");
         this.setResizable(false);
 
-        addImage(this.user.getAvatar(), this.userAvatar);
-        this.jTextField1.setText("Username: " + this.user.getUsername());
-        this.jTextField2.setText("Email: " + this.user.getEmail());
+        this.showUserInfo();
 
         this.panels[0] = this.jPanel4;
         this.panels[1] = this.jPanel3;
@@ -47,6 +47,12 @@ public class Home extends javax.swing.JFrame implements PageHandling {
     @Override
     public void display(){
         this.setVisible(true);
+    }
+
+    private void showUserInfo(){
+        addImage(this.user.getAvatar(), this.userAvatar);
+        this.jTextField1.setText("Username: " + this.user.getUsername());
+        this.jTextField2.setText("Email: " + this.user.getEmail());
     }
 
     /**
@@ -391,12 +397,27 @@ public class Home extends javax.swing.JFrame implements PageHandling {
 
     private void userSettingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSettingButtonActionPerformed
         // TODO add your handling code here:
-        Usersetting usersetting = new Usersetting(this.user.getInstance());
+        Usersetting usersetting = new Usersetting(this.user.getInstance(), () -> {
+            try {
+                Database db = new Database();
+                if(Authorization.isLoggedIn){
+                    this.user = db.getUser("SELECT * FROM users WHERE user_id = " + Authorization.authorizedUserId);
+                    this.showUserInfo();
+                } else {
+                    Authorization.authorizedUserId = -1;
+                    this.destroy();
+                    Login login = new Login();
+                }
+            } catch(SQLException | JBookException e){
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
     }//GEN-LAST:event_userSettingButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         // TODO add your handling code here:
         this.destroy();
+        Authorization.isLoggedIn = false;
         Login login = new Login();
     }//GEN-LAST:event_logoutButtonActionPerformed
 
@@ -407,7 +428,7 @@ public class Home extends javax.swing.JFrame implements PageHandling {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
-        DeleteBook deleteBook =new DeleteBook();
+        DeleteBook deleteBook = new DeleteBook();
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void saleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleButtonActionPerformed
@@ -428,7 +449,7 @@ public class Home extends javax.swing.JFrame implements PageHandling {
         try {
             Database db = new Database();
             User user = db.getUser("SELECT * FROM users WHERE username = 'root'");
-            ArrayList<Book> books = db.getBooks("SELECT * FROM books");
+            ArrayList<Book> books = db.getBooks("SELECT * FROM books LIMIT 6");
             Home home = new Home(user, books);
         } catch(JBookException | SQLException e){
             e.printStackTrace();

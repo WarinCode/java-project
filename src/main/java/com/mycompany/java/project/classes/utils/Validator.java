@@ -1,6 +1,7 @@
 package com.mycompany.java.project.classes.utils;
 import java.sql.SQLException;
 import com.mycompany.java.project.classes.User;
+import com.mycompany.java.project.classes.Book;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.db.Authorization;
 import com.mycompany.java.project.db.Database;
@@ -24,6 +25,11 @@ public final class Validator {
 
     public static boolean isDuplicateUser(int userId, String username, String email) throws SQLException, JBookException {
         Database db = new Database();
-        return db.getUser("SELECT * FROM users WHERE (username = " + getSingleQuotes(username) + "AND email = " + getSingleQuotes(email) + ") AND user_id != " + userId) != null;
+        return db.getUser("SELECT * FROM users WHERE (username = " + getSingleQuotes(username) + "OR email = " + getSingleQuotes(email) + ") AND user_id != " + userId) != null;
+    }
+
+    public static boolean isDuplicateBook(Book book) throws SQLException, JBookException {
+        Database db = new Database();
+        return db.getBooks("SELECT * FROM books WHERE book_name = " + getSingleQuotes(book.getBookName()) + " OR isbn = " + getSingleQuotes(book.getIsbn())).size() >= 1;
     }
 }

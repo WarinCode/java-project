@@ -8,9 +8,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public final class Helper {
-    public final static String DEFAULT_IMAGE_URL = "https://cdn3.iconfinder.com/data/icons/avatars-flat/33/man_5-512.png";
-    public final static String DEFAULT_IMAGE_NOT_AVALIBLE = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9VikAOE2G2gjohpGNr_thh_7XSL1kZV7udA&s";
-
     public static String getSingleQuotes(String value){
         return "'" + value + "'";
     }

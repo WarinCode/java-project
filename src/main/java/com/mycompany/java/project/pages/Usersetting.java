@@ -9,6 +9,7 @@ import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.classes.utils.Validator;
 import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.interfaces.GetUser;
+import com.mycompany.java.project.interfaces.Callback;
 import com.mycompany.java.project.db.Database;
 import static com.mycompany.java.project.classes.utils.Helper.getString;
 import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
@@ -25,8 +26,10 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
     /**
      * Creates new form Usersetting
      */
-    public Usersetting(User user) {
+    public Usersetting(User user, Callback callback) {
         this.user = user;
+        this.callback = callback;
+
         initComponents();
         this.setTitle("User settings");
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -333,7 +336,7 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
             if(result == 1){
                 JOptionPane.showMessageDialog(this, "Updated user settings", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.destroy();
-                this.user = user;
+                this.callback.run();
                 return;
             }
         } catch(SQLException e){
@@ -342,6 +345,7 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
     }//GEN-LAST:event_updateButtonActionPerformed
 
 
+    private Callback callback = null;
     private User user = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;
