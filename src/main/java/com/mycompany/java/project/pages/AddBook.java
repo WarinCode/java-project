@@ -27,6 +27,7 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
     public AddBook() {
         initComponents();
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.setTitle("Add book page");
         this.reset();
         this.display();
     }

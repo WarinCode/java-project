@@ -1,5 +1,8 @@
 package com.mycompany.java.project.pages;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import com.mycompany.java.project.classes.User;
@@ -25,6 +28,7 @@ public class Home extends javax.swing.JFrame implements PageHandling {
 
         this.showUserInfo();
 
+
         this.panels[0] = this.jPanel4;
         this.panels[1] = this.jPanel3;
         this.panels[2] = this.jPanel5;
@@ -33,6 +37,13 @@ public class Home extends javax.swing.JFrame implements PageHandling {
         this.panels[5] = this.jPanel8;
         for(int i = 0; i < this.panels.length; i++){
             addImage(this.books.get(i).getImageUrl(), this.panels[i]);
+            int j = i;
+            this.panels[i].addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    Preview preview = new Preview(books.get(j));
+                }
+            });
         }
 
         this.display();
