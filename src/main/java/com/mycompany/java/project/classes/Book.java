@@ -18,6 +18,9 @@ public class Book implements BookInterface{
     public Book(String bookName, double price) throws JBookException{
         this.setBookName(bookName).setPrice(price);
     }
+    public Book(String bookName, String isbn) throws JBookException{
+        this.setBookName(bookName).setIsbn(isbn);
+    }
     public Book(String bookName, double price, String isbn) throws JBookException{
         this.setBookName(bookName).setPrice(price).setIsbn(isbn);
     }

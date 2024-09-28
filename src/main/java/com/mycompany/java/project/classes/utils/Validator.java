@@ -32,4 +32,8 @@ public final class Validator {
         Database db = new Database();
         return db.getBooks("SELECT * FROM books WHERE book_name = " + getSingleQuotes(book.getBookName()) + " OR isbn = " + getSingleQuotes(book.getIsbn())).size() >= 1;
     }
+
+    public static boolean isExistsBook(Book book) throws SQLException, JBookException {
+       return isDuplicateBook(book);
+    }
 }

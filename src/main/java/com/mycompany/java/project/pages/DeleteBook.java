@@ -3,15 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.java.project.pages;
-import com.mycompany.java.project.interfaces.PageHandling;
-
 import javax.swing.*;
+import java.sql.SQLException;
+import com.mycompany.java.project.classes.customs.exceptions.JBookException;
+import com.mycompany.java.project.interfaces.PageHandling;
+import com.mycompany.java.project.interfaces.ResetForm;
+import com.mycompany.java.project.db.Database;
+import com.mycompany.java.project.classes.utils.Validator;
+import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
+import com.mycompany.java.project.classes.Book;
+
 
 /**
  *
  * @author PC
  */
-public class DeleteBook extends javax.swing.JFrame implements PageHandling {
+public class DeleteBook extends javax.swing.JFrame implements PageHandling, ResetForm {
 
     /**
      * Creates new form DeleteBook
@@ -21,8 +28,7 @@ public class DeleteBook extends javax.swing.JFrame implements PageHandling {
         this.setTitle("Delete book page");
         this.setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        this.jTextField1.grabFocus();
-
+        this.reset();
         this.display();
     }
 
@@ -71,7 +77,7 @@ public class DeleteBook extends javax.swing.JFrame implements PageHandling {
         DeleteLable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         DeleteLable.setText("                 Enter book name or ISBN");
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel1.setBackground(new java.awt.Color(30, 30, 30));
 
         jLabel1.setFont(new java.awt.Font("Leelawadee UI", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -130,6 +136,25 @@ public class DeleteBook extends javax.swing.JFrame implements PageHandling {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
+        try {
+            Book book = new Book(this.jTextField1.getText(), this.jTextField1.getText());
+            Database db = new Database();
+
+            if(Validator.isExistsBook(book)){
+                String query = "DELETE FROM books WHERE book_name = " + getSingleQuotes(book.getBookName()) + " OR isbn = " + getSingleQuotes(book.getIsbn());
+                int result = db.delete(query);
+                if(result == 1){
+                    JOptionPane.showMessageDialog(this, "Deleted book successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    this.reset();
+                    return;
+                }
+            }
+
+            throw new SQLException("An error occurred. This book was not found in the database!");
+        } catch(SQLException | JBookException e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            this.reset();
+        }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
@@ -180,6 +205,12 @@ public class DeleteBook extends javax.swing.JFrame implements PageHandling {
     @Override
     public void destroy() {
         this.dispose();
+    }
+
+    @Override
+    public void reset(){
+        this.jTextField1.setText("");
+        this.jTextField1.grabFocus();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

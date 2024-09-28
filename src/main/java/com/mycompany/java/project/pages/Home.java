@@ -10,7 +10,6 @@ import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.db.Database;
 import com.mycompany.java.project.db.Authorization;
 
-
 public class Home extends javax.swing.JFrame implements PageHandling {
 
     /**
