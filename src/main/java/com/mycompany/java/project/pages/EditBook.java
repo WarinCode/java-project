@@ -3,15 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.java.project.pages;
-import com.mycompany.java.project.interfaces.PageHandling;
-
 import javax.swing.*;
+import java.sql.SQLException;
+import com.mycompany.java.project.classes.Book;
+import com.mycompany.java.project.interfaces.PageHandling;
+import com.mycompany.java.project.interfaces.GetBook;
+import com.mycompany.java.project.interfaces.ResetForm;
+import com.mycompany.java.project.classes.utils.Validator;
+import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
+import com.mycompany.java.project.classes.customs.exceptions.JBookException;
+import com.mycompany.java.project.db.Database;
 
 /**
  *
  * @author PC
  */
-public class EditBook extends javax.swing.JFrame implements PageHandling {
+public class EditBook extends javax.swing.JFrame implements PageHandling, GetBook, ResetForm {
 
     /**
      * Creates new form EditBook
@@ -21,8 +28,20 @@ public class EditBook extends javax.swing.JFrame implements PageHandling {
         this.setTitle("Edit book page");
         this.setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        this.jTextField1.grabFocus();
+        this.bookName.grabFocus();
 
+        this.display();
+    }
+
+    public EditBook(Book book) {
+        this.book = book;
+
+        initComponents();
+        this.setTitle("Edit book page");
+        this.setResizable(false);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        this.reset();
         this.display();
     }
 
@@ -50,13 +69,15 @@ public class EditBook extends javax.swing.JFrame implements PageHandling {
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField03 = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        isbn = new javax.swing.JTextField();
+        imageUrl = new javax.swing.JTextField();
+        remain = new javax.swing.JTextField();
+        price = new javax.swing.JTextField();
+        bookName = new javax.swing.JTextField();
         closeButton = new javax.swing.JButton();
         editButton = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        authorName = new javax.swing.JTextField();
 
         jLabel5.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
         jLabel5.setText("Price:");
@@ -181,33 +202,33 @@ public class EditBook extends javax.swing.JFrame implements PageHandling {
         jLabel7.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
         jLabel7.setText("Remain:");
 
-        jTextField2.setBackground(new java.awt.Color(183, 183, 183));
+        isbn.setBackground(new java.awt.Color(183, 183, 183));
 
-        jTextField4.setBackground(new java.awt.Color(183, 183, 183));
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        imageUrl.setBackground(new java.awt.Color(183, 183, 183));
+        imageUrl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                imageUrlActionPerformed(evt);
             }
         });
 
-        jTextField5.setBackground(new java.awt.Color(183, 183, 183));
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        remain.setBackground(new java.awt.Color(183, 183, 183));
+        remain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                remainActionPerformed(evt);
             }
         });
 
-        jTextField03.setBackground(new java.awt.Color(183, 183, 183));
-        jTextField03.addActionListener(new java.awt.event.ActionListener() {
+        price.setBackground(new java.awt.Color(183, 183, 183));
+        price.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField03ActionPerformed(evt);
+                priceActionPerformed(evt);
             }
         });
 
-        jTextField1.setBackground(new java.awt.Color(183, 183, 183));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        bookName.setBackground(new java.awt.Color(183, 183, 183));
+        bookName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                bookNameActionPerformed(evt);
             }
         });
 
@@ -232,6 +253,16 @@ public class EditBook extends javax.swing.JFrame implements PageHandling {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
+        jLabel8.setText("Author:");
+
+        authorName.setBackground(new java.awt.Color(183, 183, 183));
+        authorName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                authorNameActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -241,36 +272,41 @@ public class EditBook extends javax.swing.JFrame implements PageHandling {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addGap(57, 57, 57)))
-                            .addComponent(jLabel4))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(PasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(PasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(34, 34, 34)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(40, 40, 40))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(jLabel2)
+                                            .addGap(57, 57, 57)))
+                                    .addComponent(jLabel4))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(PasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(PasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField03, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                    .addComponent(jTextField4)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(price, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                    .addComponent(imageUrl)
+                    .addComponent(isbn)
+                    .addComponent(remain)
+                    .addComponent(bookName, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(authorName))
                 .addGap(22, 22, 22))
             .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(closeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
+                .addGap(78, 78, 78)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -288,15 +324,15 @@ public class EditBook extends javax.swing.JFrame implements PageHandling {
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bookName, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(isbn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField03, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
@@ -311,15 +347,19 @@ public class EditBook extends javax.swing.JFrame implements PageHandling {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(imageUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addComponent(remain, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(authorName, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(77, 77, 77)
@@ -328,35 +368,35 @@ public class EditBook extends javax.swing.JFrame implements PageHandling {
                     .addComponent(AvatarField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(GenderField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(258, Short.MAX_VALUE)))
+                    .addContainerGap(307, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void imageUrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageUrlActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_imageUrlActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void remainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remainActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_remainActionPerformed
 
-    private void jTextField03ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField03ActionPerformed
+    private void priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField03ActionPerformed
+    }//GEN-LAST:event_priceActionPerformed
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void bookNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_bookNameActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         // TODO add your handling code here:
@@ -365,7 +405,55 @@ public class EditBook extends javax.swing.JFrame implements PageHandling {
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         // TODO add your handling code here:
+        Book book = null;
+        try {
+            book = new Book();
+            book.setBookName(this.getBookName())
+                    .setBookId(this.getBookId())
+                    .setPrice(this.getPrice())
+                    .setIsbn(this.getIsbn())
+                    .setAuthorName(this.getAuthorName())
+                    .setRemain(this.getRemain())
+                    .setImageUrl(this.getImageUrl());
+
+            if(Validator.isExistsBook(book)){
+                throw new SQLException("An error occurred. This book already exists in the database!");
+            }
+        } catch(SQLException | JBookException | NumberFormatException e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            this.reset();
+            return;
+        }
+
+        try {
+            Database db = new Database();
+            String query = "UPDATE books SET book_name = " + getSingleQuotes(book.getBookName())
+                    + ", price = " + book.getPrice()
+                    + ", isbn = " + getSingleQuotes(book.getIsbn())
+                    + ", author_name = " + (book.getAuthorName() == null ? "DEFAULT(author_name)" : getSingleQuotes(book.getAuthorName()))
+                    + ", image_url = " + getSingleQuotes(book.getImageUrl())
+                    + ", remain = " + book.getRemain()
+                    + " WHERE book_id = " + this.getBookId();
+//             System.out.println(query);
+            int result = db.update(query);
+
+            if(result == 1){
+                JOptionPane.showMessageDialog(this, "Book updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                this.destroy();
+                return;
+            }
+
+            throw new SQLException("Something went wrong!");
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            this.reset();
+        }
+
     }//GEN-LAST:event_editButtonActionPerformed
+
+    private void authorNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_authorNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -412,14 +500,65 @@ public class EditBook extends javax.swing.JFrame implements PageHandling {
         this.dispose();
     }
 
+    @Override
+    public int getBookId() {
+        return this.book.getBookId();
+    }
+
+    @Override
+    public String getBookName() {
+        return this.bookName.getText();
+    }
+
+    @Override
+    public String getAuthorName() {
+        return Validator.isEmptyField(this.authorName) ? null : this.authorName.getText();
+    }
+
+    @Override
+    public double getPrice() throws NumberFormatException {
+        return Double.parseDouble(this.price.getText());
+    }
+
+    @Override
+    public String getIsbn() {
+        return this.isbn.getText();
+    }
+
+    @Override
+    public String getImageUrl() {
+        return this.imageUrl.getText();
+    }
+
+    @Override
+    public int getRemain() throws NumberFormatException {
+        return Integer.parseInt(this.remain.getText());
+    }
+
+    @Override
+    public void reset(){
+        this.bookName.setText(this.book.getBookName());
+        this.isbn.setText(this.book.getIsbn());
+        this.price.setText(Double.toString(this.book.getPrice()));
+        this.imageUrl.setText(this.book.getImageUrl());
+        this.remain.setText(Integer.toString(this.book.getRemain()));
+        this.authorName.setText(this.book.getAuthorName());
+        this.bookName.grabFocus();
+    }
+
+    private Book book = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AvatarField;
     private javax.swing.JPanel GenderField;
     private javax.swing.JPanel PasswordField;
     private javax.swing.JPanel PasswordField1;
     private javax.swing.JPanel UserField;
+    private javax.swing.JTextField authorName;
+    private javax.swing.JTextField bookName;
     private javax.swing.JButton closeButton;
     private javax.swing.JButton editButton;
+    private javax.swing.JTextField imageUrl;
+    private javax.swing.JTextField isbn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -427,13 +566,11 @@ public class EditBook extends javax.swing.JFrame implements PageHandling {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField03;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField price;
+    private javax.swing.JTextField remain;
     // End of variables declaration//GEN-END:variables
 }

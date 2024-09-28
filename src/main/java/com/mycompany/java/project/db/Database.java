@@ -77,6 +77,29 @@ public class Database implements SQLQueries {
         return books;
     }
 
+    public Book getBook(String query) throws SQLException, JBookException {
+        Book book = null;
+
+        this.connect();
+        this.rs = this.statement.executeQuery(query);
+
+        while(this.rs.next()){
+            book = new Book()
+                    .setBookId(this.rs.getInt("book_id"))
+                    .setBookName(this.rs.getString("book_name"))
+                    .setPrice(this.rs.getDouble("price"))
+                    .setIsbn(this.rs.getString("isbn"))
+                    .setAuthorName(this.rs.getString("author_name"))
+                    .setImageUrl(this.rs.getString("image_url"))
+                    .setRemain(this.rs.getInt("remain"))
+                    .getInstance();
+            break;
+        }
+
+        this.disconnect();
+        return book;
+    }
+
     public User getUser(String query) throws SQLException, JBookException {
         User user = null;
 

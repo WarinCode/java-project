@@ -3,6 +3,7 @@ import java.sql.SQLException;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.classes.User;
 import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
+import com.mycompany.java.project.interfaces.PageHandling;
 
 public final class Authorization {
     public static int authorizedUserId;
@@ -23,5 +24,12 @@ public final class Authorization {
         }
 
         return isValidUser;
+    }
+
+    public static void accessDenied(PageHandling page){
+        isValidUser = false;
+        authorizedUserId = 0;
+        isLoggedIn = false;
+        page.destroy();
     }
 }

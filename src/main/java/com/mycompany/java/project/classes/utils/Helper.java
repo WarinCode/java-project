@@ -12,6 +12,14 @@ public final class Helper {
         return "'" + value + "'";
     }
 
+    public static String getSingleQuotes(int value){
+        return getSingleQuotes(Integer.toString(value));
+    }
+
+    public static String getSingleQuotes(double value){
+        return getSingleQuotes(Double.toString(value));
+    }
+
     public static String getDoubleQuotes(String value){
         return "\"" + value + "\"";
     }

@@ -10,10 +10,11 @@ import com.mycompany.java.project.classes.Book;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import static com.mycompany.java.project.classes.utils.Helper.addImage;
 import com.mycompany.java.project.interfaces.PageHandling;
+import com.mycompany.java.project.interfaces.InstanceProvider;
 import com.mycompany.java.project.db.Database;
 import com.mycompany.java.project.db.Authorization;
 
-public class Home extends javax.swing.JFrame implements PageHandling {
+public class Home extends javax.swing.JFrame implements PageHandling, InstanceProvider<Home> {
 
     /**
      * Creates new form Home
@@ -27,25 +28,7 @@ public class Home extends javax.swing.JFrame implements PageHandling {
         this.setResizable(false);
 
         this.showUserInfo();
-
-
-        this.panels[0] = this.jPanel4;
-        this.panels[1] = this.jPanel3;
-        this.panels[2] = this.jPanel5;
-        this.panels[3] = this.jPanel6;
-        this.panels[4] = this.jPanel7;
-        this.panels[5] = this.jPanel8;
-        for(int i = 0; i < this.panels.length; i++){
-            addImage(this.books.get(i).getImageUrl(), this.panels[i]);
-            int j = i;
-            this.panels[i].addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    Preview preview = new Preview(books.get(j));
-                }
-            });
-        }
-
+        this.showBooks();
         this.display();
     }
 
@@ -63,6 +46,43 @@ public class Home extends javax.swing.JFrame implements PageHandling {
         addImage(this.user.getAvatar(), this.userAvatar);
         this.jTextField1.setText("Username: " + this.user.getUsername());
         this.jTextField2.setText("Email: " + this.user.getEmail());
+    }
+
+    private void showBooks(){
+        this.panels[0] = this.jPanel4;
+        this.panels[1] = this.jPanel3;
+        this.panels[2] = this.jPanel5;
+        this.panels[3] = this.jPanel6;
+        this.panels[4] = this.jPanel7;
+        this.panels[5] = this.jPanel8;
+        for(int i = 0; i < this.panels.length; i++){
+            addImage(this.books.get(i).getImageUrl(), this.panels[i]);
+            int j = i;
+            this.panels[i].addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    showPreviewBook(j, books.get(j));
+                }
+            });
+        }
+    }
+
+    private void showPreviewBook(int index, Book book){
+        try {
+            Database db = new Database();
+            this.books.set(index, db.getBook("SELECT * FROM books WHERE book_id = " + book.getBookId() + " LIMIT 1"));
+            book = this.books.get(index);
+        } catch(SQLException | JBookException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Preview preview = new Preview(book);
+    }
+
+    @Override
+    public Home getInstance(){
+        return this;
     }
 
     /**
@@ -414,8 +434,8 @@ public class Home extends javax.swing.JFrame implements PageHandling {
                     this.user = db.getUser("SELECT * FROM users WHERE user_id = " + Authorization.authorizedUserId);
                     this.showUserInfo();
                 } else {
-                    Authorization.authorizedUserId = -1;
-                    this.destroy();
+                    Authorization.accessDenied(this.getInstance());
+                    this.user = null;
                     Login login = new Login();
                 }
             } catch(SQLException | JBookException e){
@@ -426,29 +446,54 @@ public class Home extends javax.swing.JFrame implements PageHandling {
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         // TODO add your handling code here:
-        this.destroy();
-        Authorization.isLoggedIn = false;
+        Authorization.accessDenied(this.getInstance());
+        this.user = null;
         Login login = new Login();
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
-        AddBook addBook = new AddBook();
+        if(Authorization.isLoggedIn){
+            AddBook addBook = new AddBook();
+        } else {
+            Authorization.accessDenied(this.getInstance());
+            this.user = null;
+            Login login = new Login();
+        }
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
-        DeleteBook deleteBook = new DeleteBook();
+        if(Authorization.isLoggedIn){
+            DeleteBook deleteBook = new DeleteBook();
+        } else {
+            Authorization.accessDenied(this.getInstance());
+            this.user = null;
+            Login login = new Login();
+        }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void saleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleButtonActionPerformed
         // TODO add your handling code here:
-        Sale sale = new Sale();
+        System.out.println(Authorization.isLoggedIn);
+        if(Authorization.isLoggedIn){
+            Sale sale = new Sale();
+        } else {
+            Authorization.accessDenied(this.getInstance());
+            this.user = null;
+            Login login = new Login();
+        }
     }//GEN-LAST:event_saleButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         // TODO add your handling code here:
-        EditBook editBook = new EditBook();
+        if(Authorization.isLoggedIn){
+            EditBook editBook = new EditBook();
+        } else {
+            Authorization.accessDenied(this.getInstance());
+            this.user = null;
+            Login login = new Login();
+        }
     }//GEN-LAST:event_editButtonActionPerformed
 
     /**
@@ -457,6 +502,7 @@ public class Home extends javax.swing.JFrame implements PageHandling {
 
     public static void main(String []args){
         try {
+            Authorization.isLoggedIn = true;
             Database db = new Database();
             User user = db.getUser("SELECT * FROM users WHERE username = 'root'");
             ArrayList<Book> books = db.getBooks("SELECT * FROM books LIMIT 6");

@@ -1,5 +1,6 @@
 package com.mycompany.java.project.classes.utils;
 import java.sql.SQLException;
+import javax.swing.JTextField;
 import com.mycompany.java.project.classes.User;
 import com.mycompany.java.project.classes.Book;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
@@ -28,12 +29,12 @@ public final class Validator {
         return db.getUser("SELECT * FROM users WHERE (username = " + getSingleQuotes(username) + "OR email = " + getSingleQuotes(email) + ") AND user_id != " + userId) != null;
     }
 
-    public static boolean isDuplicateBook(Book book) throws SQLException, JBookException {
+    public static boolean isExistsBook(Book book) throws SQLException, JBookException {
         Database db = new Database();
-        return db.getBooks("SELECT * FROM books WHERE book_name = " + getSingleQuotes(book.getBookName()) + " OR isbn = " + getSingleQuotes(book.getIsbn())).size() >= 1;
+        return db.getBooks("SELECT * FROM books WHERE (book_name = " + getSingleQuotes(book.getBookName()) + " OR isbn = " + getSingleQuotes(book.getIsbn()) + ") AND book_id != " + book.getBookId()).size() >= 1;
     }
 
-    public static boolean isExistsBook(Book book) throws SQLException, JBookException {
-       return isDuplicateBook(book);
+    public static boolean isEmptyField(JTextField textField){
+        return (textField.getText().isEmpty() || textField.getText().isBlank());
     }
 }

@@ -4,9 +4,12 @@
  */
 package com.mycompany.java.project.pages;
 import javax.swing.*;
+import java.sql.SQLException;
 import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.classes.Book;
 import com.mycompany.java.project.classes.utils.Helper;
+import com.mycompany.java.project.db.Database;
+import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 
 /**
  *
@@ -19,15 +22,17 @@ public class Preview extends javax.swing.JDialog implements PageHandling {
      */
     public Preview(Book book) {
         super(new JFrame(), true);
+        this.book = book;
+
         initComponents();
         this.setTitle("Preview book page");
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        Helper.addImage(book.getImageUrl(), this.bookImage);
-        this.jLabel2.setText("Bookname: " + book.getBookName());
-        this.jLabel3.setText("ISBN: " + book.getIsbn());
-        this.jLabel4.setText("Price: " + book.getPrice());
-        this.jLabel5.setText("Remain: " + book.getRemain());
-        this.jLabel6.setText("Author: " + (book.getAuthorName() == null ? "-" : book.getAuthorName()));
+        Helper.addImage(this.book.getImageUrl(), this.bookImage);
+        this.jLabel2.setText("Bookname: " + this.book.getBookName());
+        this.jLabel3.setText("ISBN: " + this.book.getIsbn());
+        this.jLabel4.setText("Price: " + this.book.getPrice());
+        this.jLabel5.setText("Remain: " + this.book.getRemain());
+        this.jLabel6.setText("Author: " + (this.book.getAuthorName() == null ? "-" : book.getAuthorName()));
         this.display();
     }
 
@@ -48,6 +53,7 @@ public class Preview extends javax.swing.JDialog implements PageHandling {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        editButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -82,7 +88,7 @@ public class Preview extends javax.swing.JDialog implements PageHandling {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(207, 207, 207)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(206, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,9 +113,19 @@ public class Preview extends javax.swing.JDialog implements PageHandling {
         jLabel6.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
         jLabel6.setText("Author:");
 
-        closeButton.setBackground(new java.awt.Color(0, 0, 0));
+        editButton.setBackground(new java.awt.Color(245, 158, 17));
+        editButton.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
+        editButton.setForeground(new java.awt.Color(255, 255, 255));
+        editButton.setText("Edit");
+        editButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        editButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editButtonActionPerformed(evt);
+            }
+        });
+
+        closeButton.setBackground(new java.awt.Color(217, 217, 217));
         closeButton.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
-        closeButton.setForeground(new java.awt.Color(255, 255, 255));
         closeButton.setText("Close");
         closeButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         closeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -136,38 +152,48 @@ public class Preview extends javax.swing.JDialog implements PageHandling {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
-                        .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(115, 115, 115))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(closeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                            .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(89, 89, 89))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
-                        .addGap(17, 17, 17)
-                        .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(bookImage, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(44, 44, 44))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        // TODO add your handling code here:
+        this.destroy();
+        EditBook editBook = new EditBook(this.book);
+    }//GEN-LAST:event_editButtonActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         // TODO add your handling code here:
@@ -184,9 +210,11 @@ public class Preview extends javax.swing.JDialog implements PageHandling {
         this.setVisible(true);
     }
 
+    private Book book = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bookImage;
     private javax.swing.JButton closeButton;
+    private javax.swing.JButton editButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

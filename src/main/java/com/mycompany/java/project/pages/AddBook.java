@@ -226,7 +226,7 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
                     .setAuthorName(this.getAuthorName())
                     .getInstance();
 
-            if(Validator.isDuplicateBook(book)){
+            if(Validator.isExistsBook(book)){
                 throw new SQLException("An error occurred. This book already exists in the database!");
             }
 
@@ -247,7 +247,7 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
                     + ", " + getSingleQuotes(book.getIsbn())
                     + ", " + getSingleQuotes(book.getAuthorName())
                     + ", " + getSingleQuotes(book.getImageUrl())
-                    + ", " + getSingleQuotes(Integer.toString(book.getRemain()))
+                    + ", " + getSingleQuotes(book.getRemain())
                     + ")";
 //            System.out.println(query);
             int result = db.insert(query);
@@ -255,9 +255,9 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
             if(result == 1){
                 JOptionPane.showMessageDialog(this, "Book added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                throw new JBookException("Something went wrong!");
+                throw new SQLException("Something went wrong!");
             }
-        } catch(SQLException | JBookException e){
+        } catch(SQLException e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
             this.reset();
@@ -321,7 +321,7 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
 
     @Override
     public String getAuthorName() {
-        return (this.author.getText().isBlank() || this.author.getText().isEmpty()) ? null : this.author.getText();
+        return Validator.isEmptyField(this.author) ? null : this.author.getText();
     }
 
     @Override
