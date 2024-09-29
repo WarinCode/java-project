@@ -3,6 +3,7 @@ package com.mycompany.java.project.interfaces;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,8 +20,19 @@ public interface ImageConstants {
             image = ImageIO.read(url);
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            panel.removeAll();
+            addImage(DEFAULT_IMAGE_NOT_AVALIBLE, panel);
+            return;
         } catch (IOException e) {
             e.printStackTrace();
+            panel.removeAll();
+            addImage(DEFAULT_IMAGE_NOT_AVALIBLE, panel);
+            return;
+        } catch(Exception e){
+            e.printStackTrace();
+            panel.removeAll();
+            addImage(DEFAULT_IMAGE_NOT_AVALIBLE, panel);
+            return;
         }
 
         if (image != null) {
@@ -31,6 +43,8 @@ public interface ImageConstants {
             panel.revalidate();
         } else {
             System.out.println("Failed to load image");
+            addImage(DEFAULT_IMAGE_NOT_AVALIBLE, panel);
+            return;
         }
     }
 }

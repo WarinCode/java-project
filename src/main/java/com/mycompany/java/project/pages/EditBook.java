@@ -164,7 +164,7 @@ public class EditBook extends javax.swing.JFrame implements PageHandling, GetBoo
             .addGap(0, 25, Short.MAX_VALUE)
         );
 
-        jPanel1.setBackground(new java.awt.Color(30, 30, 30));
+        jPanel1.setBackground(new java.awt.Color(27, 26, 26));
 
         jLabel1.setFont(new java.awt.Font("Leelawadee UI", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));

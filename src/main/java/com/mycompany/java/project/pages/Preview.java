@@ -29,6 +29,8 @@ public class Preview extends javax.swing.JDialog implements PageHandling {
         this.setTitle("Preview book page");
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         ImageConstants.addImage(this.book.getImageUrl(), this.bookImage);
+        this.bookImage.setToolTipText(this.book.getBookName() + " $" + this.book.getPrice());
+
         this.jLabel2.setText("Bookname: " + this.book.getBookName());
         this.jLabel3.setText("ISBN: " + this.book.getIsbn());
         this.jLabel4.setText("Price: " + this.book.getPrice());

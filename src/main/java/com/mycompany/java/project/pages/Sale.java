@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -32,7 +33,8 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
      * Creates new form Sale
      */
     public Sale(ArrayList<Book> books) {
-        this.books = books;
+        this.reset(books);
+        this.tempBooks = books;
 
         initComponents();
         this.setTitle("Sale page");
@@ -46,6 +48,7 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
             this.bookImage.removeAll();
             this.remain.setText("Remain: " + Integer.toString(this.books.get(this.comboBox.getSelectedIndex()).getRemain()));
             ImageConstants.addImage(this.books.get(this.comboBox.getSelectedIndex()).getImageUrl(), this.bookImage);
+            this.bookImage.setToolTipText(this.books.get(this.comboBox.getSelectedIndex()).getBookName() + " $" + this.books.get(this.comboBox.getSelectedIndex()).getPrice());
         });
 
         this.bookImage.addMouseListener(new MouseAdapter() {
@@ -286,12 +289,13 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
                         , " " + this.getQuantity() + this.getUnit()));
                 this.orderBooks.add(orderBook.getInstance());
             }
-            System.out.println(orderBooks);
+            this.bookList.setModel(this.bookModel);
+            this.reset(selectedBook);
+//            System.out.println(orderBooks);
         } catch(JBookException | NumberFormatException e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             this.reset();
         }
-        this.bookList.setModel(this.bookModel);
     }//GEN-LAST:event_SelectButtonActionPerformed
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
@@ -301,6 +305,9 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
         }
         this.bookModel.removeAllElements();
         this.bookList.removeAll();
+        this.reset(this.tempBooks);
+        this.reset(this.books.get(0));
+
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void orderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderButtonActionPerformed
@@ -310,7 +317,7 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         // TODO add your handling code here:
         this.destroy();
-        System.exit(0);
+//        System.exit(0);
     }//GEN-LAST:event_closeButtonActionPerformed
 
     /**
@@ -341,7 +348,15 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
         this.quantity.setText("1");
     }
 
-    public int getQuantity() throws NumberFormatException {
+    public void reset(Book book){
+        this.remain.setText("Remain: " + Integer.toString(book.getRemain()));
+    }
+
+    public void reset(ArrayList<Book> books){
+        this.books = books;
+    }
+
+    private int getQuantity() throws NumberFormatException {
         return Integer.parseInt(this.quantity.getText());
     }
 
@@ -362,6 +377,7 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
         return value > 1 ? " books" : " book";
     }
 
+    private ArrayList<Book> tempBooks = new ArrayList<Book>();
     private DefaultListModel<String> bookModel = new DefaultListModel<String>();
     private ArrayList<Book> books = new ArrayList<Book>();
     private ArrayList<OrderBook> orderBooks = new ArrayList<OrderBook>();
