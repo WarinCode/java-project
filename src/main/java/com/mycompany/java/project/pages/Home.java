@@ -475,9 +475,8 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
 
     private void saleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleButtonActionPerformed
         // TODO add your handling code here:
-        System.out.println(Authorization.isLoggedIn);
         if(Authorization.isLoggedIn){
-            Sale sale = new Sale();
+            Sale sale = new Sale(this.books);
         } else {
             Authorization.accessDenied(this.getInstance());
             this.user = null;
