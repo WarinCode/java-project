@@ -31,8 +31,8 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser, 
         password = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        LoginloginField = new javax.swing.JButton();
-        LoginRegisterField = new javax.swing.JButton();
+        loginButton = new javax.swing.JButton();
+        registerButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(217, 217, 217));
@@ -71,25 +71,25 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser, 
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        LoginloginField.setBackground(new java.awt.Color(0, 0, 0));
-        LoginloginField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        LoginloginField.setForeground(new java.awt.Color(255, 255, 255));
-        LoginloginField.setText("Login");
-        LoginloginField.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        LoginloginField.addActionListener(new java.awt.event.ActionListener() {
+        loginButton.setBackground(new java.awt.Color(0, 0, 0));
+        loginButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        loginButton.setForeground(new java.awt.Color(255, 255, 255));
+        loginButton.setText("Login");
+        loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LoginloginFieldActionPerformed(evt);
+                loginButtonActionPerformed(evt);
             }
         });
 
-        LoginRegisterField.setBackground(new java.awt.Color(217, 217, 217));
-        LoginRegisterField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        LoginRegisterField.setText("Register");
-        LoginRegisterField.setBorder(null);
-        LoginRegisterField.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        LoginRegisterField.addActionListener(new java.awt.event.ActionListener() {
+        registerButton.setBackground(new java.awt.Color(217, 217, 217));
+        registerButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        registerButton.setText("Register");
+        registerButton.setBorder(null);
+        registerButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LoginRegisterFieldActionPerformed(evt);
+                registerButtonActionPerformed(evt);
             }
         });
 
@@ -116,8 +116,8 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser, 
                     .addGroup(layout.createSequentialGroup()
                         .addGap(144, 144, 144)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(LoginloginField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LoginRegisterField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -133,16 +133,16 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser, 
                     .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(24, 24, 24)
-                .addComponent(LoginloginField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(LoginRegisterField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void LoginloginFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginloginFieldActionPerformed
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
         try {
             Database db = new Database();
@@ -161,26 +161,26 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser, 
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
            this.reset();
         }
-    }//GEN-LAST:event_LoginloginFieldActionPerformed
+    }//GEN-LAST:event_loginButtonActionPerformed
 
-    private void LoginRegisterFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginRegisterFieldActionPerformed
+    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         // TODO add your handling code here:
         this.destroy();
         Register register = new Register();
-    }//GEN-LAST:event_LoginRegisterFieldActionPerformed
+    }//GEN-LAST:event_registerButtonActionPerformed
 
     public static void main(String args[]) {
         Login login = new Login();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton LoginRegisterField;
-    private javax.swing.JButton LoginloginField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton loginButton;
     private javax.swing.JPasswordField password;
+    private javax.swing.JButton registerButton;
     private javax.swing.JTextField usernameOrPassword;
     // End of variables declaration//GEN-END:variables
 
