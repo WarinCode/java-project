@@ -22,7 +22,8 @@ public final class Registration {
                 getSingleQuotes(user.getPassword()) + ", " + getSingleQuotes(user.getEmail()) + ", " +
                 getSingleQuotes(user.getGender()) + ", DEFAULT(gender), DEFAULT(avatar))";
 //        System.out.println(query);
-        isAccountCreated = db.insert(query) == 1;
+        db.insert(query);
+        isAccountCreated = db.isChanged;
 
         if(isAccountCreated){
             System.out.println("User account created successfully.");

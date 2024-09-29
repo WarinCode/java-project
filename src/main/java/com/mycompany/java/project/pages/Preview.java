@@ -5,9 +5,10 @@
 package com.mycompany.java.project.pages;
 import javax.swing.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import com.mycompany.java.project.interfaces.PageHandling;
+import com.mycompany.java.project.interfaces.ImageConstants;
 import com.mycompany.java.project.classes.Book;
-import com.mycompany.java.project.classes.utils.Helper;
 import com.mycompany.java.project.db.Database;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 
@@ -27,7 +28,7 @@ public class Preview extends javax.swing.JDialog implements PageHandling {
         initComponents();
         this.setTitle("Preview book page");
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        Helper.addImage(this.book.getImageUrl(), this.bookImage);
+        ImageConstants.addImage(this.book.getImageUrl(), this.bookImage);
         this.jLabel2.setText("Bookname: " + this.book.getBookName());
         this.jLabel3.setText("ISBN: " + this.book.getIsbn());
         this.jLabel4.setText("Price: " + this.book.getPrice());
@@ -188,6 +189,19 @@ public class Preview extends javax.swing.JDialog implements PageHandling {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public static void showPreview(int index, Book book, ArrayList<Book> books){
+        try {
+            Database db = new Database();
+            books.set(index, db.getBook("SELECT * FROM books WHERE book_id = " + book.getBookId() + " LIMIT 1"));
+            book = books.get(index);
+        } catch(SQLException | JBookException e) {
+            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Preview preview = new Preview(book.getInstance());
+    }
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         // TODO add your handling code here:

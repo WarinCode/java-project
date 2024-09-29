@@ -435,9 +435,9 @@ public class EditBook extends javax.swing.JFrame implements PageHandling, GetBoo
                     + ", remain = " + book.getRemain()
                     + " WHERE book_id = " + this.getBookId();
 //             System.out.println(query);
-            int result = db.update(query);
+            db.update(query);
 
-            if(result == 1){
+            if(db.isChanged){
                 JOptionPane.showMessageDialog(this, "Book updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.destroy();
                 return;

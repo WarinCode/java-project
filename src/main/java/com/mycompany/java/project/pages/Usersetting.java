@@ -332,8 +332,9 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
                     ", email = " + getSingleQuotes(user.getEmail()) + ", gender = " + getSingleQuotes(user.getGender()) +
                     ", avatar = " + getSingleQuotes(user.getAvatar()) + ", age = " + user.getAge() +
                     " WHERE user_id = " + user.getUserId();
-            int result = db.update(query);
-            if(result == 1){
+            db.update(query);
+
+            if(db.isChanged){
                 JOptionPane.showMessageDialog(this, "Updated user settings", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.destroy();
                 this.callback.run();

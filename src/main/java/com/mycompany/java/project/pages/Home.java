@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import com.mycompany.java.project.classes.User;
 import com.mycompany.java.project.classes.Book;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
-import static com.mycompany.java.project.classes.utils.Helper.addImage;
 import com.mycompany.java.project.interfaces.PageHandling;
+import com.mycompany.java.project.interfaces.ImageConstants;
 import com.mycompany.java.project.interfaces.InstanceProvider;
 import com.mycompany.java.project.db.Database;
 import com.mycompany.java.project.db.Authorization;
@@ -43,7 +43,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
     }
 
     private void showUserInfo(){
-        addImage(this.user.getAvatar(), this.userAvatar);
+        ImageConstants.addImage(this.user.getAvatar(), this.userAvatar);
         this.jTextField1.setText("Username: " + this.user.getUsername());
         this.jTextField2.setText("Email: " + this.user.getEmail());
     }
@@ -56,28 +56,15 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         this.panels[4] = this.jPanel7;
         this.panels[5] = this.jPanel8;
         for(int i = 0; i < this.panels.length; i++){
-            addImage(this.books.get(i).getImageUrl(), this.panels[i]);
+            ImageConstants.addImage(this.books.get(i).getImageUrl(), this.panels[i]);
             int j = i;
             this.panels[i].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    showPreviewBook(j, books.get(j));
+                    Preview.showPreview(j, books.get(j), books);
                 }
             });
         }
-    }
-
-    private void showPreviewBook(int index, Book book){
-        try {
-            Database db = new Database();
-            this.books.set(index, db.getBook("SELECT * FROM books WHERE book_id = " + book.getBookId() + " LIMIT 1"));
-            book = this.books.get(index);
-        } catch(SQLException | JBookException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        Preview preview = new Preview(book);
     }
 
     @Override

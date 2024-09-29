@@ -6,6 +6,8 @@ package com.mycompany.java.project.pages;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -15,6 +17,7 @@ import javax.imageio.ImageIO;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.classes.Book;
+import com.mycompany.java.project.classes.OrderBook;
 import com.mycompany.java.project.db.Database;
 import com.mycompany.java.project.interfaces.ResetForm;
 import com.mycompany.java.project.interfaces.ImageConstants;
@@ -28,18 +31,6 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
     /**
      * Creates new form Sale
      */
-    public Sale() {
-        initComponents();
-        this.setTitle("Sale page");
-        this.setResizable(false);
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        this.display();
-        
-        Image image = null;
-        String image_url = "https://th.bing.com/th/id/OIP.akrHHWFNHrdQm9WDFUwY3AHaHa?rs=1&pid=ImgDetMain";
-        ImageConstants.addImage(image_url, this.bookImage);
-    }
     public Sale(ArrayList<Book> books) {
         this.books = books;
 
@@ -57,6 +48,12 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
             ImageConstants.addImage(this.books.get(this.comboBox.getSelectedIndex()).getImageUrl(), this.bookImage);
         });
 
+        this.bookImage.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Preview.showPreview(comboBox.getSelectedIndex(), books.get(comboBox.getSelectedIndex()), books);
+            }
+        });
 
         this.reset();
         this.comboBox.setSelectedIndex(0);
@@ -64,7 +61,6 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
         ImageConstants.addImage(this.books.get(0).getImageUrl(), this.bookImage);
         this.display();
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -254,16 +250,43 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
     private void SelectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectButtonActionPerformed
         // TODO add your handling code here:
         try{
+            Book selectedBook = this.books.get(this.comboBox.getSelectedIndex());
+            OrderBook orderBook = new OrderBook(selectedBook);
+
             if(this.getQuantity() <= 0){
                 throw new JBookException("Invalid quantity!");
             }
 
-            if(this.getQuantity() > this.books.get(this.comboBox.getSelectedIndex()).getRemain()){
+            if(this.getQuantity() > selectedBook.getRemain()){
                 throw new JBookException("An error occurred. The number of books selected exceeds the number of items remaining!");
             }
+            orderBook.setQuantity(this.getQuantity());
 
-            this.bookModel.addElement(this.books.get(this.comboBox.getSelectedIndex()).getBookName() + ", " + this.getQuantity() + (this.getQuantity() > 1 ? " books" : " book"));
-//            this.bookList.add(new JLabel(this.books.get(this.comboBox.getSelectedIndex()).getBookName() + ", " + this.getQuantity() + (this.getQuantity() > 1 ? "books" : "book")));
+            selectedBook.setRemain(selectedBook.getRemain() - this.getQuantity());
+            System.out.println("remain = " + selectedBook.getRemain());
+            if(selectedBook.getRemain() < 0){
+                throw new JBookException("An error occurred. The number of books selected exceeds the number of items remaining!");
+            }
+            this.books.set(this.comboBox.getSelectedIndex(), selectedBook);
+
+            if(this.isDuplicateOrderBook(selectedBook.getBookName())){
+                for(int i = 0; i < this.bookModel.getSize(); i++){
+                    String []words = this.bookModel.elementAt(i).split(",");
+                    if(words[0].toLowerCase().equals(selectedBook.getBookName().toLowerCase())){
+                        this.orderBooks.set(i, this.orderBooks.get(i)
+                                .setQuantity(this.orderBooks.get(i).getQuantity() + orderBook.getQuantity()));
+                        this.bookModel.setElementAt(String.join(",", words[0], " $" + this.orderBooks.get(i).getTotalPrice(),
+                                " " + this.orderBooks.get(i).getQuantity() + this.getUnit(this.orderBooks.get(i).getQuantity())
+                        ), i);
+                        break;
+                    }
+                }
+            } else {
+                this.bookModel.addElement(String.join(",", selectedBook.getBookName(), " $" + (selectedBook.getPrice() * this.getQuantity())
+                        , " " + this.getQuantity() + this.getUnit()));
+                this.orderBooks.add(orderBook.getInstance());
+            }
+            System.out.println(orderBooks);
         } catch(JBookException | NumberFormatException e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             this.reset();
@@ -273,6 +296,9 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         // TODO add your handling code here:
+        if(this.orderBooks.size() > 0){
+            this.orderBooks.clear();
+        }
         this.bookModel.removeAllElements();
         this.bookList.removeAll();
     }//GEN-LAST:event_clearButtonActionPerformed
@@ -284,7 +310,7 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         // TODO add your handling code here:
         this.destroy();
-//        System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_closeButtonActionPerformed
 
     /**
@@ -293,7 +319,7 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
     public static void main(String args[]) {
         try {
             Database db = new Database();
-            ArrayList<Book> books = db.getBooks("SELECT * FROM books LIMIT 20");
+            ArrayList<Book> books = db.getBooks("SELECT * FROM books");
             Sale sale = new Sale(books);
         } catch(SQLException | JBookException e){
             e.printStackTrace();
@@ -319,9 +345,26 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
         return Integer.parseInt(this.quantity.getText());
     }
 
-    private DefaultListModel bookModel = new DefaultListModel();
+    private boolean isDuplicateOrderBook(String bookName){
+        for(Book orderBook : this.orderBooks){
+            if(orderBook.getBookName().toLowerCase().equals(bookName.toLowerCase())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String getUnit(){
+        return this.getQuantity() > 1 ? " books" : " book";
+    }
+
+    private String getUnit(int value){
+        return value > 1 ? " books" : " book";
+    }
+
+    private DefaultListModel<String> bookModel = new DefaultListModel<String>();
     private ArrayList<Book> books = new ArrayList<Book>();
-    private ArrayList<Book> orderBooks = new ArrayList<Book>();
+    private ArrayList<OrderBook> orderBooks = new ArrayList<OrderBook>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton SelectButton;
     private javax.swing.JPanel bookImage;

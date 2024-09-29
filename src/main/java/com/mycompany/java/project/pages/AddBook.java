@@ -250,9 +250,9 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
                     + ", " + getSingleQuotes(book.getRemain())
                     + ")";
 //            System.out.println(query);
-            int result = db.insert(query);
+            db.insert(query);
 
-            if(result == 1){
+            if(db.isChanged){
                 JOptionPane.showMessageDialog(this, "Book added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 throw new SQLException("Something went wrong!");

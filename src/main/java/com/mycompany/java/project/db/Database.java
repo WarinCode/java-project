@@ -20,6 +20,7 @@ public class Database implements SQLQueries {
     private ResultSet rs = null;
     private Dotenv dotenv = null;
     private ConnectionInformation ci = new ConnectionInformation();
+    public boolean isChanged;
 
     public Database(){
         try {
@@ -121,34 +122,24 @@ public class Database implements SQLQueries {
         return user;
     }
 
-    private int execute(String sql) throws SQLException {
+    private void execute(String sql) throws SQLException {
         this.connect();
-        int result = this.statement.executeUpdate(sql);
+        this.isChanged = this.statement.executeUpdate(sql) == 1;
         this.disconnect();
-        return result;
     }
 
     @Override
-    public int insert(String query) throws SQLException {
-        return this.execute(query);
+    public void insert(String query) throws SQLException {
+        this.execute(query);
     }
 
     @Override
-    public int update(String query) throws SQLException {
-        return this.execute(query);
+    public void update(String query) throws SQLException {
+        this.execute(query);
     }
 
     @Override
-    public int delete(String query) throws SQLException {
-        return this.execute(query);
-    }
-
-    public static void main(String []args){
-        try {
-            Database db = new Database();
-            System.out.println(db.getBooks("SELECT * FROM books"));
-        } catch(SQLException | JBookException e){
-            e.printStackTrace();
-        }
+    public void delete(String query) throws SQLException {
+        this.execute(query);
     }
 }

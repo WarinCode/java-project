@@ -142,8 +142,10 @@ public class DeleteBook extends javax.swing.JFrame implements PageHandling, Rese
 
             if(Validator.isExistsBook(book)){
                 String query = "DELETE FROM books WHERE book_name = " + getSingleQuotes(book.getBookName()) + " OR isbn = " + getSingleQuotes(book.getIsbn());
-                int result = db.delete(query);
-                if(result == 1){
+//                System.out.println(query);
+                db.delete(query);
+
+                if(db.isChanged){
                     JOptionPane.showMessageDialog(this, "Deleted book successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
                     this.reset();
                     return;
