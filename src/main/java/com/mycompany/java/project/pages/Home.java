@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import com.mycompany.java.project.classes.User;
@@ -23,9 +24,26 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         this.user = user;
         this.books = books;
 
+        ArrayList<Book> set = new ArrayList<Book>();
+        for(int i = 0; i < this.books.size(); i++){
+            set.add(this.books.get(i));
+            if((i + 1) % 6 == 0){
+                bookSets.add(set);
+                set = new ArrayList<Book>();
+            }
+        }
+        this.lastIndex = bookSets.size() - 1;
+
         initComponents();
         this.setTitle("Home page");
         this.setResizable(false);
+
+        this.panels[0] = this.jPanel4;
+        this.panels[1] = this.jPanel3;
+        this.panels[2] = this.jPanel5;
+        this.panels[3] = this.jPanel6;
+        this.panels[4] = this.jPanel7;
+        this.panels[5] = this.jPanel8;
 
         this.showUserInfo();
         this.showBooks();
@@ -49,21 +67,25 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
     }
 
     private void showBooks(){
-        this.panels[0] = this.jPanel4;
-        this.panels[1] = this.jPanel3;
-        this.panels[2] = this.jPanel5;
-        this.panels[3] = this.jPanel6;
-        this.panels[4] = this.jPanel7;
-        this.panels[5] = this.jPanel8;
         for(int i = 0; i < this.panels.length; i++){
-            ImageConstants.addImage(this.books.get(i).getImageUrl(), this.panels[i]);
-            this.panels[i].add(new JLabel(this.books.get(i).getBookName(), SwingConstants.CENTER), BorderLayout.SOUTH);
-            this.panels[i].setToolTipText(this.books.get(i).getBookName() + " $" + this.books.get(i).getPrice());
+            if(this.panels[i].getComponentCount() > 0){
+                this.panels[i].removeAll();
+            }
+            ImageConstants.addImage(this.bookSets.get(this.currentIndex).get(i).getImageUrl(), this.panels[i]);
+            this.panels[i].add(new JLabel(this.bookSets.get(this.currentIndex).get(i).getBookName(), SwingConstants.CENTER), BorderLayout.SOUTH);
+            this.panels[i].setToolTipText(this.bookSets.get(this.currentIndex).get(i).getBookName() + " $" + this.bookSets.get(this.currentIndex).get(i).getPrice());
+
+            if(this.panels[i].getMouseListeners().length > 0){
+                for(MouseListener ml : this.panels[i].getMouseListeners()){
+                    this.panels[i].removeMouseListener(ml);
+                }
+            }
+
             int j = i;
             this.panels[i].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    Preview.showPreview(j, books.get(j), books);
+                    Preview.showPreview(j, bookSets.get(currentIndex).get(j), bookSets.get(currentIndex));
                 }
             });
         }
@@ -102,6 +124,8 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
+        nextButton = new javax.swing.JButton();
+        prevButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1920, 1080));
@@ -255,15 +279,15 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
                 .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(saleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(salesHistoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(userSettingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(217, 217, 217));
@@ -365,6 +389,20 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
             .addGap(0, 196, Short.MAX_VALUE)
         );
 
+        nextButton.setText("Next");
+        nextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButtonActionPerformed(evt);
+            }
+        });
+
+        prevButton.setText("Prev");
+        prevButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prevButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -372,9 +410,13 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(217, 217, 217))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(66, 66, 66)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(layout.createSequentialGroup()
@@ -390,37 +432,41 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
                                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 18, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(35, 35, 35))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addGap(217, 217, 217))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(prevButton)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(nextButton))
+                                    .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(35, 35, 35))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nextButton)
+                            .addComponent(prevButton)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(8, 8, 8)
-                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17))
         );
 
@@ -501,6 +547,26 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         // TODO add your handling code here:
     }//GEN-LAST:event_salesHistoryButtonActionPerformed
 
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        // TODO add your handling code here:
+        if(this.currentIndex >= 0 && this.currentIndex <= this.lastIndex && (this.currentIndex + 1) <= this.lastIndex){
+            this.currentIndex++;
+            this.showBooks();
+        } else {
+            JOptionPane.showMessageDialog(this, "Unable to click to go to the next page", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_nextButtonActionPerformed
+
+    private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
+        // TODO add your handling code here:
+        if(this.currentIndex >= 0 && this.currentIndex <= this.lastIndex && (this.currentIndex - 1) >= 0) {
+            this.currentIndex--;
+            this.showBooks();
+        } else {
+            JOptionPane.showMessageDialog(this, "Unable to click to go to the previous page", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_prevButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -510,7 +576,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
             Authorization.isLoggedIn = true;
             Database db = new Database();
             User user = db.getUser("SELECT * FROM users WHERE username = 'root'");
-            ArrayList<Book> books = db.getBooks("SELECT * FROM books LIMIT 20");
+            ArrayList<Book> books = db.getBooks("SELECT * FROM books");
             Home home = new Home(user, books);
         } catch(JBookException | SQLException e){
             e.printStackTrace();
@@ -520,6 +586,10 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
     private User user = null;
     private ArrayList<Book> books = null;
     private JPanel []panels = new JPanel[6];
+    private int currentIndex = 0;
+    private ArrayList<ArrayList<Book>> bookSets = new ArrayList<ArrayList<Book>>();
+    private final int LIMITED = 6;
+    private int lastIndex;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton deleteButton;
@@ -535,6 +605,8 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JButton logoutButton;
+    private javax.swing.JButton nextButton;
+    private javax.swing.JButton prevButton;
     private javax.swing.JButton saleButton;
     private javax.swing.JButton salesHistoryButton;
     private javax.swing.JPanel userAvatar;

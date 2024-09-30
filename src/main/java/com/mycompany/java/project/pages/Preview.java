@@ -193,16 +193,19 @@ public class Preview extends javax.swing.JDialog implements PageHandling {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void showPreview(int index, Book book, ArrayList<Book> books){
-        try {
-            Database db = new Database();
-            books.set(index, db.getBook("SELECT * FROM books WHERE book_id = " + book.getBookId() + " LIMIT 1"));
-            book = books.get(index);
-        } catch(SQLException | JBookException e) {
-            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+        if(books.get(index).equals(book)){
+            Preview preview = new Preview(book.getInstance());
+        } else {
+            try {
+                Database db = new Database();
+                books.set(index, db.getBook("SELECT * FROM books WHERE book_id = " + book.getBookId() + " LIMIT 1"));
+                book = books.get(index);
+            } catch(SQLException | JBookException e) {
+                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            Preview preview = new Preview(book.getInstance());
         }
-
-        Preview preview = new Preview(book.getInstance());
     }
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
