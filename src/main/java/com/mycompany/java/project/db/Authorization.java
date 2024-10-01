@@ -4,6 +4,7 @@ import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.classes.User;
 import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
 import com.mycompany.java.project.interfaces.PageHandling;
+import com.mycompany.java.project.interfaces.UserInterface;
 
 public final class Authorization {
     public static int authorizedUserId;

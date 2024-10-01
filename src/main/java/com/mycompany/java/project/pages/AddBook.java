@@ -14,6 +14,7 @@ import com.mycompany.java.project.classes.utils.Validator;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
 import com.mycompany.java.project.interfaces.ImageConstants;
+import com.mycompany.java.project.interfaces.Callback;
 
 /**
  *
@@ -25,6 +26,15 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
      * Creates new form AddBook
      */
     public AddBook() {
+        initComponents();
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.setTitle("Add book page");
+        this.reset();
+        this.display();
+    }
+    public AddBook(Callback callback) {
+        this.callback = callback;
+
         initComponents();
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setTitle("Add book page");
@@ -229,10 +239,6 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
             if(Validator.isExistsBook(book)){
                 throw new SQLException("An error occurred. This book already exists in the database!");
             }
-
-            if(book.getAuthorName() == null){
-                book.setAuthorName("DEFAULT(author_name)");
-            }
         } catch(SQLException | JBookException | NumberFormatException e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             this.reset();
@@ -245,7 +251,7 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
                     + getSingleQuotes(book.getBookName())
                     + ", " + book.getPrice()
                     + ", " + getSingleQuotes(book.getIsbn())
-                    + ", " + getSingleQuotes(book.getAuthorName())
+                    + ", " + (book.getAuthorName() == null ? "DEFAULT(author_name)" : getSingleQuotes(book.getAuthorName()))
                     + ", " + getSingleQuotes(book.getImageUrl())
                     + ", " + getSingleQuotes(book.getRemain())
                     + ")";
@@ -254,12 +260,15 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
 
             if(db.isChanged){
                 JOptionPane.showMessageDialog(this, "Book added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                throw new SQLException("Something went wrong!");
+                this.callback.run();
+                this.reset();
+                this.destroy();
+                return;
             }
+
+            throw new SQLException("Something went wrong!");
         } catch(SQLException e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
             this.reset();
         }
     }//GEN-LAST:event_addButtonActionPerformed
@@ -355,6 +364,7 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
         this.bookName.grabFocus();
     }
 
+    private Callback callback = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JTextField author;

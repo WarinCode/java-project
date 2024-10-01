@@ -24,15 +24,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         this.user = user;
         this.books = books;
 
-        ArrayList<Book> set = new ArrayList<Book>();
-        for(int i = 0; i < this.books.size(); i++){
-            set.add(this.books.get(i));
-            if((i + 1) % 6 == 0){
-                bookSets.add(set);
-                set = new ArrayList<Book>();
-            }
-        }
-        this.lastIndex = bookSets.size() - 1;
+        this.updateBookData();
 
         initComponents();
         this.setTitle("Home page");
@@ -60,6 +52,20 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         this.setVisible(true);
     }
 
+    private void updateBookData(){
+        this.bookSets = new ArrayList<ArrayList<Book>>();
+        ArrayList<Book> set = new ArrayList<Book>();
+        for(int i = 0; i < this.books.size(); i++){
+            set.add(this.books.get(i));
+            if((i + 1) % 6 == 0){
+                bookSets.add(set);
+                set = new ArrayList<Book>();
+            }
+        }
+        bookSets.add(set);
+        this.lastIndex = bookSets.size() - 1;
+    }
+
     private void showUserInfo(){
         ImageConstants.addImage(this.user.getAvatar(), this.userAvatar);
         this.username.setText("Username: " + this.user.getUsername());
@@ -71,30 +77,70 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
             if(this.panels[i].getComponentCount() > 0){
                 this.panels[i].removeAll();
             }
-            ImageConstants.addImage(this.bookSets.get(this.currentIndex).get(i).getImageUrl(), this.panels[i]);
-            this.panels[i].add(new JLabel(this.bookSets.get(this.currentIndex).get(i).getBookName(), SwingConstants.CENTER), BorderLayout.SOUTH);
-            this.panels[i].setToolTipText(this.bookSets.get(this.currentIndex).get(i).getBookName() + " $" + this.bookSets.get(this.currentIndex).get(i).getPrice());
 
             if(this.panels[i].getMouseListeners().length > 0){
                 for(MouseListener ml : this.panels[i].getMouseListeners()){
                     this.panels[i].removeMouseListener(ml);
                 }
             }
+        }
 
-            int j = i;
-            this.panels[i].addMouseListener(new MouseAdapter() {
+        for(int j = 0; j < this.bookSets.get(this.currentIndex).size(); j++){
+            ImageConstants.addImage(this.bookSets.get(this.currentIndex).get(j).getImageUrl(), this.panels[j]);
+            this.panels[j].add(new JLabel(this.bookSets.get(this.currentIndex).get(j).getBookName(), SwingConstants.CENTER), BorderLayout.SOUTH);
+
+            int k = j;
+            this.panels[j].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    Preview.showPreview(j, bookSets.get(currentIndex).get(j), bookSets.get(currentIndex));
+                    Preview.showPreview(k, bookSets.get(currentIndex).get(k), bookSets.get(currentIndex), () -> {
+                        fetchBooks();
+                        updateBookData();
+                        if(!(((JLabel)panels[k].getComponent(1)).getText().toLowerCase().equals(bookSets.get(currentIndex).get(k).getBookName()))){
+                            panels[k].getComponent(1).setVisible(false);
+                            panels[k].remove(1);
+                            panels[k].add(new JLabel(bookSets.get(currentIndex).get(k).getBookName(), SwingConstants.CENTER), BorderLayout.SOUTH);
+                            panels[k].getComponent(1).setVisible(true);
+                        }
+                    });
+                }
+            });
+        }
+
+        for(int v = 0; v < this.panels.length; v++){
+            if(this.panels[v].getComponentCount() > 0){
+                continue;
+            }
+
+            for(MouseListener ml : this.panels[v].getMouseListeners()){
+                this.panels[v].removeMouseListener(ml);
+            }
+            this.panels[v].removeAll();
+            ImageConstants.addImage(ImageConstants.DEFAULT_EMPTY_IMAGE, this.panels[v]);
+            this.panels[v].addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    addButtonActionPerformed(null);
                 }
             });
         }
     }
 
+
     @Override
     public Home getInstance(){
         return this;
     }
+
+    private void fetchBooks(){
+        try {
+            Database db = new Database();
+            this.books = db.getBooks("SELECT * FROM books");
+        } catch(SQLException | JBookException e){
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -488,6 +534,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
                 }
             } catch(SQLException | JBookException e){
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
             }
         });
     }//GEN-LAST:event_userSettingButtonActionPerformed
@@ -502,7 +549,11 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
         if(Authorization.isLoggedIn){
-            AddBook addBook = new AddBook();
+            AddBook addBook = new AddBook(() -> {
+                this.fetchBooks();
+                this.updateBookData();
+                this.showBooks();
+            });
         } else {
             Authorization.accessDenied(this.getInstance());
             this.user = null;
@@ -513,7 +564,11 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
         if(Authorization.isLoggedIn){
-            DeleteBook deleteBook = new DeleteBook();
+            DeleteBook deleteBook = new DeleteBook(() -> {
+                this.fetchBooks();
+                this.updateBookData();
+                this.showBooks();
+            });
         } else {
             Authorization.accessDenied(this.getInstance());
             this.user = null;
@@ -524,7 +579,10 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
     private void saleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleButtonActionPerformed
         // TODO add your handling code here:
         if(Authorization.isLoggedIn){
-            Sale sale = new Sale(this.books);
+            Sale sale = new Sale(this.books, () -> {
+                this.fetchBooks();
+                this.updateBookData();
+            });
         } else {
             Authorization.accessDenied(this.getInstance());
             this.user = null;
@@ -552,8 +610,6 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         if(this.currentIndex >= 0 && this.currentIndex <= this.lastIndex && (this.currentIndex + 1) <= this.lastIndex){
             this.currentIndex++;
             this.showBooks();
-        } else {
-            JOptionPane.showMessageDialog(this, "Unable to click to go to the next page", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_nextButtonActionPerformed
 
@@ -562,15 +618,12 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         if(this.currentIndex >= 0 && this.currentIndex <= this.lastIndex && (this.currentIndex - 1) >= 0) {
             this.currentIndex--;
             this.showBooks();
-        } else {
-            JOptionPane.showMessageDialog(this, "Unable to click to go to the previous page", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_prevButtonActionPerformed
 
     /**
      * @param args the command line arguments
      */
-
     public static void main(String []args){
         try {
             Authorization.isLoggedIn = true;

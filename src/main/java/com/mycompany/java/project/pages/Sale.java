@@ -22,6 +22,7 @@ import com.mycompany.java.project.classes.OrderBook;
 import com.mycompany.java.project.db.Database;
 import com.mycompany.java.project.interfaces.ResetForm;
 import com.mycompany.java.project.interfaces.ImageConstants;
+import com.mycompany.java.project.interfaces.Callback;
 
 /**
  *
@@ -32,9 +33,10 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
     /**
      * Creates new form Sale
      */
-    public Sale(ArrayList<Book> books) {
+    public Sale(ArrayList<Book> books, Callback callback) {
         this.reset(books);
         this.tempBooks = books;
+        this.callback = callback;
 
         initComponents();
         this.setTitle("Sale page");
@@ -54,7 +56,7 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
         this.bookImage.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Preview.showPreview(comboBox.getSelectedIndex(), books.get(comboBox.getSelectedIndex()), books);
+                Preview.showPreview(comboBox.getSelectedIndex(), books.get(comboBox.getSelectedIndex()), books, callback);
             }
         });
 
@@ -323,15 +325,15 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        try {
-            Database db = new Database();
-            ArrayList<Book> books = db.getBooks("SELECT * FROM books");
-            Sale sale = new Sale(books);
-        } catch(SQLException | JBookException e){
-            e.printStackTrace();
-        }
-    }
+//    public static void main(String args[]) {
+//        try {
+//            Database db = new Database();
+//            ArrayList<Book> books = db.getBooks("SELECT * FROM books");
+//            Sale sale = new Sale(books);
+//        } catch(SQLException | JBookException e){
+//            e.printStackTrace();
+//        }
+//    }
 
     @Override
     public void display() {
@@ -381,6 +383,7 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
     private DefaultListModel<String> bookModel = new DefaultListModel<String>();
     private ArrayList<Book> books = new ArrayList<Book>();
     private ArrayList<OrderBook> orderBooks = new ArrayList<OrderBook>();
+    private Callback callback = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton SelectButton;
     private javax.swing.JPanel bookImage;

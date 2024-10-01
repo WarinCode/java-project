@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.interfaces.ImageConstants;
+import com.mycompany.java.project.interfaces.Callback;
 import com.mycompany.java.project.classes.Book;
 import com.mycompany.java.project.db.Database;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
@@ -21,9 +22,10 @@ public class Preview extends javax.swing.JDialog implements PageHandling {
     /**
      * Creates new form Preview
      */
-    public Preview(Book book) {
-        super(new JFrame(), true);
+    public Preview(Book book, Callback callback) {
+        super(JOptionPane.getRootFrame(), true);
         this.book = book;
+        this.callback = callback;
 
         initComponents();
         this.setTitle("Preview book page");
@@ -192,9 +194,9 @@ public class Preview extends javax.swing.JDialog implements PageHandling {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void showPreview(int index, Book book, ArrayList<Book> books){
+    public static void showPreview(int index, Book book, ArrayList<Book> books, Callback callback){
         if(books.get(index).equals(book)){
-            Preview preview = new Preview(book.getInstance());
+            Preview preview = new Preview(book.getInstance(), callback);
         } else {
             try {
                 Database db = new Database();
@@ -204,14 +206,14 @@ public class Preview extends javax.swing.JDialog implements PageHandling {
                 JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            Preview preview = new Preview(book.getInstance());
+            Preview preview = new Preview(book.getInstance(), callback);
         }
     }
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         // TODO add your handling code here:
         this.destroy();
-        EditBook editBook = new EditBook(this.book);
+        EditBook editBook = new EditBook(this.book, this.callback);
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
@@ -230,6 +232,7 @@ public class Preview extends javax.swing.JDialog implements PageHandling {
     }
 
     private Book book = null;
+    private Callback callback = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bookImage;
     private javax.swing.JButton closeButton;

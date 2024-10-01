@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.interfaces.ResetForm;
+import com.mycompany.java.project.interfaces.Callback;
 import com.mycompany.java.project.db.Database;
 import com.mycompany.java.project.classes.utils.Validator;
 import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
@@ -24,6 +25,16 @@ public class DeleteBook extends javax.swing.JFrame implements PageHandling, Rese
      * Creates new form DeleteBook
      */
     public DeleteBook() {
+        initComponents();
+        this.setTitle("Delete book page");
+        this.setResizable(false);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.reset();
+        this.display();
+    }
+    public DeleteBook(Callback callback) {
+        this.callback = callback;
+
         initComponents();
         this.setTitle("Delete book page");
         this.setResizable(false);
@@ -147,7 +158,9 @@ public class DeleteBook extends javax.swing.JFrame implements PageHandling, Rese
 
                 if(db.isChanged){
                     JOptionPane.showMessageDialog(this, "Deleted book successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    this.callback.run();
                     this.reset();
+                    this.destroy();
                     return;
                 }
             }
@@ -215,6 +228,7 @@ public class DeleteBook extends javax.swing.JFrame implements PageHandling, Rese
         this.jTextField1.grabFocus();
     }
 
+    private Callback callback = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DeleteLable;
     private javax.swing.JButton closeButton;
