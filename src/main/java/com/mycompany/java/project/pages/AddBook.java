@@ -259,8 +259,10 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
             db.insert(query);
 
             if(db.isChanged){
+                if(this.callback != null){
+                    this.callback.run();
+                }
                 JOptionPane.showMessageDialog(this, "Book added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-                this.callback.run();
                 this.reset();
                 this.destroy();
                 return;

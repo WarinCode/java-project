@@ -440,8 +440,10 @@ public class EditBook extends javax.swing.JFrame implements PageHandling, GetBoo
             db.update(query);
 
             if(db.isChanged){
+                if(this.callback != null){
+                    this.callback.run();
+                }
                 JOptionPane.showMessageDialog(this, "Book updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-                this.callback.run();
                 this.destroy();
                 return;
             }

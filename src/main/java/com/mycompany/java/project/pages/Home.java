@@ -39,6 +39,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
 
         this.showUserInfo();
         this.showBooks();
+        this.setPageCount();
         this.display();
     }
 
@@ -52,18 +53,29 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         this.setVisible(true);
     }
 
+    private void fetchBooks(){
+        try {
+            Database db = new Database();
+            this.books = db.getBooks("SELECT * FROM books");
+        } catch(SQLException | JBookException e){
+            e.printStackTrace();
+        }
+    }
+
     private void updateBookData(){
         this.bookSets = new ArrayList<ArrayList<Book>>();
         ArrayList<Book> set = new ArrayList<Book>();
         for(int i = 0; i < this.books.size(); i++){
             set.add(this.books.get(i));
             if((i + 1) % 6 == 0){
-                bookSets.add(set);
+                this.bookSets.add(set);
                 set = new ArrayList<Book>();
             }
         }
-        bookSets.add(set);
-        this.lastIndex = bookSets.size() - 1;
+        if(set.size() != 0){
+            this.bookSets.add(set);
+        }
+        this.setLastIndex(this.bookSets.size() - 1);
     }
 
     private void showUserInfo(){
@@ -85,9 +97,19 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
             }
         }
 
-        for(int j = 0; j < this.bookSets.get(this.currentIndex).size(); j++){
-            ImageConstants.addImage(this.bookSets.get(this.currentIndex).get(j).getImageUrl(), this.panels[j]);
-            this.panels[j].add(new JLabel(this.bookSets.get(this.currentIndex).get(j).getBookName(), SwingConstants.CENTER), BorderLayout.SOUTH);
+        int bookCount = 0;
+        try {
+            bookCount = this.bookSets.get(this.getCurrentIndex()).size() == 0 ?
+                    this.bookSets.get(this.getCurrentIndex() - 1).size() :
+                    this.bookSets.get(this.getCurrentIndex()).size();
+        } catch(IndexOutOfBoundsException e){
+            this.setCurrentIndex(this.getCurrentIndex() - 1);
+            bookCount = this.bookSets.get(this.getCurrentIndex()).size();
+        }
+
+        for(int j = 0; j < bookCount; j++){
+            ImageConstants.addImage(this.bookSets.get(this.getCurrentIndex()).get(j).getImageUrl(), this.panels[j]);
+            this.panels[j].add(new JLabel(this.bookSets.get(this.getCurrentIndex()).get(j).getBookName(), SwingConstants.CENTER), BorderLayout.SOUTH);
 
             int k = j;
             this.panels[j].addMouseListener(new MouseAdapter() {
@@ -96,12 +118,8 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
                     Preview.showPreview(k, bookSets.get(currentIndex).get(k), bookSets.get(currentIndex), () -> {
                         fetchBooks();
                         updateBookData();
-                        if(!(((JLabel)panels[k].getComponent(1)).getText().toLowerCase().equals(bookSets.get(currentIndex).get(k).getBookName()))){
-                            panels[k].getComponent(1).setVisible(false);
-                            panels[k].remove(1);
-                            panels[k].add(new JLabel(bookSets.get(currentIndex).get(k).getBookName(), SwingConstants.CENTER), BorderLayout.SOUTH);
-                            panels[k].getComponent(1).setVisible(true);
-                        }
+                        showBooks();
+                        setPageCount();
                     });
                 }
             });
@@ -115,6 +133,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
             for(MouseListener ml : this.panels[v].getMouseListeners()){
                 this.panels[v].removeMouseListener(ml);
             }
+
             this.panels[v].removeAll();
             ImageConstants.addImage(ImageConstants.DEFAULT_EMPTY_IMAGE, this.panels[v]);
             this.panels[v].addMouseListener(new MouseAdapter() {
@@ -126,21 +145,39 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         }
     }
 
+    private int getCurrentIndex(){
+        return this.currentIndex;
+    }
+
+    private Home setCurrentIndex(int currentIndex){
+        if(currentIndex >= 0){
+            this.currentIndex = currentIndex;
+        }
+
+        return this.getInstance();
+    }
+
+    private int getLastIndex(){
+        return this.lastIndex;
+    }
+
+    private Home setLastIndex(int lastIndex){
+        if(lastIndex >= 0){
+            this.lastIndex = lastIndex;
+        }
+
+        return this.getInstance();
+    }
+
+    private Home setPageCount(){
+        this.pageCount.setText((this.getCurrentIndex() + 1) + "/" + (this.getLastIndex() + 1));
+        return this.getInstance();
+    }
 
     @Override
     public Home getInstance(){
         return this;
     }
-
-    private void fetchBooks(){
-        try {
-            Database db = new Database();
-            this.books = db.getBooks("SELECT * FROM books");
-        } catch(SQLException | JBookException e){
-            e.printStackTrace();
-        }
-    }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -170,8 +207,11 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        nextButton = new javax.swing.JButton();
         prevButton = new javax.swing.JButton();
+        pageCount = new javax.swing.JLabel();
+        nextButton = new javax.swing.JButton();
+        lastButton = new javax.swing.JButton();
+        firstButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1920, 1080));
@@ -294,32 +334,33 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(userSettingButton, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                            .addComponent(salesHistoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(saleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(logoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                            .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(email, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
-                        .addComponent(userAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(userAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(saleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(userSettingButton, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                                .addComponent(salesHistoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(logoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                                .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(email, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(54, 54, 54))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(36, 36, 36)
                 .addComponent(userAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(username)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(email)
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -333,7 +374,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
                 .addComponent(userSettingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(217, 217, 217));
@@ -435,17 +476,50 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
             .addGap(0, 196, Short.MAX_VALUE)
         );
 
-        nextButton.setText("Next");
+        prevButton.setBackground(new java.awt.Color(0, 0, 0));
+        prevButton.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
+        prevButton.setForeground(new java.awt.Color(255, 255, 255));
+        prevButton.setText("Prev page");
+        prevButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        prevButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prevButtonActionPerformed(evt);
+            }
+        });
+
+        pageCount.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
+        pageCount.setText("1/-");
+
+        nextButton.setBackground(new java.awt.Color(0, 0, 0));
+        nextButton.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
+        nextButton.setForeground(new java.awt.Color(255, 255, 255));
+        nextButton.setText("Next page");
+        nextButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         nextButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nextButtonActionPerformed(evt);
             }
         });
 
-        prevButton.setText("Prev");
-        prevButton.addActionListener(new java.awt.event.ActionListener() {
+        lastButton.setBackground(new java.awt.Color(0, 0, 0));
+        lastButton.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
+        lastButton.setForeground(new java.awt.Color(255, 255, 255));
+        lastButton.setText("Last page");
+        lastButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lastButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                prevButtonActionPerformed(evt);
+                lastButtonActionPerformed(evt);
+            }
+        });
+
+        firstButton.setBackground(new java.awt.Color(0, 0, 0));
+        firstButton.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
+        firstButton.setForeground(new java.awt.Color(255, 255, 255));
+        firstButton.setText("First page");
+        firstButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        firstButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                firstButtonActionPerformed(evt);
             }
         });
 
@@ -461,9 +535,9 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
                         .addComponent(jLabel3)
                         .addGap(217, 217, 217))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(66, 66, 66)
+                        .addGap(66, 66, 66)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -476,28 +550,35 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
                                 .addGap(42, 42, 42)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 18, Short.MAX_VALUE))
+                                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(firstButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(prevButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(pageCount)
                                         .addGap(18, 18, 18)
-                                        .addComponent(nextButton))
-                                    .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(35, 35, 35))))
+                                        .addComponent(nextButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lastButton)))))
+                        .addGap(35, 53, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(prevButton)
+                            .addComponent(pageCount)
                             .addComponent(nextButton)
-                            .addComponent(prevButton)))
+                            .addComponent(lastButton)
+                            .addComponent(firstButton)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jLabel3)
@@ -533,7 +614,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
                     Login login = new Login();
                 }
             } catch(SQLException | JBookException e){
-                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
         });
@@ -553,6 +634,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
                 this.fetchBooks();
                 this.updateBookData();
                 this.showBooks();
+                this.setPageCount();
             });
         } else {
             Authorization.accessDenied(this.getInstance());
@@ -568,6 +650,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
                 this.fetchBooks();
                 this.updateBookData();
                 this.showBooks();
+                this.setPageCount();
             });
         } else {
             Authorization.accessDenied(this.getInstance());
@@ -605,21 +688,45 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         // TODO add your handling code here:
     }//GEN-LAST:event_salesHistoryButtonActionPerformed
 
+    private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
+        // TODO add your handling code here:
+        if(this.getCurrentIndex() >= 0 && this.getCurrentIndex() <= this.getLastIndex() && (this.getCurrentIndex() - 1) >= 0) {
+            this.setCurrentIndex(this.getCurrentIndex() - 1);
+            this.showBooks();
+            this.setPageCount();
+        }
+    }//GEN-LAST:event_prevButtonActionPerformed
+
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
         // TODO add your handling code here:
-        if(this.currentIndex >= 0 && this.currentIndex <= this.lastIndex && (this.currentIndex + 1) <= this.lastIndex){
-            this.currentIndex++;
+        if(this.getCurrentIndex() >= 0 && this.getCurrentIndex() <= this.getLastIndex() && (this.getCurrentIndex() + 1) <= this.getLastIndex()){
+            this.setCurrentIndex(this.getCurrentIndex() + 1);
             this.showBooks();
+            this.setPageCount();
         }
     }//GEN-LAST:event_nextButtonActionPerformed
 
-    private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
+    private void lastButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastButtonActionPerformed
         // TODO add your handling code here:
-        if(this.currentIndex >= 0 && this.currentIndex <= this.lastIndex && (this.currentIndex - 1) >= 0) {
-            this.currentIndex--;
-            this.showBooks();
+        if(this.getCurrentIndex() == (this.bookSets.size() - 1)){
+            return;
         }
-    }//GEN-LAST:event_prevButtonActionPerformed
+
+        this.setCurrentIndex(this.bookSets.size() - 1);
+        this.showBooks();
+        this.setPageCount();
+    }//GEN-LAST:event_lastButtonActionPerformed
+
+    private void firstButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstButtonActionPerformed
+        // TODO add your handling code here:
+        if(this.getCurrentIndex() == 0){
+            return;
+        }
+
+        this.setCurrentIndex(0);
+        this.showBooks();
+        this.setPageCount();
+    }//GEN-LAST:event_firstButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -649,6 +756,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
     private javax.swing.JButton editButton;
     private javax.swing.JLabel email;
     private javax.swing.Box.Filler filler1;
+    private javax.swing.JButton firstButton;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
@@ -657,8 +765,10 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JButton lastButton;
     private javax.swing.JButton logoutButton;
     private javax.swing.JButton nextButton;
+    private javax.swing.JLabel pageCount;
     private javax.swing.JButton prevButton;
     private javax.swing.JButton saleButton;
     private javax.swing.JButton salesHistoryButton;

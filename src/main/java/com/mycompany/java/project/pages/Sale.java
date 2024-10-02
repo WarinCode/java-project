@@ -23,12 +23,13 @@ import com.mycompany.java.project.db.Database;
 import com.mycompany.java.project.interfaces.ResetForm;
 import com.mycompany.java.project.interfaces.ImageConstants;
 import com.mycompany.java.project.interfaces.Callback;
+import com.mycompany.java.project.interfaces.InstanceProvider;
 
 /**
  *
  * @author astro
  */
-public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm {
+public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm, InstanceProvider<Sale> {
 
     /**
      * Creates new form Sale
@@ -377,6 +378,11 @@ public class Sale extends javax.swing.JFrame implements PageHandling, ResetForm 
 
     private String getUnit(int value){
         return value > 1 ? " books" : " book";
+    }
+
+    @Override
+    public Sale getInstance(){
+        return this;
     }
 
     private ArrayList<Book> tempBooks = new ArrayList<Book>();

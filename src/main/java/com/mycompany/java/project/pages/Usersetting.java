@@ -335,9 +335,11 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
             db.update(query);
 
             if(db.isChanged){
+                if(this.callback != null){
+                    this.callback.run();
+                }
                 JOptionPane.showMessageDialog(this, "Updated user settings", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.destroy();
-                this.callback.run();
                 return;
             }
         } catch(SQLException e){
