@@ -11,6 +11,7 @@ import io.github.cdimascio.dotenv.DotenvException;
 import com.mycompany.java.project.db.ConnectionInformation;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.classes.Book;
+import com.mycompany.java.project.classes.OrderBook;
 import com.mycompany.java.project.classes.User;
 import com.mycompany.java.project.interfaces.SQLQueries;
 
@@ -71,6 +72,7 @@ public class Database implements SQLQueries {
                     .setImageUrl(this.rs.getString("image_url"))
                     .setRemain(this.rs.getInt("remain"))
                     .getInstance();
+
             books.add(book);
         }
 
@@ -120,6 +122,30 @@ public class Database implements SQLQueries {
 
         this.disconnect();
         return user;
+    }
+
+    public ArrayList<OrderBook> getOrderBooks(String query) throws SQLException, JBookException {
+        ArrayList<OrderBook> orderBooks = new ArrayList<OrderBook>();
+
+        this.connect();
+        this.rs = this.statement.executeQuery(query);
+        while(this.rs.next()){
+            System.out.println(this.rs.getTime("date_time"));
+            OrderBook orderBook = new OrderBook()
+                    .setId(this.rs.getInt("id"))
+                    .setDate(this.rs.getDate("date_time"))
+                    .setTime(this.rs.getTime("date_time"))
+                    .setItems(this.rs.getString("items"))
+                    .setQuantity(this.rs.getInt("quantity"))
+                    .setTotal(this.rs.getDouble("total"))
+                    .setChange(this.rs.getDouble("change"))
+                    .getInstance();
+
+            orderBooks.add(orderBook);
+        }
+
+        this.disconnect();
+        return orderBooks;
     }
 
     private void execute(String sql) throws SQLException {

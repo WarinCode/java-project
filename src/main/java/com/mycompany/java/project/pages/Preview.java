@@ -280,6 +280,7 @@ public class Preview extends javax.swing.JDialog implements PageHandling, Instan
         this.setVisible(true);
     }
 
+
     private Book book = null;
     private Callback callback = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables

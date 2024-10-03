@@ -135,7 +135,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
             }
 
             this.panels[v].removeAll();
-            ImageConstants.addImage(ImageConstants.DEFAULT_EMPTY_IMAGE, this.panels[v]);
+            ImageConstants.addImage(ImageConstants.DEFAULT_NO_IMAGE, this.panels[v]);
             this.panels[v].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -665,6 +665,8 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
             Sale sale = new Sale(this.books, () -> {
                 this.fetchBooks();
                 this.updateBookData();
+                this.showBooks();
+                this.setPageCount();
             });
         } else {
             Authorization.accessDenied(this.getInstance());

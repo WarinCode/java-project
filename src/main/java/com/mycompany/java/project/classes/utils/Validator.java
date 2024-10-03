@@ -3,6 +3,7 @@ import java.sql.SQLException;
 import javax.swing.JTextField;
 import com.mycompany.java.project.classes.User;
 import com.mycompany.java.project.classes.Book;
+import com.mycompany.java.project.classes.OrderBook;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.db.Authorization;
 import com.mycompany.java.project.db.Database;
@@ -36,5 +37,19 @@ public final class Validator {
 
     public static boolean isEmptyField(JTextField textField){
         return (textField.getText().isEmpty() || textField.getText().isBlank());
+    }
+
+    public static void validateOrderingBook(Book book, OrderBook orderBook, int quantity) throws JBookException{
+        if(quantity <= 0){
+            throw new JBookException("Invalid quantity!");
+        }
+
+        if(quantity > book.getRemain()){
+            throw new JBookException("An error occurred. The number of books selected exceeds the number of items remaining!");
+        }
+
+        if(book.getRemain() <= 0){
+            throw new JBookException("An error occurred. The number of books selected exceeds the number of items remaining!");
+        }
     }
 }
