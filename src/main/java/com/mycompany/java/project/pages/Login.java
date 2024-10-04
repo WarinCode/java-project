@@ -13,16 +13,17 @@ import com.mycompany.java.project.interfaces.ResetForm;
 import com.mycompany.java.project.classes.utils.Helper;
 
 public class Login extends javax.swing.JFrame implements PageHandling, GetUser, ResetForm {
+
     public Login() {
         initComponents();
         this.setTitle("Login page");
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.reset();
         this.display();
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -140,10 +141,9 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser, 
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        // TODO add your handling code here:
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             Database db = new Database();
             User checkUser = new User(this.getUsername(), this.getPassword(), this.getEmail());
@@ -161,28 +161,12 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser, 
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
            this.reset();
         }
-    }//GEN-LAST:event_loginButtonActionPerformed
-
-    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        // TODO add your handling code here:
-        this.destroy();
-        Register register = new Register();
-    }//GEN-LAST:event_registerButtonActionPerformed
-
-    public static void main(String args[]) {
-        Login login = new Login();
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton loginButton;
-    private javax.swing.JPasswordField password;
-    private javax.swing.JButton registerButton;
-    private javax.swing.JTextField usernameOrPassword;
-    // End of variables declaration//GEN-END:variables
+    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        this.destroy();
+        Register register = new Register();
+    }
 
     @Override
     public String getUsername() {
@@ -235,4 +219,13 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser, 
         this.password.setText("");
         this.usernameOrPassword.grabFocus();
     }
+
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton loginButton;
+    private javax.swing.JPasswordField password;
+    private javax.swing.JButton registerButton;
+    private javax.swing.JTextField usernameOrPassword;
 }

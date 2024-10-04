@@ -4,6 +4,7 @@ import java.util.Date;
 import java.sql.Time;
 import java.util.Arrays;
 import com.mycompany.java.project.classes.utils.Validator;
+import com.mycompany.java.project.classes.utils.Printer;
 import com.mycompany.java.project.db.Database;
 import com.mycompany.java.project.interfaces.BookInterface;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;

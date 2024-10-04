@@ -11,16 +11,17 @@ import com.mycompany.java.project.classes.User;
 import com.mycompany.java.project.classes.utils.Helper;
 
 public class Register extends javax.swing.JFrame implements PageHandling, GetUser, ResetForm {
+
     public Register() {
         initComponents();
         this.setTitle("Register page");
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.reset();
         this.display();
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         RegisterUsername = new javax.swing.JLabel();
@@ -161,14 +162,11 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void RegisterUsernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterUsernameFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RegisterUsernameFieldActionPerformed
+    private void RegisterUsernameFieldActionPerformed(java.awt.event.ActionEvent evt) {}
 
-    private void RegisterLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterLoginButtonActionPerformed
-        // TODO add your handling code here:
+    private void RegisterLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             Database db = new Database();
             User user = new User(this.getUsername(), this.getPassword(), this.getEmail());
@@ -188,35 +186,14 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             this.reset();
         }
-    }//GEN-LAST:event_RegisterLoginButtonActionPerformed
-
-    private void RegisterBackToLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterBackToLoginButtonActionPerformed
-        // TODO add your handling code here:
-        this.destroy();
-        Login login = new Login();
-    }//GEN-LAST:event_RegisterBackToLoginButtonActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    public static void main(String args[]) {
-        Register register = new Register();
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton RegisterBackToLoginButton;
-    private javax.swing.JLabel RegisterEmail;
-    private javax.swing.JButton RegisterLoginButton;
-    private javax.swing.JLabel RegisterPossword;
-    private javax.swing.JLabel RegisterUsername;
-    private javax.swing.JTextField RegisterUsernameField;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
-    // End of variables declaration//GEN-END:variables
+    private void RegisterBackToLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        this.destroy();
+        Login login = new Login();
+    }
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {}
 
     @Override
     public String getUsername() {
@@ -270,4 +247,15 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
         this.jTextField1.setText("");
         this.RegisterUsernameField.grabFocus();
     }
+
+    private javax.swing.JButton RegisterBackToLoginButton;
+    private javax.swing.JLabel RegisterEmail;
+    private javax.swing.JButton RegisterLoginButton;
+    private javax.swing.JLabel RegisterPossword;
+    private javax.swing.JLabel RegisterUsername;
+    private javax.swing.JTextField RegisterUsernameField;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JTextField jTextField1;
 }

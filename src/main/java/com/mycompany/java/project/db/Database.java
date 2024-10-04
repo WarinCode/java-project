@@ -130,7 +130,6 @@ public class Database implements SQLQueries {
         this.connect();
         this.rs = this.statement.executeQuery(query);
         while(this.rs.next()){
-            System.out.println(this.rs.getTime("date_time"));
             OrderBook orderBook = new OrderBook()
                     .setId(this.rs.getInt("id"))
                     .setDate(this.rs.getDate("date_time"))
@@ -147,6 +146,30 @@ public class Database implements SQLQueries {
 
         this.disconnect();
         return orderBooks;
+    }
+
+    public OrderBook getOrderBook(String query) throws SQLException, JBookException {
+        OrderBook orderBook = null;
+
+        this.connect();
+        this.rs = this.statement.executeQuery(query);
+        while(this.rs.next()){
+            orderBook = new OrderBook()
+                    .setId(this.rs.getInt("id"))
+                    .setDate(this.rs.getDate("date_time"))
+                    .setTime(this.rs.getTime("date_time"))
+                    .setItems(this.rs.getString("items"))
+                    .setQuantity(this.rs.getInt("quantity"))
+                    .setMoney(this.rs.getDouble("money"))
+                    .setTotal(this.rs.getDouble("total"))
+                    .setChange(this.rs.getDouble("change"))
+                    .getInstance();
+
+            break;
+        }
+
+        this.disconnect();
+        return orderBook;
     }
 
     private void execute(String sql) throws SQLException {

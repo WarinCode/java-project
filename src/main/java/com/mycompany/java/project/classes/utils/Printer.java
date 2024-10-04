@@ -2,7 +2,6 @@ package com.mycompany.java.project.classes.utils;
 import javax.swing.JTextArea;
 import javax.swing.JOptionPane;
 import java.awt.print.PrinterException;
-
 import com.mycompany.java.project.classes.OrderBook;
 
 public final class Printer {
@@ -25,16 +24,19 @@ public final class Printer {
         texts += "\n";
         texts += "=".repeat(100) + "\n";
         texts += "\n";
-//        texts += orderHistory.getItemList() + "\n";
+
+        String []items = orderBook.getItems().split(",\n");
+        for(int i = 0; i < items.length; i++){
+            texts += (i + 1) + ".) " + items[i] + "\n";
+        }
+
         texts += "\n";
         texts += "=".repeat(100) + "\n";
         texts += "\n";
-        texts += orderBook.getItems() + "\n";
-//        texts += orderHistory.getItems() == 1 ? "Item: " + orderHistory.getItems() + "\n" : "Item: " + orderHistory.getItems() + "\n";
         texts += "Quantity: " + orderBook.getQuantity() + "\n";
-        texts += "Money: " + orderBook.getMoney() + " dollar" + "\n";
-        texts += "Change: " + orderBook.getChange() + " dollar" + "\n";
-        texts += "Total: " + orderBook.getTotal() + " dollar" + "\n\n";
+        texts += "Money: " + "$" + orderBook.getMoney() + "\n";
+        texts += "Change: " + "$" + orderBook.getChange() + "\n";
+        texts += "Total: " + "$" + orderBook.getTotal() + "\n\n";
         texts += "-".repeat(150) + "\n";
         return texts;
     }
