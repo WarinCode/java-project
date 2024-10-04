@@ -36,7 +36,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
 
         this.showUserInfo();
         this.showBooks();
-        this.setPageCount();
+        this.setPage();
         this.display();
     }
 
@@ -116,7 +116,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
                         fetchBooks();
                         updateBookData();
                         showBooks();
-                        setPageCount();
+                        setPage();
                     });
                 }
             });
@@ -166,7 +166,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         return this.getInstance();
     }
 
-    private Home setPageCount(){
+    private Home setPage(){
         this.pageCount.setText((this.getCurrentIndex() + 1) + "/" + (this.getLastIndex() + 1));
         return this.getInstance();
     }
@@ -622,7 +622,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
                 this.fetchBooks();
                 this.updateBookData();
                 this.showBooks();
-                this.setPageCount();
+                this.setPage();
             });
         } else {
             Authorization.accessDenied(this.getInstance());
@@ -637,7 +637,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
                 this.fetchBooks();
                 this.updateBookData();
                 this.showBooks();
-                this.setPageCount();
+                this.setPage();
             });
         } else {
             Authorization.accessDenied(this.getInstance());
@@ -652,7 +652,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
                 this.fetchBooks();
                 this.updateBookData();
                 this.showBooks();
-                this.setPageCount();
+                this.setPage();
             });
         } else {
             Authorization.accessDenied(this.getInstance());
@@ -678,7 +678,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         if(this.getCurrentIndex() >= 0 && this.getCurrentIndex() <= this.getLastIndex() && (this.getCurrentIndex() - 1) >= 0) {
             this.setCurrentIndex(this.getCurrentIndex() - 1);
             this.showBooks();
-            this.setPageCount();
+            this.setPage();
         }
     }
 
@@ -686,7 +686,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         if(this.getCurrentIndex() >= 0 && this.getCurrentIndex() <= this.getLastIndex() && (this.getCurrentIndex() + 1) <= this.getLastIndex()){
             this.setCurrentIndex(this.getCurrentIndex() + 1);
             this.showBooks();
-            this.setPageCount();
+            this.setPage();
         }
     }
 
@@ -697,7 +697,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
 
         this.setCurrentIndex(this.bookSets.size() - 1);
         this.showBooks();
-        this.setPageCount();
+        this.setPage();
     }
 
     private void firstButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -707,7 +707,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
 
         this.setCurrentIndex(0);
         this.showBooks();
-        this.setPageCount();
+        this.setPage();
     }
 
     public static void main(String []args){
