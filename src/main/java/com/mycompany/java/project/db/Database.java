@@ -137,6 +137,7 @@ public class Database implements SQLQueries {
                     .setTime(this.rs.getTime("date_time"))
                     .setItems(this.rs.getString("items"))
                     .setQuantity(this.rs.getInt("quantity"))
+                    .setMoney(this.rs.getDouble("money"))
                     .setTotal(this.rs.getDouble("total"))
                     .setChange(this.rs.getDouble("change"))
                     .getInstance();

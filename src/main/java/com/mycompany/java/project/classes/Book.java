@@ -25,7 +25,8 @@ public class Book implements BookInterface{
         this.setBookName(bookName).setPrice(price).setIsbn(isbn);
     }
     public Book(Book book) throws JBookException{
-        this.setBookName(book.getBookName())
+        this.setBookId(book.getBookId())
+                .setBookName(book.getBookName())
                 .setPrice(book.getPrice())
                 .setIsbn(book.getIsbn())
                 .setAuthorName(book.getAuthorName())
@@ -145,6 +146,6 @@ public class Book implements BookInterface{
 
     @Override
     public String toString(){
-        return "id = " + this.getBookId() + ", bookName = " + this.getBookName() + ", price = " + this.getPrice() + ", isbn = " + this.getIsbn() + ", authorName = " + this.getAuthorName() + ", imageUrl = " + this.getImageUrl() + ", remain = " + this.getRemain();
+        return "bookId = " + this.getBookId() + ", bookName = " + this.getBookName() + ", price = " + this.getPrice() + ", isbn = " + this.getIsbn() + ", authorName = " + this.getAuthorName() + ", imageUrl = " + this.getImageUrl() + ", remain = " + this.getRemain();
     }
 }

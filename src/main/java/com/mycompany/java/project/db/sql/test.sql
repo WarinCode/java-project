@@ -1,2 +1,1 @@
-# INSERT INTO sales_histoy VALUES(DEFAULT(id), 'item1', 10, 500.0, '2024-09-19-11-53');
-UPDATE users SET username = 'test2', password = '1234' WHERE user_id = 6
+INSERT INTO sales_history VALUES(DEFAULT(id), '2024-10-04 11:26:29.346409600', 'item1, item2, item3', 3, 1560, 0);

@@ -1,8 +1,8 @@
 package com.mycompany.java.project.classes;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.sql.Time;
+import java.util.Arrays;
 import com.mycompany.java.project.classes.utils.Validator;
 import com.mycompany.java.project.db.Database;
 import com.mycompany.java.project.interfaces.BookInterface;
@@ -17,6 +17,7 @@ public class OrderBook extends Book implements BookInterface, OrderInterface {
     private Time time = null;
     private String items = null;
     private double total;
+    private double money;
 
     public OrderBook(){
         super();
@@ -69,6 +70,53 @@ public class OrderBook extends Book implements BookInterface, OrderInterface {
     @Override
     public double getChange() {
         return this.change;
+    }
+
+    @Override
+    public double getMoney(){
+        return this.money;
+    }
+
+    @Override
+    public OrderBook setBookId(int bookId) throws JBookException{
+        super.setBookId(bookId);
+        return this.getInstance();
+    }
+
+    @Override
+    public OrderBook setBookName(String bookName) throws JBookException {
+        super.setBookName(bookName);
+        return this.getInstance();
+    }
+
+    @Override
+    public OrderBook setAuthorName(String authorName) throws JBookException {
+        super.setAuthorName(authorName);
+        return this.getInstance();
+    }
+
+    @Override
+    public OrderBook setPrice(double price) throws JBookException {
+        super.setPrice(price);
+        return this.getInstance();
+    }
+
+    @Override
+    public OrderBook setIsbn(String isbn) throws JBookException {
+        super.setIsbn(isbn);
+        return this.getInstance();
+    }
+
+    @Override
+    public OrderBook setImageUrl(String imageUrl) throws JBookException {
+        super.setImageUrl(imageUrl);
+        return this.getInstance();
+    }
+
+    @Override
+    public OrderBook setRemain(int remain) throws JBookException {
+        super.setRemain(remain);
+        return this.getInstance();
     }
 
     @Override
@@ -153,22 +201,22 @@ public class OrderBook extends Book implements BookInterface, OrderInterface {
     }
 
     @Override
+    public OrderBook setMoney(double money) throws JBookException {
+        if(money <= 0){
+            throw new JBookException("Invalid money!");
+        }
+
+        this.money = money;
+        return this.getInstance();
+    }
+
+    @Override
     public OrderBook getInstance(){
         return this;
     }
 
     @Override
     public String toString(){
-        return super.toString() + ", id = " + this.getId() + ", quantity = " + this.getQuantity() + ", change = " + this.getChange() + ", date = " + this.getDate() + ", time = " + this.getTime() + ", items = " + this.getItems() + ", total = " + this.getTotal();
-    }
-
-    public static void main(String []args){
-        try {
-            Database db = new Database();
-            System.out.println(db.getOrderBooks("SELECT * FROM sales_history"));
-
-        } catch(Exception e){
-            e.printStackTrace();
-        }
+        return super.toString() + ", quantity = " + this.getQuantity() + ", change = " + this.getChange() + ", date = " + this.getDate() + ", time = " + this.getTime() + ", items = " + this.getItems() + ", total = " + this.getTotal();
     }
 }
