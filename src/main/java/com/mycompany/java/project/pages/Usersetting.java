@@ -7,11 +7,12 @@ import com.mycompany.java.project.classes.utils.Validator;
 import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.interfaces.GetUser;
 import com.mycompany.java.project.interfaces.Callback;
+import com.mycompany.java.project.interfaces.InstanceProvider;
 import com.mycompany.java.project.db.Database;
 import static com.mycompany.java.project.classes.utils.Helper.getString;
 import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
 
-public class Usersetting extends javax.swing.JFrame implements PageHandling, GetUser {
+public class Usersetting extends javax.swing.JFrame implements PageHandling, GetUser, InstanceProvider<Usersetting> {
 
     public Usersetting(User user, Callback callback) {
         this.user = user;
@@ -272,6 +273,7 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {
         User user = null;
+
         try {
             user = new User()
                     .setUserId(this.getUserId())
@@ -287,10 +289,10 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
                 throw new SQLException("An error occurred. This user is already in use!");
             }
         } catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(this, "Please enter your age field.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getInstance(), "Please enter your age field.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         } catch(SQLException | JBookException e){
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -301,8 +303,8 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
             String query = "UPDATE users SET username = " + getSingleQuotes(user.getUsername())
                     + ", password = " + getSingleQuotes(user.getPassword())
                     + ", email = " + getSingleQuotes(user.getEmail())
-                    + ", gender = " + getSingleQuotes(user.getGender())
-                    + ", avatar = " + getSingleQuotes(user.getAvatar())
+                    + ", gender = " + (user.getGender() == null ? "DEFAULT(gender)" : getSingleQuotes(user.getGender()))
+                    + ", avatar = " + (user.getAvatar() == null ? "DEFAULT(avatar)" : getSingleQuotes(user.getAvatar()))
                     + ", age = " + user.getAge()
                     + " WHERE user_id = " + user.getUserId();
             db.update(query);
@@ -311,35 +313,14 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
                 if(this.callback != null){
                     this.callback.run();
                 }
-                JOptionPane.showMessageDialog(this, "Updated user settings", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this.getInstance(), "Updated user settings", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.destroy();
                 return;
             }
         } catch(SQLException e){
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-
-    private Callback callback = null;
-    private User user = null;
-    private javax.swing.JButton closeButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JButton updateButton;
 
     @Override
     public String getUsername() {
@@ -363,17 +344,17 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
 
     @Override
     public String getGender() {
-        return this.jTextField4.getText() == null ? null : this.jTextField4.getText();
+        return Validator.isEmptyField(this.jTextField4) ? null : this.jTextField4.getText();
     }
 
     @Override
     public String getAvatar() {
-        return this.jTextField3.getText() == null ? null : this.jTextField3.getText();
+        return Validator.isEmptyField(this.jTextField3) ? null : this.jTextField3.getText();
     }
 
     @Override
     public int getAge() throws NumberFormatException {
-        return Integer.parseInt(this.jTextField5.getText().isEmpty() ? "0" : this.jTextField5.getText());
+        return Integer.parseInt(Validator.isEmptyField(this.jTextField5) ? "0" : this.jTextField5.getText());
     }
 
     @Override
@@ -385,4 +366,29 @@ public class Usersetting extends javax.swing.JFrame implements PageHandling, Get
     public void destroy() {
         this.dispose();
     }
+
+    @Override
+    public Usersetting getInstance(){
+        return this;
+    }
+
+    private Callback callback = null;
+    private User user = null;
+    private javax.swing.JButton closeButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JButton updateButton;
 }

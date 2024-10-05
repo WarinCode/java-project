@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
+import com.mycompany.java.project.classes.customs.exceptions.LoginException;
 import com.mycompany.java.project.db.Database;
 import com.mycompany.java.project.db.Authorization;
 import com.mycompany.java.project.classes.User;
@@ -10,9 +11,10 @@ import com.mycompany.java.project.classes.Book;
 import com.mycompany.java.project.interfaces.GetUser;
 import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.interfaces.ResetForm;
+import com.mycompany.java.project.interfaces.InstanceProvider;
 import com.mycompany.java.project.classes.utils.Helper;
 
-public class Login extends javax.swing.JFrame implements PageHandling, GetUser, ResetForm {
+public class Login extends javax.swing.JFrame implements PageHandling, GetUser, ResetForm, InstanceProvider<Login> {
 
     public Login() {
         initComponents();
@@ -156,9 +158,9 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser, 
                 return;
             }
 
-            throw new JBookException("Login failed!");
-        } catch(SQLException | JBookException e){
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            throw new LoginException("Login failed!");
+        } catch(SQLException | JBookException | LoginException e){
+            JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
            this.reset();
         }
     }
@@ -218,6 +220,11 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser, 
         this.usernameOrPassword.setText("");
         this.password.setText("");
         this.usernameOrPassword.grabFocus();
+    }
+
+    @Override
+    public Login getInstance(){
+        return this;
     }
 
     private javax.swing.JLabel jLabel1;

@@ -2,15 +2,17 @@ package com.mycompany.java.project.pages;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
+import com.mycompany.java.project.classes.customs.exceptions.RegistrationException;
 import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.interfaces.ResetForm;
 import com.mycompany.java.project.interfaces.GetUser;
+import com.mycompany.java.project.interfaces.InstanceProvider;
 import com.mycompany.java.project.db.Database;
 import com.mycompany.java.project.db.Registration;
 import com.mycompany.java.project.classes.User;
 import com.mycompany.java.project.classes.utils.Helper;
 
-public class Register extends javax.swing.JFrame implements PageHandling, GetUser, ResetForm {
+public class Register extends javax.swing.JFrame implements PageHandling, GetUser, ResetForm, InstanceProvider<Register> {
 
     public Register() {
         initComponents();
@@ -181,9 +183,9 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
                 return;
             }
 
-            throw new JBookException("Something went wrong!");
-        } catch(SQLException | JBookException e){
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            throw new RegistrationException("Something went wrong!");
+        } catch(SQLException | JBookException | RegistrationException e){
+            JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             this.reset();
         }
     }
@@ -246,6 +248,11 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
         this.jPasswordField1.setText("");
         this.jTextField1.setText("");
         this.RegisterUsernameField.grabFocus();
+    }
+
+    @Override
+    public Register getInstance(){
+        return this;
     }
 
     private javax.swing.JButton RegisterBackToLoginButton;

@@ -39,6 +39,13 @@ public class Database implements SQLQueries {
         }
     }
 
+    public Database(ConnectionInformation ci){
+        this.ci = ci;
+        if(this.ci == null){
+            System.exit(1);
+        }
+    }
+
     private void connect() throws SQLException {
         this.connection = DriverManager.getConnection(this.ci.getUrl(), this.ci.getUsername(), this.ci.getPassword());
         this.statement = this.connection.createStatement();
@@ -56,12 +63,37 @@ public class Database implements SQLQueries {
         }
     }
 
+    @Override
+    public void select(String query) throws SQLException {
+        this.rs = this.statement.executeQuery(query);
+    }
+
+    @Override
+    public void insert(String query) throws SQLException {
+        this.execute(query);
+    }
+
+    @Override
+    public void update(String query) throws SQLException {
+        this.execute(query);
+    }
+
+    @Override
+    public void delete(String query) throws SQLException {
+        this.execute(query);
+    }
+
+    private void execute(String sql) throws SQLException {
+        this.connect();
+        this.isChanged = this.statement.executeUpdate(sql) == 1;
+        this.disconnect();
+    }
+
     public ArrayList<Book> getBooks(String query) throws SQLException, JBookException {
         ArrayList<Book> books = new ArrayList<Book>();
 
         this.connect();
-        this.rs = this.statement.executeQuery(query);
-
+        this.select(query);
         while(this.rs.next()){
             Book book = new Book()
                     .setBookId(this.rs.getInt("book_id"))
@@ -84,8 +116,7 @@ public class Database implements SQLQueries {
         Book book = null;
 
         this.connect();
-        this.rs = this.statement.executeQuery(query);
-
+        this.select(query);
         while(this.rs.next()){
             book = new Book()
                     .setBookId(this.rs.getInt("book_id"))
@@ -107,7 +138,7 @@ public class Database implements SQLQueries {
         User user = null;
 
         this.connect();
-        this.rs = this.statement.executeQuery(query);
+        this.select(query);
         while(this.rs.next()){
             user = new User()
                     .setUserId(this.rs.getInt("user_id"))
@@ -118,6 +149,7 @@ public class Database implements SQLQueries {
                     .setAvatar(this.rs.getString("avatar"))
                     .setAge(this.rs.getInt("age"))
                     .getInstance();
+            break;
         }
 
         this.disconnect();
@@ -128,7 +160,7 @@ public class Database implements SQLQueries {
         ArrayList<OrderBook> orderBooks = new ArrayList<OrderBook>();
 
         this.connect();
-        this.rs = this.statement.executeQuery(query);
+        this.select(query);
         while(this.rs.next()){
             OrderBook orderBook = new OrderBook()
                     .setId(this.rs.getInt("id"))
@@ -152,7 +184,7 @@ public class Database implements SQLQueries {
         OrderBook orderBook = null;
 
         this.connect();
-        this.rs = this.statement.executeQuery(query);
+        this.select(query);
         while(this.rs.next()){
             orderBook = new OrderBook()
                     .setId(this.rs.getInt("id"))
@@ -170,26 +202,5 @@ public class Database implements SQLQueries {
 
         this.disconnect();
         return orderBook;
-    }
-
-    private void execute(String sql) throws SQLException {
-        this.connect();
-        this.isChanged = this.statement.executeUpdate(sql) == 1;
-        this.disconnect();
-    }
-
-    @Override
-    public void insert(String query) throws SQLException {
-        this.execute(query);
-    }
-
-    @Override
-    public void update(String query) throws SQLException {
-        this.execute(query);
-    }
-
-    @Override
-    public void delete(String query) throws SQLException {
-        this.execute(query);
     }
 }

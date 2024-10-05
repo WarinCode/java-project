@@ -76,7 +76,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
     }
 
     private void showUserInfo(){
-        ImageConstants.addImage(this.user.getAvatar(), this.userAvatar);
+        ImageConstants.addImage(this.user.getAvatar(), this.userAvatar, ImageConstants.DEFAULT_USER_AVATAR);
         this.username.setText("Username: " + this.user.getUsername());
         this.email.setText("Email: " + this.user.getEmail());
     }
@@ -105,7 +105,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         }
 
         for(int j = 0; j < bookCount; j++){
-            ImageConstants.addImage(this.bookSets.get(this.getCurrentIndex()).get(j).getImageUrl(), this.panels[j]);
+            ImageConstants.addImage(this.bookSets.get(this.getCurrentIndex()).get(j).getImageUrl(), this.panels[j], ImageConstants.DEFAULT_IMAGE_NOT_AVALIBLE);
             this.panels[j].add(new JLabel(this.bookSets.get(this.getCurrentIndex()).get(j).getBookName(), SwingConstants.CENTER), BorderLayout.SOUTH);
 
             int k = j;
@@ -132,7 +132,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
             }
 
             this.panels[v].removeAll();
-            ImageConstants.addImage(ImageConstants.DEFAULT_NO_IMAGE, this.panels[v]);
+            ImageConstants.addImage(ImageConstants.DEFAULT_NO_IMAGE, this.panels[v], ImageConstants.DEFAULT_NO_IMAGE);
             this.panels[v].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -662,7 +662,6 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
     }
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {
-
         if(Authorization.isLoggedIn){
             EditBook editBook = new EditBook();
         } else {
@@ -715,10 +714,12 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
             Authorization.isLoggedIn = true;
             Database db = new Database();
             User user = db.getUser("SELECT * FROM users WHERE username = 'root'");
+            Authorization.authorizedUserId = user.getUserId();
             ArrayList<Book> books = db.getBooks("SELECT * FROM books");
             Home home = new Home(user, books);
         } catch(JBookException | SQLException e){
             e.printStackTrace();
+            Login login = new Login();
         }
     }
 

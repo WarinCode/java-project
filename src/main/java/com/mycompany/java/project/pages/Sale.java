@@ -39,7 +39,7 @@ public class Sale extends javax.swing.JFrame implements PageHandling, InstancePr
         this.comboBox.addItemListener((ItemEvent e) -> {
             this.bookImage.removeAll();
             this.remain.setText("Remain: " + Integer.toString(this.books.get(this.comboBox.getSelectedIndex()).getRemain()));
-            ImageConstants.addImage(this.books.get(this.comboBox.getSelectedIndex()).getImageUrl(), this.bookImage);
+            ImageConstants.addImage(this.books.get(this.comboBox.getSelectedIndex()).getImageUrl(), this.bookImage, ImageConstants.DEFAULT_IMAGE_NOT_AVALIBLE);
             this.bookImage.setToolTipText(this.books.get(this.comboBox.getSelectedIndex()).getBookName() + " $" + this.books.get(this.comboBox.getSelectedIndex()).getPrice());
         });
 
@@ -56,7 +56,7 @@ public class Sale extends javax.swing.JFrame implements PageHandling, InstancePr
         this.setQuantity();
         this.comboBox.setSelectedIndex(0);
         this.setRemain();
-        ImageConstants.addImage(this.books.get(0).getImageUrl(), this.bookImage);
+        ImageConstants.addImage(this.books.get(0).getImageUrl(), this.bookImage, ImageConstants.DEFAULT_IMAGE_NOT_AVALIBLE);
         this.display();
     }
 

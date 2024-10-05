@@ -1,7 +1,9 @@
 package com.mycompany.java.project.classes.customs.exceptions;
 
 public class JBookException extends Exception {
-    public JBookException(){}
+    public JBookException(){
+        super();
+    }
     public JBookException(String message){
         super(message);
     }

@@ -3,6 +3,7 @@ import java.sql.Statement;
 import java.sql.SQLException;
 
 public interface SQLQueries {
+    public void select(String query) throws SQLException;
     public void insert(String query) throws SQLException;
     public void update(String query) throws SQLException;
     public void delete(String query) throws SQLException;
