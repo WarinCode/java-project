@@ -11,18 +11,9 @@ import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
 import com.mycompany.java.project.interfaces.ImageConstants;
 import com.mycompany.java.project.interfaces.Callback;
+import com.mycompany.java.project.interfaces.InstanceProvider;
 
-public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook, ResetForm {
-
-    public AddBook() {
-        initComponents();
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        this.setTitle("Add book page");
-        this.setLocationRelativeTo(null);
-        this.reset();
-        this.display();
-    }
-
+public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook, ResetForm, InstanceProvider {
     public AddBook(Callback callback) {
         this.callback = callback;
         initComponents();
@@ -222,8 +213,8 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
             if(Validator.isExistsBook(book)){
                 throw new SQLException("An error occurred. This book already exists in the database!");
             }
-        } catch(SQLException | JBookException | NumberFormatException e){
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch(SQLException | JBookException | NumberFormatException | NullPointerException e){
+            JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             this.reset();
             return;
         }
@@ -245,7 +236,7 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
                 if(this.callback != null){
                     this.callback.run();
                 }
-                JOptionPane.showMessageDialog(this, "Book added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this.getInstance(), "Book added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.reset();
                 this.destroy();
                 return;
@@ -253,7 +244,7 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
 
             throw new SQLException("Something went wrong!");
         } catch(SQLException e){
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             this.reset();
         }
     }
@@ -284,8 +275,8 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
     }
 
     @Override
-    public double getPrice() throws NumberFormatException {
-        return Integer.parseInt(this.price.getText());
+    public double getPrice() throws NumberFormatException, NullPointerException {
+        return Double.parseDouble(this.price.getText());
     }
 
     @Override
@@ -312,6 +303,11 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
         this.remain.setText("50");
         this.author.setText("");
         this.bookName.grabFocus();
+    }
+
+    @Override
+    public AddBook getInstance(){
+        return this;
     }
 
     private Callback callback = null;

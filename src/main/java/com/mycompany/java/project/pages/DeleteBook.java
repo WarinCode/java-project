@@ -5,22 +5,13 @@ import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.interfaces.ResetForm;
 import com.mycompany.java.project.interfaces.Callback;
+import com.mycompany.java.project.interfaces.InstanceProvider;
 import com.mycompany.java.project.db.Database;
 import com.mycompany.java.project.classes.utils.Validator;
 import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
 import com.mycompany.java.project.classes.Book;
 
-public class DeleteBook extends javax.swing.JFrame implements PageHandling, ResetForm {
-
-    public DeleteBook() {
-        initComponents();
-        this.setTitle("Delete book page");
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        this.reset();
-        this.display();
-    }
+public class DeleteBook extends javax.swing.JFrame implements PageHandling, ResetForm, InstanceProvider<DeleteBook> {
     public DeleteBook(Callback callback) {
         this.callback = callback;
         initComponents();
@@ -134,6 +125,11 @@ public class DeleteBook extends javax.swing.JFrame implements PageHandling, Rese
             Database db = new Database();
 
             if(Validator.isExistsBook(book)){
+                int result = JOptionPane.showConfirmDialog(this.getInstance(), "Are you sure you want to delete this book?", "Delete this book", JOptionPane.YES_NO_OPTION);
+                if(result == 1){
+                    return;
+                }
+
                 String query = "DELETE FROM books WHERE book_name = " + getSingleQuotes(book.getBookName()) + " OR isbn = " + getSingleQuotes(book.getIsbn());
 //                System.out.println(query);
                 db.delete(query);
@@ -142,7 +138,7 @@ public class DeleteBook extends javax.swing.JFrame implements PageHandling, Rese
                     if(this.callback != null){
                         this.callback.run();
                     }
-                    JOptionPane.showMessageDialog(this, "Deleted book successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this.getInstance(), "Deleted book successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
                     this.reset();
                     this.destroy();
                     return;
@@ -151,7 +147,7 @@ public class DeleteBook extends javax.swing.JFrame implements PageHandling, Rese
 
             throw new SQLException("An error occurred. This book was not found in the database!");
         } catch(SQLException | JBookException e){
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             this.reset();
         }
     }
@@ -174,6 +170,11 @@ public class DeleteBook extends javax.swing.JFrame implements PageHandling, Rese
     public void reset(){
         this.jTextField1.setText("");
         this.jTextField1.grabFocus();
+    }
+
+    @Override
+    public DeleteBook getInstance(){
+        return this;
     }
 
     private Callback callback = null;

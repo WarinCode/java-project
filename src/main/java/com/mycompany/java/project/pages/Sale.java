@@ -23,7 +23,6 @@ import com.mycompany.java.project.interfaces.InstanceProvider;
 import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
 
 public class Sale extends javax.swing.JFrame implements PageHandling, InstanceProvider<Sale> {
-
     public Sale(ArrayList<Book> books, Callback callback) {
         this.books = books;
         this.callback = callback;
@@ -279,7 +278,7 @@ public class Sale extends javax.swing.JFrame implements PageHandling, InstancePr
             this.setRemain();
 
         } catch(JBookException | NumberFormatException e){
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             this.setQuantity();
         }
     }

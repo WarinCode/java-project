@@ -6,13 +6,13 @@ import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.interfaces.Callback;
 import com.mycompany.java.project.interfaces.GetBook;
 import com.mycompany.java.project.interfaces.ResetForm;
+import com.mycompany.java.project.interfaces.InstanceProvider;
 import com.mycompany.java.project.classes.utils.Validator;
 import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.db.Database;
 
-public class EditBook extends javax.swing.JFrame implements PageHandling, GetBook, ResetForm {
-
+public class EditBook extends javax.swing.JFrame implements PageHandling, GetBook, ResetForm, InstanceProvider<EditBook> {
     public EditBook() {
         initComponents();
         this.setTitle("Edit book page");
@@ -376,6 +376,7 @@ public class EditBook extends javax.swing.JFrame implements PageHandling, GetBoo
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {
         Book book = null;
+
         try {
             book = new Book();
             book.setBookName(this.getBookName())
@@ -390,7 +391,7 @@ public class EditBook extends javax.swing.JFrame implements PageHandling, GetBoo
                 throw new SQLException("An error occurred. This book already exists in the database!");
             }
         } catch(SQLException | JBookException | NumberFormatException e){
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             this.reset();
             return;
         }
@@ -403,7 +404,7 @@ public class EditBook extends javax.swing.JFrame implements PageHandling, GetBoo
                     + ", author_name = " + (book.getAuthorName() == null ? "DEFAULT(author_name)" : getSingleQuotes(book.getAuthorName()))
                     + ", image_url = " + getSingleQuotes(book.getImageUrl())
                     + ", remain = " + book.getRemain()
-                    + " WHERE book_id = " + this.getBookId();
+                    + " WHERE book_id = " + book.getBookId();
 //             System.out.println(query);
             db.update(query);
 
@@ -411,14 +412,14 @@ public class EditBook extends javax.swing.JFrame implements PageHandling, GetBoo
                 if(this.callback != null){
                     this.callback.run();
                 }
-                JOptionPane.showMessageDialog(this, "Book updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this.getInstance(), "Book updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.destroy();
                 return;
             }
 
             throw new SQLException("Something went wrong!");
         } catch (SQLException e){
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             this.reset();
         }
     }
@@ -468,6 +469,11 @@ public class EditBook extends javax.swing.JFrame implements PageHandling, GetBoo
     @Override
     public int getRemain() throws NumberFormatException {
         return Integer.parseInt(this.remain.getText());
+    }
+
+    @Override
+    public EditBook getInstance(){
+        return this;
     }
 
     @Override

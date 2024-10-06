@@ -17,7 +17,7 @@
 
 ---
 
-### ฟีเจอรืของโปรแกรม
+### ฟีเจอร์ของโปรแกรม
 1. รบบ Login, Logout, Register, User settings
 2. การเชื่อมต่อกับฐานข้อมูล MYSQL จริงๆเพื่อนำไปใช้งาน
 3. การเพิ่มข้อมูลสินค้า
@@ -43,26 +43,43 @@
 ![](src/main/java/com/mycompany/java/project/assets/imgs/img1.jpg)
 1. หน้า Login
 
+
 ![](src/main/java/com/mycompany/java/project/assets/imgs/img2.jpg)
 2. หน้า Register
+
 
 ![](src/main/java/com/mycompany/java/project/assets/imgs/img3.jpg)
 3. ใช้บัญชีผู้ใช้งาน login เข้าโปรแกรม (ต้องมีข้อมูลผู้ใช้งานอยู่ในฐานข้อมูลไม่งั้นจะไม่สามารถ login เข้าใช้งานได้)
 
+
 ![](src/main/java/com/mycompany/java/project/assets/imgs/img4.jpg)
 4. หน้า Home หรือ หน้าโปรแกรมหลัก จะมีข้อมูลหนังสือและปุ่มเพิ่อกดใช้งาน
 
+
 ![](src/main/java/com/mycompany/java/project/assets/imgs/img5.jpg)
-5. สามารถกดเลื่อน page ไปยังหน้าถัดๆไปได้หรือถอยหลังเพื่อดูข้อมูลหน้งสือเล่มอื่นๆ
+5. สามารถกดดูพรีวิวหนังสือได้ซึ่งจะแสดงข้อมูลหนังสือเล่มนั้นอย่างระเอียด โดยจะมีปุ๋ม edit, delete และ close ด้วย
+
 
 ![](src/main/java/com/mycompany/java/project/assets/imgs/img6.jpg)
-6. สามารถกดดูพรีวิวหนังสือได้ซึ่งจะแสดงข้อมูลหนังสือเล่มนั้นอย่างระเอียด โดยจะมีปุ๋ม edit, delete และ close ด้วย
+6. ถ้ากดปุ่ม edit จะแสดงหน้าต่างแบบฟอร์มขึ้นมาให้แก้ไข
+
 
 ![](src/main/java/com/mycompany/java/project/assets/imgs/img7.jpg)
-7. ถ้ากดปุ่ม edit จะแสดงหน้าต่างแบบฟอร์มขึ้นมาให้แก้ไข
+7. ถ้ากดปุ่ม delete จะแสดงข้อความถามผู้ใช้งานให้แน่ใจว่าจะลบหนังสือนี้ทิ้งจริงๆ
+
 
 ![](src/main/java/com/mycompany/java/project/assets/imgs/img8.jpg)
-8. ถ้ากดปุ่ม delete จะแสดงข้อความถามผู้ใช้งานให้แน่ใจว่าจะลบหนังสือนี้ทิ้งจริงๆ
+8. สามารถกดเลื่อน page ไปยังหน้าถัดๆไปได้หรือถอยหลังเพื่อดูข้อมูลหน้งสือเล่มอื่นๆได้
+
 
 ![](src/main/java/com/mycompany/java/project/assets/imgs/img9.jpg)
-9. ถ้ากดปุ่ม add ตรงส่วน sidebar จะแสดงแบบฟอร์มให้กรอกข้อมูลแล้วถ้ากดปุ่ม add ตรงหน้าแบบฟอร์มจะเพิ่มข้อมูลหน้งสือเล่มใหม่ลงฐานข้อมูล
+![](src/main/java/com/mycompany/java/project/assets/imgs/img10.jpg)
+9. เมื่อกดปุ่ม add ตรงส่วน sidebar จะแสดงแบบฟอร์มให้กรอกข้อมูลแล้วถ้ากดปุ่ม add ตรงหน้าแบบฟอร์มจะเพิ่มข้อมูลหน้งสือเล่มใหม่ลงฐานข้อมูล
+
+
+![](src/main/java/com/mycompany/java/project/assets/imgs/img11.jpg)
+10. เมื่อกดปุ่ม delete ตรงส่วน sidebar จะแสดงหน้าต่างแล้วให้กรอกชื่อหนังสือหรือรหัส isbn ถ้ากรอกแล้วเจอข้อมูลจะแสดงข้อความว่าต้องการลบหรือไม่
+
+
+![](src/main/java/com/mycompany/java/project/assets/imgs/img12.jpg)
+11. เมื่อกดปุ่ม user settings ตรงส่วน sidebar จะแสดงข้อมูลผู้ใช้งานให้ขึ้นมาดูแล้วเราสามารถกดแก้ไขข้อมูลได้

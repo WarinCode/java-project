@@ -16,7 +16,6 @@ import com.mycompany.java.project.db.Database;
 import com.mycompany.java.project.db.Authorization;
 
 public class Home extends javax.swing.JFrame implements PageHandling, InstanceProvider<Home> {
-
     public Home(User user, ArrayList<Book> books) {
         this.user = user;
         this.books = books;
@@ -287,7 +286,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         userSettingButton.setBackground(new java.awt.Color(0, 0, 0));
         userSettingButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         userSettingButton.setForeground(new java.awt.Color(255, 255, 255));
-        userSettingButton.setText("User setting");
+        userSettingButton.setText("User settings");
         userSettingButton.setToolTipText("");
         userSettingButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         userSettingButton.setPreferredSize(new java.awt.Dimension(200, 200));

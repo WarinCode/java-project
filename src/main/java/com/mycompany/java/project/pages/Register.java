@@ -13,7 +13,6 @@ import com.mycompany.java.project.classes.User;
 import com.mycompany.java.project.classes.utils.Helper;
 
 public class Register extends javax.swing.JFrame implements PageHandling, GetUser, ResetForm, InstanceProvider<Register> {
-
     public Register() {
         initComponents();
         this.setTitle("Register page");
@@ -176,7 +175,7 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
             Registration.createUser(user);
 
             if(Registration.isAccountCreated){
-                JOptionPane.showMessageDialog(this, "Account created successfully, return to login page.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this.getInstance(), "Account created successfully, return to login page.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.reset();
                 this.destroy();
                 Login login = new Login();

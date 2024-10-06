@@ -15,7 +15,6 @@ import com.mycompany.java.project.interfaces.InstanceProvider;
 import com.mycompany.java.project.classes.utils.Helper;
 
 public class Login extends javax.swing.JFrame implements PageHandling, GetUser, ResetForm, InstanceProvider<Login> {
-
     public Login() {
         initComponents();
         this.setTitle("Login page");

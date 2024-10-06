@@ -13,7 +13,6 @@ import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
 
 public class Preview extends javax.swing.JDialog implements PageHandling, InstanceProvider<Preview> {
-
     public Preview(Book book, Callback callback) {
         super(JOptionPane.getRootFrame(), true);
         this.book = book;

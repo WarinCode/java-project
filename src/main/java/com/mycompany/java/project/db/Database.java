@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.github.cdimascio.dotenv.DotenvException;
 import com.mycompany.java.project.db.ConnectionInformation;
@@ -104,7 +103,6 @@ public class Database implements SQLQueries {
                     .setImageUrl(this.rs.getString("image_url"))
                     .setRemain(this.rs.getInt("remain"))
                     .getInstance();
-
             books.add(book);
         }
 
@@ -172,7 +170,6 @@ public class Database implements SQLQueries {
                     .setTotal(this.rs.getDouble("total"))
                     .setChange(this.rs.getDouble("change"))
                     .getInstance();
-
             orderBooks.add(orderBook);
         }
 
@@ -196,7 +193,6 @@ public class Database implements SQLQueries {
                     .setTotal(this.rs.getDouble("total"))
                     .setChange(this.rs.getDouble("change"))
                     .getInstance();
-
             break;
         }
 

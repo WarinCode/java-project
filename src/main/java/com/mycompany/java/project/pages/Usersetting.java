@@ -13,7 +13,6 @@ import static com.mycompany.java.project.classes.utils.Helper.getString;
 import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
 
 public class Usersetting extends javax.swing.JFrame implements PageHandling, GetUser, InstanceProvider<Usersetting> {
-
     public Usersetting(User user, Callback callback) {
         this.user = user;
         this.callback = callback;
