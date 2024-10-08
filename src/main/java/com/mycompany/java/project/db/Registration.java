@@ -29,7 +29,6 @@ public final class Registration {
         isAccountCreated = db.isChanged;
 
         if(isAccountCreated){
-            System.out.println("User account created successfully.");
             return;
         }
 

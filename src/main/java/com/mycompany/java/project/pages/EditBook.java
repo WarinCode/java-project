@@ -1,5 +1,6 @@
 package com.mycompany.java.project.pages;
 import javax.swing.*;
+import java.util.ArrayList;
 import java.sql.SQLException;
 import com.mycompany.java.project.classes.Book;
 import com.mycompany.java.project.interfaces.PageHandling;
@@ -7,19 +8,17 @@ import com.mycompany.java.project.interfaces.Callback;
 import com.mycompany.java.project.interfaces.GetBook;
 import com.mycompany.java.project.interfaces.ResetForm;
 import com.mycompany.java.project.interfaces.InstanceProvider;
+import com.mycompany.java.project.interfaces.Callback;
 import com.mycompany.java.project.classes.utils.Validator;
 import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.db.Database;
 
 public class EditBook extends javax.swing.JFrame implements PageHandling, GetBook, ResetForm, InstanceProvider<EditBook> {
-    public EditBook() {
-        initComponents();
-        this.setTitle("Edit book page");
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        this.display();
+    public EditBook(ArrayList<Book> books, Callback callback) {
+        this.books = books;
+        this.callback = callback;
+        Search search = new Search(books, callback);
     }
 
     public EditBook(Book book, Callback callback) {
@@ -27,15 +26,13 @@ public class EditBook extends javax.swing.JFrame implements PageHandling, GetBoo
         this.callback = callback;
 
         initComponents();
-        this.setTitle("Edit book page");
-        this.setResizable(false);
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.reset();
         this.display();
     }
 
     @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel5 = new javax.swing.JLabel();
@@ -80,7 +77,9 @@ public class EditBook extends javax.swing.JFrame implements PageHandling, GetBoo
             }
         });
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Edit book page");
+        setResizable(false);
         setSize(new java.awt.Dimension(300, 470));
 
         GenderField.setBackground(new java.awt.Color(204, 204, 204));
@@ -356,25 +355,36 @@ public class EditBook extends javax.swing.JFrame implements PageHandling, GetBoo
         );
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void imageUrlActionPerformed(java.awt.event.ActionEvent evt) {}
+    private void imageUrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageUrlActionPerformed
+    }//GEN-LAST:event_imageUrlActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {}
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
 
-    private void remainActionPerformed(java.awt.event.ActionEvent evt) {}
+    }//GEN-LAST:event_jTextField3ActionPerformed
 
-    private void priceActionPerformed(java.awt.event.ActionEvent evt) {}
+    private void remainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remainActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {}
+    }//GEN-LAST:event_remainActionPerformed
 
-    private void bookNameActionPerformed(java.awt.event.ActionEvent evt) {}
+    private void priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceActionPerformed
 
-    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    }//GEN-LAST:event_priceActionPerformed
+
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+
+    }//GEN-LAST:event_jTextField6ActionPerformed
+
+    private void bookNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookNameActionPerformed
+
+    }//GEN-LAST:event_bookNameActionPerformed
+
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         this.destroy();
-    }
+    }//GEN-LAST:event_closeButtonActionPerformed
 
-    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         Book book = null;
 
         try {
@@ -422,9 +432,11 @@ public class EditBook extends javax.swing.JFrame implements PageHandling, GetBoo
             JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             this.reset();
         }
-    }
+    }//GEN-LAST:event_editButtonActionPerformed
 
-    private void authorNameActionPerformed(java.awt.event.ActionEvent evt) {}
+    private void authorNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorNameActionPerformed
+
+    }//GEN-LAST:event_authorNameActionPerformed
 
     @Override
     public void display() {
@@ -487,8 +499,10 @@ public class EditBook extends javax.swing.JFrame implements PageHandling, GetBoo
         this.bookName.grabFocus();
     }
 
+    private ArrayList<Book> books=  new ArrayList<Book>();
     private Book book = null;
     private Callback callback = null;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AvatarField;
     private javax.swing.JPanel GenderField;
     private javax.swing.JPanel PasswordField;
@@ -513,4 +527,5 @@ public class EditBook extends javax.swing.JFrame implements PageHandling, GetBoo
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField price;
     private javax.swing.JTextField remain;
+    // End of variables declaration//GEN-END:variables
 }

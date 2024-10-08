@@ -16,15 +16,15 @@ import com.mycompany.java.project.interfaces.InstanceProvider;
 public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook, ResetForm, InstanceProvider {
     public AddBook(Callback callback) {
         this.callback = callback;
+
         initComponents();
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        this.setTitle("Add book page");
         this.setLocationRelativeTo(null);
         this.reset();
         this.display();
     }
 
     @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jTextField3 = new javax.swing.JTextField();
@@ -47,7 +47,8 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
 
         jTextField3.setBackground(new java.awt.Color(183, 183, 183));
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Add book page");
         setBackground(new java.awt.Color(217, 217, 217));
         setResizable(false);
 
@@ -61,17 +62,17 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(125, 125, 125)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(128, 128, 128))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
 
         jLabel2.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
@@ -191,13 +192,13 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
         );
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         this.destroy();
-    }
+    }//GEN-LAST:event_closeButtonActionPerformed
 
-    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         Book book = null;
 
         try {
@@ -247,7 +248,7 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
             JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             this.reset();
         }
-    }
+    }//GEN-LAST:event_addButtonActionPerformed
 
     @Override
     public void display() {
@@ -311,6 +312,7 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
     }
 
     private Callback callback = null;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JTextField author;
     private javax.swing.JTextField bookName;
@@ -328,4 +330,5 @@ public class AddBook extends javax.swing.JFrame implements PageHandling, GetBook
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField price;
     private javax.swing.JTextField remain;
+    // End of variables declaration//GEN-END:variables
 }

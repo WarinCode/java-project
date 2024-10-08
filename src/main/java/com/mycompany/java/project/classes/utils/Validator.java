@@ -1,4 +1,5 @@
 package com.mycompany.java.project.classes.utils;
+import java.util.ArrayList;
 import java.sql.SQLException;
 import javax.swing.JTextField;
 import com.mycompany.java.project.classes.User;
@@ -51,5 +52,22 @@ public final class Validator {
         if(book.getRemain() <= 0){
             throw new JBookException("An error occurred. The number of books selected exceeds the number of items remaining!");
         }
+    }
+
+    public static boolean isValidPassword(String password) {
+        return isValidString(password) && password.length() >= 8;
+    }
+
+    public static boolean isValidPassword(User user){
+        return isValidPassword(user.getPassword());
+    }
+
+    public static boolean isDuplicateOrderBook(ArrayList<OrderBook> orderBooks, String bookName){
+        for(Book orderBook : orderBooks){
+            if(orderBook.getBookName().toLowerCase().equals(bookName.toLowerCase())){
+                return true;
+            }
+        }
+        return false;
     }
 }

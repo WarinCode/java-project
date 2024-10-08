@@ -23,7 +23,6 @@ public final class Authorization {
 
         if(isValidUser){
             authorizedUserId = user.getUserId();
-            System.out.println("The user has successfully logged in.");
             isLoggedIn = true;
         }
 

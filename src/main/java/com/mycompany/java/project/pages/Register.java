@@ -3,6 +3,7 @@ import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.classes.customs.exceptions.RegistrationException;
+import com.mycompany.java.project.classes.utils.Validator;
 import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.interfaces.ResetForm;
 import com.mycompany.java.project.interfaces.GetUser;
@@ -15,49 +16,50 @@ import com.mycompany.java.project.classes.utils.Helper;
 public class Register extends javax.swing.JFrame implements PageHandling, GetUser, ResetForm, InstanceProvider<Register> {
     public Register() {
         initComponents();
-        this.setTitle("Register page");
-        this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.reset();
         this.display();
     }
 
     @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         RegisterUsername = new javax.swing.JLabel();
-        RegisterUsernameField = new javax.swing.JTextField();
-        RegisterBackToLoginButton = new javax.swing.JButton();
+        username = new javax.swing.JTextField();
+        back = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        RegisterLoginButton = new javax.swing.JButton();
+        register = new javax.swing.JButton();
         RegisterPossword = new javax.swing.JLabel();
         RegisterEmail = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        email = new javax.swing.JTextField();
+        password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Register page");
         setBackground(new java.awt.Color(204, 204, 204));
+        setResizable(false);
         setSize(new java.awt.Dimension(432, 313));
 
         RegisterUsername.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         RegisterUsername.setText("Username:");
 
-        RegisterUsernameField.setBackground(new java.awt.Color(183, 183, 183));
-        RegisterUsernameField.addActionListener(new java.awt.event.ActionListener() {
+        username.setBackground(new java.awt.Color(183, 183, 183));
+        username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegisterUsernameFieldActionPerformed(evt);
+                usernameActionPerformed(evt);
             }
         });
 
-        RegisterBackToLoginButton.setBackground(new java.awt.Color(217, 217, 217));
-        RegisterBackToLoginButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        RegisterBackToLoginButton.setText("Back to Login page");
-        RegisterBackToLoginButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        RegisterBackToLoginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        RegisterBackToLoginButton.addActionListener(new java.awt.event.ActionListener() {
+        back.setBackground(new java.awt.Color(217, 217, 217));
+        back.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        back.setText("Back to Login page");
+        back.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        back.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegisterBackToLoginButtonActionPerformed(evt);
+                backActionPerformed(evt);
             }
         });
 
@@ -73,26 +75,26 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(109, Short.MAX_VALUE)
+                .addContainerGap(116, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75))
+                .addGap(68, 68, 68))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(14, 14, 14)
                 .addComponent(jLabel4)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        RegisterLoginButton.setBackground(new java.awt.Color(0, 0, 0));
-        RegisterLoginButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        RegisterLoginButton.setForeground(new java.awt.Color(255, 255, 255));
-        RegisterLoginButton.setText("Register");
-        RegisterLoginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        RegisterLoginButton.addActionListener(new java.awt.event.ActionListener() {
+        register.setBackground(new java.awt.Color(0, 0, 0));
+        register.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        register.setForeground(new java.awt.Color(255, 255, 255));
+        register.setText("Register");
+        register.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        register.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegisterLoginButtonActionPerformed(evt);
+                registerActionPerformed(evt);
             }
         });
 
@@ -102,14 +104,14 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
         RegisterEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         RegisterEmail.setText("Email:");
 
-        jTextField1.setBackground(new java.awt.Color(183, 183, 183));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        email.setBackground(new java.awt.Color(183, 183, 183));
+        email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                emailActionPerformed(evt);
             }
         });
 
-        jPasswordField1.setBackground(new java.awt.Color(183, 183, 183));
+        password.setBackground(new java.awt.Color(183, 183, 183));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,15 +127,15 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
                         .addComponent(RegisterPossword)))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(RegisterUsernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                    .addComponent(jTextField1)
-                    .addComponent(jPasswordField1))
+                    .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                    .addComponent(email)
+                    .addComponent(password))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RegisterBackToLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RegisterLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(register, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(112, 112, 112))
         );
         layout.setVerticalGroup(
@@ -146,36 +148,41 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
                         .addComponent(RegisterUsername))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(RegisterUsernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(RegisterEmail))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RegisterPossword))
                 .addGap(18, 18, 18)
-                .addComponent(RegisterLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RegisterPossword)
+                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(register, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(RegisterBackToLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void RegisterUsernameFieldActionPerformed(java.awt.event.ActionEvent evt) {}
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
+    }//GEN-LAST:event_usernameActionPerformed
 
-    private void RegisterLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
         try {
             Database db = new Database();
             User user = new User(this.getUsername(), this.getPassword(), this.getEmail());
-            System.out.println(user);
-            Registration.createUser(user);
+//            System.out.println(user);
 
+            if(!Validator.isValidPassword(user)){
+                throw new JBookException("Password length must be greater than or equal to 8!");
+            }
+
+            Registration.createUser(user);
             if(Registration.isAccountCreated){
-                JOptionPane.showMessageDialog(this.getInstance(), "Account created successfully, return to login page.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this.getInstance(), "Account created successfully return to login page", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.reset();
                 this.destroy();
                 Login login = new Login();
@@ -187,18 +194,20 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
             JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             this.reset();
         }
-    }
+    }//GEN-LAST:event_registerActionPerformed
 
-    private void RegisterBackToLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         this.destroy();
         Login login = new Login();
-    }
+    }//GEN-LAST:event_backActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {}
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
+
+    }//GEN-LAST:event_emailActionPerformed
 
     @Override
     public String getUsername() {
-        return this.RegisterUsernameField.getText();
+        return this.username.getText();
     }
 
     @Override
@@ -208,12 +217,12 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
 
     @Override
     public String getPassword() {
-        return Helper.getString(this.jPasswordField1.getPassword());
+        return Helper.getString(this.password.getPassword());
     }
 
     @Override
     public String getEmail() {
-        return this.jTextField1.getText();
+        return this.email.getText();
     }
 
     @Override
@@ -243,10 +252,10 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
 
     @Override
     public void reset(){
-        this.RegisterUsernameField.setText("");
-        this.jPasswordField1.setText("");
-        this.jTextField1.setText("");
-        this.RegisterUsernameField.grabFocus();
+        this.username.setText("");
+        this.password.setText("");
+        this.email.setText("");
+        this.username.grabFocus();
     }
 
     @Override
@@ -254,14 +263,16 @@ public class Register extends javax.swing.JFrame implements PageHandling, GetUse
         return this;
     }
 
-    private javax.swing.JButton RegisterBackToLoginButton;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel RegisterEmail;
-    private javax.swing.JButton RegisterLoginButton;
     private javax.swing.JLabel RegisterPossword;
     private javax.swing.JLabel RegisterUsername;
-    private javax.swing.JTextField RegisterUsernameField;
+    private javax.swing.JButton back;
+    private javax.swing.JTextField email;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField password;
+    private javax.swing.JButton register;
+    private javax.swing.JTextField username;
+    // End of variables declaration//GEN-END:variables
 }

@@ -3,14 +3,16 @@ import javax.swing.JTextArea;
 import javax.swing.JOptionPane;
 import java.awt.print.PrinterException;
 import com.mycompany.java.project.classes.OrderBook;
+import com.mycompany.java.project.interfaces.PageHandling;
 
 public final class Printer {
-    public static void print(OrderBook orderBook){
+    public static void print(OrderBook orderBook, PageHandling page){
         try {
             JTextArea textArea = new JTextArea(getOurline(orderBook));
             textArea.print();
         } catch(PrinterException | SecurityException e){
             JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            page.destroy();
         }
     }
 

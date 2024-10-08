@@ -14,16 +14,15 @@ import com.mycompany.java.project.classes.Book;
 public class DeleteBook extends javax.swing.JFrame implements PageHandling, ResetForm, InstanceProvider<DeleteBook> {
     public DeleteBook(Callback callback) {
         this.callback = callback;
+
         initComponents();
-        this.setTitle("Delete book page");
-        this.setResizable(false);
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.reset();
         this.display();
     }
 
     @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
@@ -33,7 +32,9 @@ public class DeleteBook extends javax.swing.JFrame implements PageHandling, Rese
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Delete book page");
+        setResizable(false);
 
         jTextField1.setBackground(new java.awt.Color(204, 204, 204));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -117,9 +118,9 @@ public class DeleteBook extends javax.swing.JFrame implements PageHandling, Rese
         );
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         try {
             Book book = new Book(this.jTextField1.getText(), this.jTextField1.getText());
             Database db = new Database();
@@ -150,11 +151,11 @@ public class DeleteBook extends javax.swing.JFrame implements PageHandling, Rese
             JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             this.reset();
         }
-    }
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
-    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         this.destroy();
-    }
+    }//GEN-LAST:event_closeButtonActionPerformed
 
     @Override
     public void display() {
@@ -178,10 +179,12 @@ public class DeleteBook extends javax.swing.JFrame implements PageHandling, Rese
     }
 
     private Callback callback = null;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DeleteLable;
     private javax.swing.JButton closeButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
+    // End of variables declaration//GEN-END:variables
 }

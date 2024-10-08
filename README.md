@@ -80,12 +80,30 @@
 
 ![](src/main/java/com/mycompany/java/project/assets/imgs/img9.jpg)
 ![](src/main/java/com/mycompany/java/project/assets/imgs/img10.jpg)
-9. เมื่อกดปุ่ม add ตรงส่วน sidebar จะแสดงแบบฟอร์มให้กรอกข้อมูลแล้วถ้ากดปุ่ม add ตรงหน้าแบบฟอร์มจะเพิ่มข้อมูลหน้งสือเล่มใหม่ลงฐานข้อมูล
+9. เมื่อกดปุ่ม add จะแสดงแบบฟอร์มให้กรอกข้อมูลแล้วถ้ากดปุ่ม add ตรงหน้าแบบฟอร์มจะเพิ่มข้อมูลหน้งสือเล่มใหม่ลงฐานข้อมูล
 
 
 ![](src/main/java/com/mycompany/java/project/assets/imgs/img11.jpg)
-10. เมื่อกดปุ่ม delete ตรงส่วน sidebar จะแสดงหน้าต่างแล้วให้กรอกชื่อหนังสือหรือรหัส isbn ถ้ากรอกแล้วเจอข้อมูลจะแสดงข้อความว่าต้องการลบหรือไม่
+10. เมื่อกดปุ่ม delete จะแสดงหน้าต่างแล้วให้กรอกชื่อหนังสือหรือรหัส isbn ถ้ากรอกแล้วเจอข้อมูลจะแสดงข้อความว่าต้องการลบหรือไม่
 
 
 ![](src/main/java/com/mycompany/java/project/assets/imgs/img12.jpg)
-11. เมื่อกดปุ่ม user settings ตรงส่วน sidebar จะแสดงข้อมูลผู้ใช้งานให้ขึ้นมาดูแล้วเราสามารถกดแก้ไขข้อมูลได้
+11. เมื่อกดปุ่ม user settings จะแสดงข้อมูลผู้ใช้งานให้ขึ้นมาดูแล้วเราสามารถกดแก้ไขข้อมูลได้
+
+
+![](src/main/java/com/mycompany/java/project/assets/imgs/img13.jpg)
+![](src/main/java/com/mycompany/java/project/assets/imgs/img14.jpg)
+12. เมื่อกดปุ่ม edit จะแสดงรายการหนังสือหนังสือทั้งหมดโดยให้เลือกหนังสือที่จะแก้ไขแล้วกดปุ่ม select จะเป็นการเลือกที่จะแก้ไขหนังสือเล่มนั้น
+
+
+![](src/main/java/com/mycompany/java/project/assets/imgs/img15.jpg)
+![](src/main/java/com/mycompany/java/project/assets/imgs/img16.jpg)
+![](src/main/java/com/mycompany/java/project/assets/imgs/img17.jpg)
+13. เมื่อกดปุ่ม sale จะแสดงหน้าขายหนังสือโดยเราจะต้องเลือกหนังสือที่จะขายแล้วกดปุ่ม add จะเป็นการเพิ่มเข้าไปในรายการแล้วเมื่อสั่งหนังสือพอแล้วก็กดปุ่ม
+order ซึ่งจะเป็นการสั่งซื้อหนังสือที่เราเพิ่มในรายการนั้นเองพร้อมแสดงหน้าชำระเงินให้กรอกจำนวนเงินที่จ่ายเข้ามา
+
+
+![](src/main/java/com/mycompany/java/project/assets/imgs/img18.jpg)
+![](src/main/java/com/mycompany/java/project/assets/imgs/img19.jpg)
+14. เมื่อชำระเงินเสร็ตสิ้นเราสามารถกดปุ่ม sales history ดูได้ว่าเราขายอะไรไปบ้างจะแสดงตารางข้อมูลการขายหนังสือแต่ล่ะรายการออกมา
+โดยเราสามารถกดปริ้นใบได้จะเป็นไฟล์ pdf ให้เราเลือกแถวของของตารางที่ต้องการปริ้นแล้วกดปุ่ม print receipt

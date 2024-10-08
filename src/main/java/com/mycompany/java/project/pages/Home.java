@@ -22,8 +22,6 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         this.updateBookData();
 
         initComponents();
-        this.setTitle("Home page");
-        this.setResizable(false);
         this.setLocationRelativeTo(null);
 
         this.panels[0] = this.jPanel4;
@@ -39,143 +37,8 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         this.display();
     }
 
-    @Override
-    public void destroy(){
-        this.dispose();
-    }
-
-    @Override
-    public void display(){
-        this.setVisible(true);
-    }
-
-    private void fetchBooks(){
-        try {
-            Database db = new Database();
-            this.books = db.getBooks("SELECT * FROM books");
-        } catch(SQLException | JBookException e){
-            e.printStackTrace();
-        }
-    }
-
-    private void updateBookData(){
-        this.bookSets = new ArrayList<ArrayList<Book>>();
-        ArrayList<Book> set = new ArrayList<Book>();
-        for(int i = 0; i < this.books.size(); i++){
-            set.add(this.books.get(i));
-            if((i + 1) % 6 == 0){
-                this.bookSets.add(set);
-                set = new ArrayList<Book>();
-            }
-        }
-        if(set.size() != 0){
-            this.bookSets.add(set);
-        }
-        this.setLastIndex(this.bookSets.size() - 1);
-    }
-
-    private void showUserInfo(){
-        ImageConstants.addImage(this.user.getAvatar(), this.userAvatar, ImageConstants.DEFAULT_USER_AVATAR);
-        this.username.setText("Username: " + this.user.getUsername());
-        this.email.setText("Email: " + this.user.getEmail());
-    }
-
-    private void showBooks(){
-        for(int i = 0; i < this.panels.length; i++){
-            if(this.panels[i].getComponentCount() > 0){
-                this.panels[i].removeAll();
-            }
-
-            if(this.panels[i].getMouseListeners().length > 0){
-                for(MouseListener ml : this.panels[i].getMouseListeners()){
-                    this.panels[i].removeMouseListener(ml);
-                }
-            }
-        }
-
-        int bookCount = 0;
-        try {
-            bookCount = this.bookSets.get(this.getCurrentIndex()).size() == 0 ?
-                    this.bookSets.get(this.getCurrentIndex() - 1).size() :
-                    this.bookSets.get(this.getCurrentIndex()).size();
-        } catch(IndexOutOfBoundsException e){
-            this.setCurrentIndex(this.getCurrentIndex() - 1);
-            bookCount = this.bookSets.get(this.getCurrentIndex()).size();
-        }
-
-        for(int j = 0; j < bookCount; j++){
-            ImageConstants.addImage(this.bookSets.get(this.getCurrentIndex()).get(j).getImageUrl(), this.panels[j], ImageConstants.DEFAULT_IMAGE_NOT_AVALIBLE);
-            this.panels[j].add(new JLabel(this.bookSets.get(this.getCurrentIndex()).get(j).getBookName(), SwingConstants.CENTER), BorderLayout.SOUTH);
-
-            int k = j;
-            this.panels[j].addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    Preview.showPreview(k, bookSets.get(currentIndex).get(k), bookSets.get(currentIndex), () -> {
-                        fetchBooks();
-                        updateBookData();
-                        showBooks();
-                        setPage();
-                    });
-                }
-            });
-        }
-
-        for(int v = 0; v < this.panels.length; v++){
-            if(this.panels[v].getComponentCount() > 0){
-                continue;
-            }
-
-            for(MouseListener ml : this.panels[v].getMouseListeners()){
-                this.panels[v].removeMouseListener(ml);
-            }
-
-            this.panels[v].removeAll();
-            ImageConstants.addImage(ImageConstants.DEFAULT_NO_IMAGE, this.panels[v], ImageConstants.DEFAULT_NO_IMAGE);
-            this.panels[v].addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    addButtonActionPerformed(null);
-                }
-            });
-        }
-    }
-
-    private int getCurrentIndex(){
-        return this.currentIndex;
-    }
-
-    private Home setCurrentIndex(int currentIndex){
-        if(currentIndex >= 0){
-            this.currentIndex = currentIndex;
-        }
-
-        return this.getInstance();
-    }
-
-    private int getLastIndex(){
-        return this.lastIndex;
-    }
-
-    private Home setLastIndex(int lastIndex){
-        if(lastIndex >= 0){
-            this.lastIndex = lastIndex;
-        }
-
-        return this.getInstance();
-    }
-
-    private Home setPage(){
-        this.pageCount.setText((this.getCurrentIndex() + 1) + "/" + (this.getLastIndex() + 1));
-        return this.getInstance();
-    }
-
-    @Override
-    public Home getInstance(){
-        return this;
-    }
-
     @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -204,6 +67,8 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         firstButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Home page");
+        setResizable(false);
         setSize(new java.awt.Dimension(1920, 1080));
 
         jPanel1.setBackground(new java.awt.Color(27, 26, 26));
@@ -286,7 +151,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         userSettingButton.setBackground(new java.awt.Color(0, 0, 0));
         userSettingButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         userSettingButton.setForeground(new java.awt.Color(255, 255, 255));
-        userSettingButton.setText("User settings");
+        userSettingButton.setText("User setting");
         userSettingButton.setToolTipText("");
         userSettingButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         userSettingButton.setPreferredSize(new java.awt.Dimension(200, 200));
@@ -588,9 +453,9 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         );
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void userSettingButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void userSettingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSettingButtonActionPerformed
         Usersetting usersetting = new Usersetting(this.user.getInstance(), () -> {
             try {
                 Database db = new Database();
@@ -607,15 +472,15 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
                 e.printStackTrace();
             }
         });
-    }
+    }//GEN-LAST:event_userSettingButtonActionPerformed
 
-    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         Authorization.accessDenied(this.getInstance());
         this.user = null;
         Login login = new Login();
-    }
+    }//GEN-LAST:event_logoutButtonActionPerformed
 
-    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         if(Authorization.isLoggedIn){
             AddBook addBook = new AddBook(() -> {
                 this.fetchBooks();
@@ -628,9 +493,9 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
             this.user = null;
             Login login = new Login();
         }
-    }
+    }//GEN-LAST:event_addButtonActionPerformed
 
-    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         if(Authorization.isLoggedIn){
             DeleteBook deleteBook = new DeleteBook(() -> {
                 this.fetchBooks();
@@ -643,9 +508,9 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
             this.user = null;
             Login login = new Login();
         }
-    }
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
-    private void saleButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void saleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleButtonActionPerformed
         if(Authorization.isLoggedIn){
             Sale sale = new Sale(this.books, () -> {
                 this.fetchBooks();
@@ -658,37 +523,49 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
             this.user = null;
             Login login = new Login();
         }
-    }
+    }//GEN-LAST:event_saleButtonActionPerformed
 
-    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         if(Authorization.isLoggedIn){
-            EditBook editBook = new EditBook();
+            EditBook editBook = new EditBook(this.books, () -> {
+                this.fetchBooks();
+                this.updateBookData();
+                this.showBooks();
+            });
         } else {
             Authorization.accessDenied(this.getInstance());
             this.user = null;
             Login login = new Login();
         }
-    }
+    }//GEN-LAST:event_editButtonActionPerformed
 
-    private void salesHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {}
+    private void salesHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salesHistoryButtonActionPerformed
+        if(Authorization.isLoggedIn){
+            SalesHistory salesHistory = new SalesHistory();
+        } else {
+            Authorization.accessDenied(this.getInstance());
+            this.user = null;
+            Login login = new Login();
+        }
+    }//GEN-LAST:event_salesHistoryButtonActionPerformed
 
-    private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
         if(this.getCurrentIndex() >= 0 && this.getCurrentIndex() <= this.getLastIndex() && (this.getCurrentIndex() - 1) >= 0) {
             this.setCurrentIndex(this.getCurrentIndex() - 1);
             this.showBooks();
             this.setPage();
         }
-    }
+    }//GEN-LAST:event_prevButtonActionPerformed
 
-    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
         if(this.getCurrentIndex() >= 0 && this.getCurrentIndex() <= this.getLastIndex() && (this.getCurrentIndex() + 1) <= this.getLastIndex()){
             this.setCurrentIndex(this.getCurrentIndex() + 1);
             this.showBooks();
             this.setPage();
         }
-    }
+    }//GEN-LAST:event_nextButtonActionPerformed
 
-    private void lastButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void lastButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastButtonActionPerformed
         if(this.getCurrentIndex() == (this.bookSets.size() - 1)){
             return;
         }
@@ -696,9 +573,9 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         this.setCurrentIndex(this.bookSets.size() - 1);
         this.showBooks();
         this.setPage();
-    }
+    }//GEN-LAST:event_lastButtonActionPerformed
 
-    private void firstButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void firstButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstButtonActionPerformed
         if(this.getCurrentIndex() == 0){
             return;
         }
@@ -706,6 +583,141 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         this.setCurrentIndex(0);
         this.showBooks();
         this.setPage();
+    }//GEN-LAST:event_firstButtonActionPerformed
+
+    private void fetchBooks(){
+        try {
+            Database db = new Database();
+            this.books = db.getBooks("SELECT * FROM books");
+        } catch(SQLException | JBookException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void updateBookData(){
+        this.bookSets = new ArrayList<ArrayList<Book>>();
+        ArrayList<Book> set = new ArrayList<Book>();
+        for(int i = 0; i < this.books.size(); i++){
+            set.add(this.books.get(i));
+            if((i + 1) % 6 == 0){
+                this.bookSets.add(set);
+                set = new ArrayList<Book>();
+            }
+        }
+        if(set.size() != 0){
+            this.bookSets.add(set);
+        }
+        this.setLastIndex(this.bookSets.size() - 1);
+    }
+
+    private void showUserInfo(){
+        ImageConstants.addImage(this.user.getAvatar(), this.userAvatar, ImageConstants.DEFAULT_USER_AVATAR);
+        this.username.setText("Username: " + this.user.getUsername());
+        this.email.setText("Email: " + this.user.getEmail());
+    }
+
+    private void showBooks(){
+        for(int i = 0; i < this.panels.length; i++){
+            if(this.panels[i].getComponentCount() > 0){
+                this.panels[i].removeAll();
+            }
+
+            if(this.panels[i].getMouseListeners().length > 0){
+                for(MouseListener ml : this.panels[i].getMouseListeners()){
+                    this.panels[i].removeMouseListener(ml);
+                }
+            }
+        }
+
+        int bookCount = 0;
+        try {
+            bookCount = this.bookSets.get(this.getCurrentIndex()).size() == 0 ?
+                    this.bookSets.get(this.getCurrentIndex() - 1).size() :
+                    this.bookSets.get(this.getCurrentIndex()).size();
+        } catch(IndexOutOfBoundsException e){
+            this.setCurrentIndex(this.getCurrentIndex() - 1);
+            bookCount = this.bookSets.get(this.getCurrentIndex()).size();
+        }
+
+        for(int j = 0; j < bookCount; j++){
+            ImageConstants.addImage(this.bookSets.get(this.getCurrentIndex()).get(j).getImageUrl(), this.panels[j], ImageConstants.DEFAULT_IMAGE_NOT_AVALIBLE);
+            this.panels[j].add(new JLabel(this.bookSets.get(this.getCurrentIndex()).get(j).getBookName(), SwingConstants.CENTER), BorderLayout.SOUTH);
+
+            int k = j;
+            this.panels[j].addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    Preview.showPreview(k, bookSets.get(currentIndex).get(k), bookSets.get(currentIndex), () -> {
+                        fetchBooks();
+                        updateBookData();
+                        showBooks();
+                        setPage();
+                    });
+                }
+            });
+        }
+
+        for(int v = 0; v < this.panels.length; v++){
+            if(this.panels[v].getComponentCount() > 0){
+                continue;
+            }
+
+            for(MouseListener ml : this.panels[v].getMouseListeners()){
+                this.panels[v].removeMouseListener(ml);
+            }
+
+            ImageConstants.addImage(ImageConstants.DEFAULT_NO_IMAGE, this.panels[v], ImageConstants.DEFAULT_NO_IMAGE);
+            this.panels[v].addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    addButtonActionPerformed(null);
+                }
+            });
+        }
+    }
+
+    private int getCurrentIndex(){
+        return this.currentIndex;
+    }
+
+    private Home setCurrentIndex(int currentIndex){
+        if(currentIndex >= 0){
+            this.currentIndex = currentIndex;
+        }
+
+        return this.getInstance();
+    }
+
+    private int getLastIndex(){
+        return this.lastIndex;
+    }
+
+    private Home setLastIndex(int lastIndex){
+        if(lastIndex >= 0){
+            this.lastIndex = lastIndex;
+        }
+
+        return this.getInstance();
+    }
+
+    private Home setPage(){
+        this.pageCount.setText((this.getCurrentIndex() + 1) + "/" + (this.getLastIndex() + 1));
+        return this.getInstance();
+    }
+
+    @Override
+    public void display(){
+        this.setVisible(true);
+    }
+
+    @Override
+    public void destroy(){
+        this.dispose();
+    }
+
+    @Override
+    public Home getInstance(){
+        return this;
     }
 
     public static void main(String []args){
@@ -729,6 +741,7 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
     private ArrayList<ArrayList<Book>> bookSets = new ArrayList<ArrayList<Book>>();
     private final int LIMITED = 6;
     private int lastIndex;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton editButton;
@@ -753,4 +766,5 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
     private javax.swing.JPanel userAvatar;
     private javax.swing.JButton userSettingButton;
     private javax.swing.JLabel username;
+    // End of variables declaration//GEN-END:variables
 }
