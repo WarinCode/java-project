@@ -19,8 +19,7 @@ public class Preview extends javax.swing.JDialog implements PageHandling, Instan
         this.callback = callback;
 
         initComponents();
-        this.setTitle("Book preview page");
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.setTitle(this.book.getBookName());
         this.setLocationRelativeTo(null);
         ImageConstants.addImage(this.book.getImageUrl(), this.bookImage, ImageConstants.DEFAULT_IMAGE_NOT_AVALIBLE);
 
@@ -49,7 +48,6 @@ public class Preview extends javax.swing.JDialog implements PageHandling, Instan
         deleteButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Book preview page");
         setResizable(false);
 
         bookImage.setBackground(new java.awt.Color(174, 174, 174));
