@@ -24,7 +24,10 @@ public class Database implements SQLQueries {
 
     public Database(){
         try {
-            this.dotenv = Dotenv.configure().load();
+            this.dotenv = Dotenv.configure()
+                    .directory("src/main/java/com/mycompany/java/project/resources")
+                    .filename("env")
+                    .load();
             this.ci.setUsername(this.dotenv.get("USERNAME"))
                     .setPassword(this.dotenv.get("PASSWORD"))
                     .setDbName(this.dotenv.get("DB_NAME"))
@@ -34,7 +37,7 @@ public class Database implements SQLQueries {
                     .setServiceName(this.dotenv.get("SERVICE_NAME"));
         } catch(DotenvException | NumberFormatException | JBookException e){
             e.printStackTrace();
-            System.exit(1);
+//            System.exit(1);
         }
     }
 
