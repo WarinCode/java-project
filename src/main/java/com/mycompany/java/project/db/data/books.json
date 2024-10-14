@@ -1,0 +1,479 @@
+[
+  {
+    "book_id": 1,
+    "book_name": "omniscient reader’s viewpoint",
+    "price": 9.99,
+    "isbn": "9798354150137",
+    "author_name": "Sing Shong",
+    "image_url": "https://a.storyblok.com/f/178900/1064x1505/e6bb5351c9/omniscient-reader-kv.png/m/filters:quality(95)format(webp)",
+    "remain": 46
+  },
+  {
+    "book_id": 2,
+    "book_name": "Solo Leveling",
+    "price": 12.72,
+    "isbn": "9781975319434",
+    "author_name": "Chugong",
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/09/Solo-Leveling.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 3,
+    "book_name": "swordmaster’s youngest son",
+    "price": 10,
+    "isbn": "000000003",
+    "author_name": null,
+    "image_url": "https://static.wikia.nocookie.net/asurascans/images/c/cc/SYS.png/revision/latest?cb=20220503181114",
+    "remain": 49
+  },
+  {
+    "book_id": 4,
+    "book_name": "webtoon character na kang lim",
+    "price": 10,
+    "isbn": "000000004",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/11/Webtoon-Character-Na-Kang-Lim.jpg",
+    "remain": 49
+  },
+  {
+    "book_id": 6,
+    "book_name": "OnePiece",
+    "price": 5,
+    "isbn": "000000006",
+    "author_name": null,
+    "image_url": "https://jumpg-assets.tokyo-cdn.com/secure/title/100079/title_thumbnail_portrait_list/326445.jpg?hash=G6sfqqfoMFcM4k1om8b3ow&expires=2145884400",
+    "remain": 49
+  },
+  {
+    "book_id": 7,
+    "book_name": "Onepuchman",
+    "price": 7,
+    "isbn": "000000007",
+    "author_name": null,
+    "image_url": "https://mpics.mgronline.com/pics/Images/567000001915101.JPEG",
+    "remain": 49
+  },
+  {
+    "book_id": 8,
+    "book_name": "Martial Peak ",
+    "price": 10,
+    "isbn": "000000008",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/09/Martial-Peak-%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A2%E0%B8%B8%E0%B8%97%E0%B8%98%E0%B9%8C%E0%B9%80%E0%B8%AB%E0%B8%99%E0%B8%B7%E0%B8%AD%E0%B9%82%E0%B8%A5%E0%B8%81.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 9,
+    "book_name": "The Extra’s Academy Survival Guide",
+    "price": 10,
+    "isbn": "000000009",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2024/03/The-Extras-Academy-Survival-Guide-%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%A2%E0%B8%AD%E0%B8%94%E0%B8%84%E0%B8%B9%E0%B9%88%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B9%80%E0%B8%AD%E0%B8%B2%E0%B8%8A%E0%B8%B5%E0%B8%A7%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B8%AD%E0%B8%94%E0%B9%83%E0%B8%99%E0%B8%AD%E0%B8%84%E0%B8%B2%E0%B9%80%E0%B8%94%E0%B8%A1%E0%B8%B5.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 10,
+    "book_name": "Demon Lord’s Martial Arts Ascension",
+    "price": 15,
+    "isbn": "000000010",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/09/Demon-Lords-Martial-Arts-Ascension.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 11,
+    "book_name": "I Reincarnated as a Legendary Surgeon",
+    "price": 5,
+    "isbn": "000000011",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/11/I-Reincarnated-as-a-Legendary-Surgeon.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 12,
+    "book_name": "Magic Emperor ",
+    "price": 10,
+    "isbn": "000000012",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/09/Magic-Emperor-%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%B2%E0%B8%88%E0%B8%AD%E0%B8%A1%E0%B9%80%E0%B8%A7%E0%B8%97%E0%B8%A2%E0%B9%8C.jpg",
+    "remain": 49
+  },
+  {
+    "book_id": 13,
+    "book_name": "The World’s Best Engineer",
+    "price": 10,
+    "isbn": "000000013",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/09/The-Worlds-Best-Engineer-%E0%B8%A2%E0%B8%AD%E0%B8%94%E0%B8%AA%E0%B8%96%E0%B8%B2%E0%B8%9B%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9C%E0%B8%B9%E0%B9%89%E0%B8%9E%E0%B8%B4%E0%B8%97%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B9%8C%E0%B8%AD%E0%B8%B2%E0%B8%93%E0%B8%B2%E0%B8%88%E0%B8%B1%E0%B8%81%E0%B8%A3.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 14,
+    "book_name": "Reincarnation Path of The Underworld King ",
+    "price": 15,
+    "isbn": "000000014",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/11/Reincarnation-Path-of-The-Underworld-King-%E0%B8%A2%E0%B8%AD%E0%B8%A1%E0%B8%A3%E0%B8%B2-%E0%B8%9C%E0%B8%B9%E0%B9%89%E0%B8%9E%E0%B8%B4%E0%B8%9E%E0%B8%B2%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%88%E0%B8%B2%E0%B8%81%E0%B8%99%E0%B8%A3%E0%B8%81.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 15,
+    "book_name": "Kaiju No.8 ",
+    "price": 10,
+    "isbn": "000000015",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2024/05/Kaiju-no.8-%E0%B9%84%E0%B8%84%E0%B8%88%E0%B8%B9%E0%B8%AB%E0%B8%A1%E0%B8%B2%E0%B8%A2%E0%B9%80%E0%B8%A5%E0%B8%82-8.jpg",
+    "remain": 49
+  },
+  {
+    "book_id": 16,
+    "book_name": "Lookism ",
+    "price": 5,
+    "isbn": "000000016",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/09/Lookism-%E0%B8%A5%E0%B8%B8%E0%B8%81%E0%B8%84%E0%B8%B4%E0%B8%8B%E0%B8%B6%E0%B8%A1.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 17,
+    "book_name": "Solo Leveling: Ragnarok",
+    "price": 3,
+    "isbn": "000000017",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2024/08/Solo-Leveling-Ragnarok-%E0%B9%82%E0%B8%8B%E0%B9%82%E0%B8%A5%E0%B9%88%E0%B9%80%E0%B8%A5%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%87-%E0%B9%81%E0%B8%A3%E0%B9%87%E0%B8%84%E0%B8%99%E0%B8%B2%E0%B8%A3%E0%B9%87%E0%B8%AD%E0%B8%84.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 18,
+    "book_name": "Tomb Raider King",
+    "price": 10,
+    "isbn": "000000018",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/09/Tomb-Raider-King-%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%B1%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%88%E0%B8%AD%E0%B8%A1%E0%B9%82%E0%B8%88%E0%B8%A3%E0%B8%9B%E0%B8%A5%E0%B9%89%E0%B8%99%E0%B8%AA%E0%B8%B8%E0%B8%AA%E0%B8%B2%E0%B8%99.png",
+    "remain": 50
+  },
+  {
+    "book_id": 19,
+    "book_name": "The Return of the Disaster-Class Hero",
+    "price": 10,
+    "isbn": "000000019",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/10/The-Return-of-the-Disaster-Class-Hero.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 20,
+    "book_name": "For the Musical Genius",
+    "price": 10,
+    "isbn": "000000020",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2024/04/For-the-Musical-Genius.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 21,
+    "book_name": "Apocalyptic Chef Awakening",
+    "price": 5,
+    "isbn": "000000021",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/12/Apocalyptic-Chef-Awakening.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 22,
+    "book_name": "Chronicles of the Demon Faction",
+    "price": 5,
+    "isbn": "000000022",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/10/Chronicles-of-the-Demon-Faction-%E0%B8%95%E0%B8%B3%E0%B8%99%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%94%E0%B9%83%E0%B8%AB%E0%B8%A1%E0%B9%88%E0%B9%83%E0%B8%99%E0%B8%A5%E0%B8%B1%E0%B8%97%E0%B8%98%E0%B8%B4%E0%B8%A1%E0%B8%B2%E0%B8%A3.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 23,
+    "book_name": "Logging 10000 Years into the Future",
+    "price": 10,
+    "isbn": "000000023",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/09/Logging-10000-Years-into-the-Future-%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%9E%E0%B9%88%E0%B8%B2%E0%B8%A2-%E0%B8%A5%E0%B8%B8%E0%B8%A2%E0%B9%80%E0%B8%94%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%A7%E0%B8%AD%E0%B8%99%E0%B8%B2%E0%B8%84%E0%B8%95%E0%B8%AB%E0%B8%A1%E0%B8%B7%E0%B9%88%E0%B8%99%E0%B8%9B%E0%B8%B5.jpg",
+    "remain": 48
+  },
+  {
+    "book_id": 24,
+    "book_name": "Academy’s Genius Swordmaster",
+    "price": 5,
+    "isbn": "000000024",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/10/Academys-Genius-Swordmaster.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 25,
+    "book_name": "Be the Actor",
+    "price": 10,
+    "isbn": "000000025",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/09/Be-the-Actor.jpg",
+    "remain": 49
+  },
+  {
+    "book_id": 26,
+    "book_name": "Laws of The Good Child",
+    "price": 10,
+    "isbn": "000000026",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2024/08/Laws-of-The-Good-Child.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 27,
+    "book_name": "Killer Peter ",
+    "price": 5,
+    "isbn": "000000027",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/10/Killer-Peter-%E0%B8%9B%E0%B8%B5%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B9%82%E0%B8%84%E0%B8%95%E0%B8%A3%E0%B8%99%E0%B8%B1%E0%B8%81%E0%B8%86%E0%B9%88%E0%B8%B2.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 28,
+    "book_name": "99 Wooden Stick",
+    "price": 8,
+    "isbn": "000000028",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/11/1699105124-9869-i382154.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 29,
+    "book_name": "Necromancer Academy and the Genius Summoner",
+    "price": 10,
+    "isbn": "000000029",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/10/Necromancer-Academy-and-the-Genius-Summoner.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 30,
+    "book_name": "Blue lock ",
+    "price": 10,
+    "isbn": "000000030",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/09/Blue-lock-%E0%B8%82%E0%B8%B1%E0%B8%87%E0%B8%94%E0%B8%A7%E0%B8%A5%E0%B9%81%E0%B8%82%E0%B9%89%E0%B8%87.jpg",
+    "remain": 47
+  },
+  {
+    "book_id": 31,
+    "book_name": "Pinnacle",
+    "price": 10,
+    "isbn": "000000031",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/10/Castle-2-Pinnacle.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 32,
+    "book_name": "QUESTISM",
+    "price": 15,
+    "isbn": "000000032",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/12/QUESTISM.jpg",
+    "remain": 49
+  },
+  {
+    "book_id": 33,
+    "book_name": "Spy X Family",
+    "price": 7,
+    "isbn": "000000033",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/09/Spy-X-Family.png",
+    "remain": 50
+  },
+  {
+    "book_id": 34,
+    "book_name": "The Emperor’s Sword",
+    "price": 8,
+    "isbn": "000000034",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/11/The-Emperors-Sword.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 35,
+    "book_name": "I Play the Horror World as a Simulation Game",
+    "price": 10,
+    "isbn": "000000035",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2024/04/I-Play-the-Horror-World-as-a-Simulation-Game.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 36,
+    "book_name": "I Lived In Seclusion For 100,000 Years",
+    "price": 6,
+    "isbn": "000000036",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/09/I-Lived-In-Seclusion-For-100000-Years.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 37,
+    "book_name": "I Took Over the Demonic Sect Master",
+    "price": 7,
+    "isbn": "000000037",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/12/I-Took-Over-the-Demonic-Sect-Master.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 38,
+    "book_name": "I Was Summoned to Help The Empress",
+    "price": 10,
+    "isbn": "000000038",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/09/I-Was-Summoned-to-Help-The-Empress.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 39,
+    "book_name": "Losing Money to Be a Tycoon",
+    "price": 10,
+    "isbn": "000000039",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/11/Losing-Money-to-Be-a-Tycoon.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 40,
+    "book_name": "Invincible at The Start ",
+    "price": 5,
+    "isbn": "000000040",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2024/03/Invincible-at-The-Start-%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A%E0%B9%80%E0%B8%82%E0%B8%95%E0%B9%81%E0%B8%94%E0%B8%99%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%9E%E0%B9%88%E0%B8%B2%E0%B8%A2.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 41,
+    "book_name": "Jungle Master",
+    "price": 5,
+    "isbn": "000000041",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2024/03/Jungle-Master-%E0%B8%88%E0%B8%AD%E0%B8%A1%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%B1%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B9%81%E0%B8%AB%E0%B9%88%E0%B8%87%E0%B8%9B%E0%B9%88%E0%B8%B2%E0%B8%9C%E0%B8%B9%E0%B9%89%E0%B8%84%E0%B8%B7%E0%B8%99%E0%B8%8A%E0%B8%B5%E0%B8%9E.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 42,
+    "book_name": "Maxed Strength Necromancer",
+    "price": 5,
+    "isbn": "000000042",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/12/Maxed-Strength-Necromancer-%E0%B9%80%E0%B8%99%E0%B9%82%E0%B8%84%E0%B8%A3%E0%B9%81%E0%B8%A1%E0%B8%99%E0%B9%80%E0%B8%8B%E0%B8%AD%E0%B8%A3%E0%B9%8C-%E0%B8%9C%E0%B8%B9%E0%B9%89%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A1%E0%B8%97%E0%B8%B2%E0%B8%99.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 43,
+    "book_name": "Million Times Attack Speed ",
+    "price": 5,
+    "isbn": "000000043",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/09/Million-Times-Attack-Speed.png",
+    "remain": 50
+  },
+  {
+    "book_id": 44,
+    "book_name": "Moon Slayer",
+    "price": 5,
+    "isbn": "000000044",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2024/05/Moon-Slayer.png",
+    "remain": 50
+  },
+  {
+    "book_id": 45,
+    "book_name": "My Disciples Cultivate, While I Slack Off",
+    "price": 6,
+    "isbn": "000000045",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/12/My-Disciples-Cultivate-While-I-Slack-Off.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 46,
+    "book_name": "My Dragon System",
+    "price": 5,
+    "isbn": "000000046",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/10/My-Dragon-System.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 47,
+    "book_name": "My Passive Skills Are Invincible",
+    "price": 5,
+    "isbn": "000000047",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/12/My-Passive-Skills-Are-Invincible.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 48,
+    "book_name": "Omnipotent Warrior",
+    "price": 5,
+    "isbn": "000000048",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/10/Omnipotent-Warrior.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 49,
+    "book_name": "SALVOS",
+    "price": 10,
+    "isbn": "000000049",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/10/SALVOS-A-MONSTER-EVOLUTION-LITRPG.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 50,
+    "book_name": "Red Blue",
+    "price": 10,
+    "isbn": "000000050",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/09/Red-Blue.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 51,
+    "book_name": "Tozaki-san wa Boku ni Dake Tsumetai",
+    "price": 15,
+    "isbn": "000000051",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/09/Tozaki-san-wa-Boku-ni-Dake-Tsumetai.png",
+    "remain": 50
+  },
+  {
+    "book_id": 52,
+    "book_name": "Reversal of fate",
+    "price": 7,
+    "isbn": "000000052",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2024/04/Reversal-of-fate-%E2%80%93-%E0%B9%82%E0%B8%8A%E0%B8%84%E0%B8%8A%E0%B8%B0%E0%B8%95%E0%B8%B2%E0%B9%80%E0%B8%A5%E0%B9%88%E0%B8%99%E0%B8%81%E0%B8%A5.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 53,
+    "book_name": "I Am the Angel of Death",
+    "price": 7,
+    "isbn": "000000053",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2024/04/I-Am-the-Angel-of-Death.jpg",
+    "remain": 50
+  },
+  {
+    "book_id": 54,
+    "book_name": "MASHLE Magic and Muscles",
+    "price": 7,
+    "isbn": "000000054",
+    "author_name": null,
+    "image_url": "https://www.up-manga.com/wp-content/uploads/2023/10/MASHLE-Magic-and-Muscles.jpg",
+    "remain": 50
+  }
+]

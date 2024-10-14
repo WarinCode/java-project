@@ -1,0 +1,83 @@
+[
+  {
+    "id": 13,
+    "date_time": "2024-10-04 21:55:59",
+    "items": "omniscient reader’s viewpoint, $6.0, 2 books,\nswordmaster’s youngest son, $10.0, 1 book",
+    "quantity": 3,
+    "money": 1000,
+    "total": 16,
+    "change": 984
+  },
+  {
+    "id": 15,
+    "date_time": "2024-10-07 08:05:07",
+    "items": "Logging 10000 Years into the Future, $20.0, 2 books,\nMy Exclusive Tower Guide, $5.0, 1 book,\nQUESTISM, $15.0, 1 book",
+    "quantity": 4,
+    "money": 45,
+    "total": 40,
+    "change": 5
+  },
+  {
+    "id": 16,
+    "date_time": "2024-10-07 08:07:23",
+    "items": "book1, $60.0, 50 books",
+    "quantity": 50,
+    "money": 60,
+    "total": 60,
+    "change": 0
+  },
+  {
+    "id": 17,
+    "date_time": "2024-10-07 08:23:46",
+    "items": "OnePiece, $5.0, 1 book",
+    "quantity": 1,
+    "money": 6,
+    "total": 5,
+    "change": 1
+  },
+  {
+    "id": 18,
+    "date_time": "2024-10-07 08:26:35",
+    "items": "Onepuchman, $7.0, 1 book",
+    "quantity": 1,
+    "money": 8,
+    "total": 7,
+    "change": 1
+  },
+  {
+    "id": 19,
+    "date_time": "2024-10-07 08:28:26",
+    "items": "omniscient reader’s viewpoint, $3.5, 1 book",
+    "quantity": 1,
+    "money": 6,
+    "total": 3.5,
+    "change": 2.5
+  },
+  {
+    "id": 20,
+    "date_time": "2024-10-07 08:31:52",
+    "items": "omniscient reader’s viewpoint, $3.5, 1 book",
+    "quantity": 1,
+    "money": 65,
+    "total": 3.5,
+    "change": 61.5
+  },
+  {
+    "id": 21,
+    "date_time": "2024-10-07 08:32:48",
+    "items": "JJK, $5.0, 1 book",
+    "quantity": 1,
+    "money": 5,
+    "total": 5,
+    "change": 0
+  },
+  {
+    "id": 22,
+    "date_time": "2024-10-08 22:00:22",
+    "items": "omniscient reader’s viewpoint, $7.0, 2 books,\nJJK, $5.0, 1 book,\nMagic Emperor , $10.0, 1 book,\nBe the Actor, $10.0, 1 book,\nMy Exclusive Tower Guide, $5.0, 1 book,\nBlue lock , $30.0, 3 books",
+    "quantity": 9,
+    "money": 68,
+    "total": 67,
+    "change": 1
+  }
+]

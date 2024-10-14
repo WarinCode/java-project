@@ -51,7 +51,7 @@
 
 ---
 
-### การนำเอาโปรแกรมไปใช้งาน
+### การนำเอาโปรแกรมไปใช้งาน (สำหรับผู้ใช้งานทั่วไป)
 เปิด Terminal แล้วรันคำสั่งตามนี้
 1. clone ตัวโปรเจคลงมาในเครื่อง
 ```
@@ -59,12 +59,12 @@ git clone https://github.com/WarinCode/java-project.git
 ```
 
 2. เข้าไปใน directory ของโปรเจค
-```
+``` 
 cd java-project
 ```
 
 3. จะสังเกตุเห็นว่ามีไฟล์ๆนึงที่ชื่อว่า `java-project.jar` ซึ่งเป็นไฟล์โปรแกรมที่สามารถดับเบิ้ลคลิกแล้วใช้งานได้เลยเปิดโปรแกรมโดยใช้คำสั่ง
-```
+``` 
 java -jar java-project.jar
 ```
 หรือ
@@ -72,7 +72,73 @@ java -jar java-project.jar
 ./java-project.jar
 ```
 
-ก็จะได้โปรแกรมที่พร้อมใช้งานตามรูปภาพต่อไปนี้
+---
+
+### การนำเอาโปรแกรมไปพัฒนาต่อ (สำหรับนักพัฒนา)
+1. ให้ทำตามขั้นตอนของ [*การนำเอาโปรแกรมไปใช้งาน*](#การนำเอาโปรแกรมไปใชงาน-สำหรับผูใชงานทัวไป)
+2. ให้เราสร้าง directory ชื่อ `resources` วางไว้ใน path `src/main/java/com/mycompany/java/project/resources`
+3. เข้าไปใน directory นั้นแล้วสร้างไฟล์ชื่อ `env` ขึ้นมาสร้างตัวแปรสภาพแวดล้อมตามตัวอย่างในไฟล์ [env.example](env.example) (ให้เอา comments ออกด้วยเครื่องหมาย `#`)
+4. ค่า values ที่จะมาใส่ในตัวแปรสภาพแวดล้อมให้เราไปสร้าง Service ใน [aiven.com](https://aiven.io/) เลือกฐานข้อมูลเป็น MySQL แล้วสร้างมา 3 tables (ให้เลือกโปรแกรมที่จะใช้จัดการฐานข้อมูลในที่นี้ผู้เขียนใช้เป็น DataGrip) การเชื่อมต่อฐานข้อมูลให้ไปดูตรง Connetion Information ให้เรานำค่าเหล่านั้นมาใส่หลังเครื่องหมาย `=` ของตัวแปรสภาพแวดล้อม
+5. สร้าง table ขึ้นมา 3 tables โดยกำหนด ชื่อคอลัมน์ ชนิดข้อมูล และ attributes ของแต่ล่ะคอลัมน์ ดังต่อไปนี้
+6. สร้าง table ชื่อ `books` โดยใช้คำสั่ง SQL
+``` sql
+create table books
+(
+    book_id     int auto_increment
+        primary key,
+    book_name   varchar(100)                                                                                                         not null,
+    price       double        default 0                                                                                              not null,
+    isbn        varchar(100)                                                                                                         not null,
+    author_name varchar(50)                                                                                                          null,
+    image_url   varchar(1000) default 'https:// encrypted-tbn0.gstatic. com/ images?q=tbn:ANd9GcS9VikAOE2G2gjohpGNr_thh_7XSL1kZV7udA&s' null,
+    remain      int           default 50                                                                                             null,
+    constraint books_pk_2
+        unique (book_name, isbn)
+);
+```
+![](src/main/java/com/mycompany/java/project/assets/diagrams/books.png)
+
+7. สร้าง table ชื่อ `users` โดยใช้คำสั่ง SQL
+``` sql
+create table users
+(
+    user_id  int auto_increment
+        primary key,
+    username varchar(100)                                                                                not null,
+    password varchar(200)                                                                                not null,
+    email    varchar(100)                                                                                not null,
+    gender   varchar(10)                                                                                 null,
+    avatar   varchar(300) default 'https:// cdn3.iconfinder. com/ data/ icons/ avatars-flat/ 33/ man_5-512.png' null,
+    age      int          default 0                                                                      null,
+    constraint email_UNIQUE
+        unique (email),
+    constraint username_UNIQUE
+        unique (username),
+    constraint users_pk_2
+        unique (username, email)
+);
+```
+
+![](src/main/java/com/mycompany/java/project/assets/diagrams/users.png)
+8. สร้าง table ชื่อ `sales_histroy` โดยใช้คำสั่ง SQL
+``` sql
+create table sales_history
+(
+    id        int auto_increment
+        primary key,
+    date_time datetime         not null,
+    items     varchar(500)     null,
+    quantity  int              not null,
+    money     double           not null,
+    total     double           not null,
+    `change`  double default 0 null
+);
+```
+
+![](src/main/java/com/mycompany/java/project/assets/diagrams/sales_history.png)
+
+9. ข้อมูลของโปรแกรมได้ทำเป็นไฟล์ CSV กับ JSON ไว้ให้แล้วเข้าไปดูได้ที่ path นี้ `src/main/java/com/mycompany/java/project/db/data` แล้วสามารถนำไฟล์ import เข้าไปใน table ได้เลย
+10. การรันโปรแกรม class หลัก ที่จะใช้รันคือ [JBook.java](src/main/java/com/mycompany/java/project/JBook.java) 
 
 ---
 

@@ -1,0 +1,47 @@
+[
+  {
+    "user_id": 1,
+    "username": "root",
+    "password": "1234",
+    "email": "root@email.com",
+    "gender": "male",
+    "avatar": "https://cdn3.iconfinder.com/data/icons/avatars-flat/33/man_5-512.png",
+    "age": 57
+  },
+  {
+    "user_id": 2,
+    "username": "warin",
+    "password": "4990",
+    "email": "warin@gmail.com",
+    "gender": "male",
+    "avatar": "https://cdn3.iconfinder.com/data/icons/avatars-flat/33/man_5-512.png",
+    "age": 19
+  },
+  {
+    "user_id": 3,
+    "username": "third",
+    "password": "1234",
+    "email": "third@gmail.com",
+    "gender": "male",
+    "avatar": "https://cdn3.iconfinder.com/data/icons/avatars-flat/33/man_5-512.png",
+    "age": 0
+  },
+  {
+    "user_id": 4,
+    "username": "friend",
+    "password": "1234",
+    "email": "friend@gmail.com",
+    "gender": "male",
+    "avatar": "https://cdn3.iconfinder.com/data/icons/avatars-flat/33/man_5-512.png",
+    "age": 0
+  },
+  {
+    "user_id": 11,
+    "username": "toop",
+    "password": "1234",
+    "email": "toop@gmail.com",
+    "gender": "female",
+    "avatar": "https://cdn3.iconfinder.com/data/icons/avatars-flat/33/man_5-512.png",
+    "age": 0
+  }
+]
