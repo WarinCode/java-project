@@ -118,8 +118,8 @@ create table users
         unique (username, email)
 );
 ```
-
 ![](src/main/java/com/mycompany/java/project/assets/diagrams/users.png)
+
 8. สร้าง table ชื่อ `sales_histroy` โดยใช้คำสั่ง SQL
 ``` sql
 create table sales_history
@@ -134,7 +134,6 @@ create table sales_history
     `change`  double default 0 null
 );
 ```
-
 ![](src/main/java/com/mycompany/java/project/assets/diagrams/sales_history.png)
 
 9. ข้อมูลของโปรแกรมได้ทำเป็นไฟล์ CSV กับ JSON ไว้ให้แล้วเข้าไปดูได้ที่ path นี้ `src/main/java/com/mycompany/java/project/db/data` แล้วสามารถนำไฟล์ import เข้าไปใน table ได้เลย
