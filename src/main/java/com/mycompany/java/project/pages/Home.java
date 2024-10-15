@@ -12,7 +12,8 @@ import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.interfaces.ImageConstants;
 import com.mycompany.java.project.interfaces.InstanceProvider;
-import com.mycompany.java.project.db.Database;
+import com.mycompany.java.project.db.controllers.UserController;
+import com.mycompany.java.project.db.controllers.BookController;
 import com.mycompany.java.project.db.Authorization;
 
 public class Home extends javax.swing.JFrame implements PageHandling, InstanceProvider<Home> {
@@ -458,9 +459,9 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
     private void userSettingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSettingButtonActionPerformed
         Usersetting usersetting = new Usersetting(this.user.getInstance(), () -> {
             try {
-                Database db = new Database();
+                UserController userController = new UserController();
                 if(Authorization.isLoggedIn){
-                    this.user = db.getUser("SELECT * FROM users WHERE user_id = " + Authorization.authorizedUserId);
+                    this.user = userController.getUser("SELECT * FROM users WHERE user_id = " + Authorization.authorizedUserId);
                     this.showUserInfo();
                 } else {
                     Authorization.accessDenied(this.getInstance());
@@ -587,8 +588,8 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
 
     private void fetchBooks(){
         try {
-            Database db = new Database();
-            this.books = db.getBooks("SELECT * FROM books");
+            BookController bookController = new BookController();
+            this.books = bookController.getBooks("SELECT * FROM books");
         } catch(SQLException | JBookException e){
             e.printStackTrace();
         }
@@ -723,10 +724,11 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
     public static void main(String []args){
         try {
             Authorization.isLoggedIn = true;
-            Database db = new Database();
-            User user = db.getUser("SELECT * FROM users WHERE username = 'root'");
+            UserController userController = new UserController();
+            BookController bookController = new BookController();
+            User user = userController.getUser("SELECT * FROM users WHERE username = 'root'");
             Authorization.authorizedUserId = user.getUserId();
-            ArrayList<Book> books = db.getBooks("SELECT * FROM books");
+            ArrayList<Book> books = bookController.getBooks("SELECT * FROM books");
             Home home = new Home(user, books);
         } catch(JBookException | SQLException e){
             e.printStackTrace();

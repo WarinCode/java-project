@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import com.mycompany.java.project.classes.OrderBook;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.classes.utils.Printer;
-import com.mycompany.java.project.db.Database;
+import com.mycompany.java.project.db.controllers.OrderBookController;
 import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.interfaces.InstanceProvider;
 
@@ -17,8 +17,8 @@ public class SalesHistory extends javax.swing.JFrame implements PageHandling, In
         this.setLocationRelativeTo(null);
 
         try {
-            Database db = new Database();
-            this.orderBooks = db.getOrderBooks("SELECT * FROM sales_history");
+            OrderBookController orderBookController = new OrderBookController();
+            this.orderBooks = orderBookController.getOrderBooks("SELECT * FROM sales_history");
         } catch(SQLException | JBookException e){
             JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             this.destroy();

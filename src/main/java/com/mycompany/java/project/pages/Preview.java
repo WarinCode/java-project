@@ -8,7 +8,7 @@ import com.mycompany.java.project.interfaces.ImageConstants;
 import com.mycompany.java.project.interfaces.Callback;
 import com.mycompany.java.project.interfaces.InstanceProvider;
 import com.mycompany.java.project.classes.Book;
-import com.mycompany.java.project.db.Database;
+import com.mycompany.java.project.db.controllers.BookController;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import static com.mycompany.java.project.classes.utils.Helper.getSingleQuotes;
 
@@ -211,12 +211,12 @@ public class Preview extends javax.swing.JDialog implements PageHandling, Instan
         }
 
         try {
-            Database db = new Database();
+            BookController bookController = new BookController();
             String query = "DELETE FROM books WHERE book_id = " + this.book.getBookId();
 //            System.out.println(query);
-            db.delete(query);
+            bookController.delete(query);
 
-            if(db.isChanged){
+            if(bookController.isChanged){
                 if(this.callback != null){
                     this.callback.run();
                 }
@@ -236,8 +236,8 @@ public class Preview extends javax.swing.JDialog implements PageHandling, Instan
             Preview preview = new Preview(book.getInstance(), callback);
         } else {
             try {
-                Database db = new Database();
-                books.set(index, db.getBook("SELECT * FROM books WHERE book_id = " + book.getBookId() + " LIMIT 1"));
+                BookController bookController = new BookController();
+                books.set(index, bookController.getBook("SELECT * FROM books WHERE book_id = " + book.getBookId() + " LIMIT 1"));
                 book = books.get(index);
             } catch(SQLException | JBookException e) {
                 JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

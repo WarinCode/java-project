@@ -16,7 +16,7 @@ import com.mycompany.java.project.classes.utils.Validator;
 import com.mycompany.java.project.interfaces.PageHandling;
 import com.mycompany.java.project.classes.Book;
 import com.mycompany.java.project.classes.OrderBook;
-import com.mycompany.java.project.db.Database;
+import com.mycompany.java.project.db.controllers.BookController;
 import com.mycompany.java.project.interfaces.ResetForm;
 import com.mycompany.java.project.interfaces.ImageConstants;
 import com.mycompany.java.project.interfaces.Callback;
@@ -294,8 +294,8 @@ public class Sale extends javax.swing.JFrame implements PageHandling, InstancePr
         this.bookList.removeAll();
 
         try {
-            Database db = new Database();
-            this.books = db.getBooks("SELECT * FROM books");
+            BookController bookController = new BookController();
+            this.books = bookController.getBooks("SELECT * FROM books");
         } catch(SQLException | JBookException e){
             JOptionPane.showMessageDialog(this.getInstance(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }

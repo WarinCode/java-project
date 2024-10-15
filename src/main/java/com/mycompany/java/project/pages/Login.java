@@ -4,7 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.classes.customs.exceptions.LoginException;
-import com.mycompany.java.project.db.Database;
+import com.mycompany.java.project.db.controllers.BookController;
+import com.mycompany.java.project.db.controllers.UserController;
 import com.mycompany.java.project.db.Authorization;
 import com.mycompany.java.project.classes.User;
 import com.mycompany.java.project.classes.Book;
@@ -157,12 +158,13 @@ public class Login extends javax.swing.JFrame implements PageHandling, GetUser, 
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         try {
-            Database db = new Database();
+            UserController userController = new UserController();
+            BookController bookController = new BookController();
             User checkUser = new User(this.getUsername(), this.getPassword(), this.getEmail());
 
             if(Authorization.isAuthorized(checkUser)){
-                User user = db.getUser("SELECT * FROM users WHERE user_id = " + Authorization.authorizedUserId);
-                ArrayList<Book> books = db.getBooks("SELECT * FROM books");
+                User user = userController.getUser("SELECT * FROM users WHERE user_id = " + Authorization.authorizedUserId);
+                ArrayList<Book> books = bookController.getBooks("SELECT * FROM books");
                 this.destroy();
                 Home home = new Home(user, books);
                 return;
