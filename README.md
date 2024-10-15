@@ -75,12 +75,11 @@ java -jar java-project.jar
 ---
 
 ### การนำเอาโปรแกรมไปพัฒนาต่อ (สำหรับนักพัฒนา)
-1. ให้ทำตามขั้นตอนของ [*การนำเอาโปรแกรมไปใช้งาน*](#การนำเอาโปรแกรมไปใชงาน-สำหรับผูใชงานทัวไป)
-2. ให้เราสร้าง directory ชื่อ `resources` วางไว้ใน path `src/main/java/com/mycompany/java/project/resources`
-3. เข้าไปใน directory นั้นแล้วสร้างไฟล์ชื่อ `env` ขึ้นมาสร้างตัวแปรสภาพแวดล้อมตามตัวอย่างในไฟล์ [env.example](env.example) (ให้เอา comments ออกด้วยตรงเครื่องหมาย `#`)
-4. ค่า values ที่จะมาใส่ในตัวแปรสภาพแวดล้อมให้เราไปสร้าง Service ใน [aiven.io](https://aiven.io/) เลือกฐานข้อมูลเป็น MySQL แล้วสร้างมา 3 tables (ให้เลือกโปรแกรมที่จะใช้จัดการฐานข้อมูลในที่นี้ผู้เขียนใช้เป็น DataGrip) การเชื่อมต่อฐานข้อมูลให้ไปดูตรง Connetion Information ให้เรานำค่าเหล่านั้นมาใส่หลังเครื่องหมาย `=` ของตัวแปรสภาพแวดล้อม
-5. สร้าง table ขึ้นมา 3 tables โดยกำหนด ชื่อคอลัมน์ ชนิดข้อมูล และ attributes ของแต่ล่ะคอลัมน์ ดังต่อไปนี้
-6. สร้าง table ชื่อ `books` โดยใช้คำสั่ง SQL
+1. ให้ทำตามขั้นตอนของ *การนำเอาโปรแกรมไปใช้งาน(สำหรับผู้ใข้งานทั่วไป)*
+2. ให้เราสร้างไฟล์ `.env` วางไว้ใน root directory ของโปรเจคจากนั้นสร้างสร้างตัวแปรสภาพแวดล้อมขึ้นมาตามตัวอย่างในไฟล์ [env.example](env.example) (ให้เอา comments ออกด้วยตรงเครื่องหมาย `#`)
+3. โดยค่า values ที่จะมาใส่ในตัวแปรสภาพแวดล้อมให้เราไปสร้าง Service ใน [aiven.io](https://aiven.io/) เลือกฐานข้อมูลเป็น MySQL แล้วสร้างมา 3 tables (ให้เลือกโปรแกรมที่จะใช้จัดการฐานข้อมูลในที่นี้ผู้เขียนใช้เป็น DataGrip) การเชื่อมต่อฐานข้อมูลให้ไปดูตรง Connetion Information ให้เรานำค่าเหล่านั้นมาใส่หลังเครื่องหมาย `=` ของตัวแปรสภาพแวดล้อม
+4. สร้าง table ขึ้นมา 3 tables โดยกำหนด ชื่อคอลัมน์ ชนิดข้อมูล และ attributes ของแต่ล่ะคอลัมน์ ดังต่อไปนี้
+5. สร้าง table ชื่อ `books` โดยใช้คำสั่ง SQL
 ``` sql
 create table books
 (
@@ -98,7 +97,7 @@ create table books
 ```
 ![](src/main/java/com/mycompany/java/project/assets/diagrams/books.png)
 
-7. สร้าง table ชื่อ `users` โดยใช้คำสั่ง SQL
+6. สร้าง table ชื่อ `users` โดยใช้คำสั่ง SQL
 ``` sql
 create table users
 (
@@ -120,7 +119,7 @@ create table users
 ```
 ![](src/main/java/com/mycompany/java/project/assets/diagrams/users.png)
 
-8. สร้าง table ชื่อ `sales_histroy` โดยใช้คำสั่ง SQL
+7. สร้าง table ชื่อ `sales_histroy` โดยใช้คำสั่ง SQL
 ``` sql
 create table sales_history
 (
@@ -136,8 +135,8 @@ create table sales_history
 ```
 ![](src/main/java/com/mycompany/java/project/assets/diagrams/sales_history.png)
 
-9. ข้อมูลของโปรแกรมได้ทำเป็นไฟล์ CSV กับ JSON ไว้ให้แล้วเข้าไปดูได้ที่ path นี้ `src/main/java/com/mycompany/java/project/db/data` แล้วสามารถนำไฟล์ import เข้าไปใน table ได้เลย
-10. การรันโปรแกรม class หลัก ที่จะใช้รันคือ [JBook.java](src/main/java/com/mycompany/java/project/JBook.java) 
+8. ข้อมูลของโปรแกรมได้ทำเป็นไฟล์ CSV กับ JSON ไว้ให้แล้วเข้าไปดูได้ที่ path นี้ `src/main/java/com/mycompany/java/project/db/data` แล้วสามารถนำไฟล์ import เข้าไปใน table ได้เลย
+9. การรันโปรแกรม class หลัก ที่จะใช้รันคือ [JBook.java](src/main/java/com/mycompany/java/project/JBook.java) 
 
 ---
 
