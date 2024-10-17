@@ -38,4 +38,12 @@ public class UserController extends Database implements SQLQueries {
         this.disconnect();
         return user;
     }
+
+    public User getUser() throws SQLException, JBookException {
+        if(!Authorization.isLoggedIn || Authorization.authorizedUserId <= 0){
+            return null;
+        }
+
+        return this.getUser("SELECT * FROM users WHERE user_id = " + Authorization.authorizedUserId);
+    }
 }

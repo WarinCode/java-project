@@ -39,6 +39,10 @@ public class BookController extends Database implements SQLQueries {
         return books;
     }
 
+    public ArrayList<Book> getBooks() throws SQLException, JBookException {
+        return this.getBooks("SELECT * FROM books");
+    }
+
     public Book getBook(String query) throws SQLException, JBookException {
         Book book = null;
 
