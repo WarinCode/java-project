@@ -19,10 +19,12 @@ public class BookController extends Database implements SQLQueries {
 
     public ArrayList<Book> getBooks(String query) throws SQLException, JBookException {
         ArrayList<Book> books = new ArrayList<Book>();
-
+        //เชื่อมต่อกับdatabase
         this.connect();
+        //ดึงข้อมูลฺนนา ด้วยคำสั่ง Select
         this.select(query);
         while(this.rs.next()){
+            //ดึงข้อมูลจากฐานข้อมูลของBook
             Book book = new Book()
                     .setBookId(this.rs.getInt("book_id"))
                     .setBookName(this.rs.getString("book_name"))
@@ -32,21 +34,25 @@ public class BookController extends Database implements SQLQueries {
                     .setImageUrl(this.rs.getString("image_url"))
                     .setRemain(this.rs.getInt("remain"))
                     .getInstance();
+            //add ข้อมูลหนังสือลงArray
             books.add(book);
         }
-
+        //force disconnect
         this.disconnect();
         return books;
     }
 
     public ArrayList<Book> getBooks() throws SQLException, JBookException {
+        //ก็เชื่อมต่อกับdatabase
         return this.getBooks("SELECT * FROM books");
     }
-
+    
+    //get book เหมือนกัน เเต่เเค่ดึง instance เพื่อใช้ในหน้า preview
     public Book getBook(String query) throws SQLException, JBookException {
         Book book = null;
-
+         //เชื่อมต่อกับdatabase
         this.connect();
+        //ดึงข้อมูลฺนนา ด้วยคำสั่ง Select
         this.select(query);
         while(this.rs.next()){
             book = new Book()
@@ -60,7 +66,7 @@ public class BookController extends Database implements SQLQueries {
                     .getInstance();
             break;
         }
-
+        //force disconnect
         this.disconnect();
         return book;
     }

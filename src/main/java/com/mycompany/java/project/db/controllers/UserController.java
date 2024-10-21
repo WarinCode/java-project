@@ -20,9 +20,13 @@ public class UserController extends Database implements SQLQueries {
     public User getUser(String query) throws SQLException, JBookException {
         User user = null;
 
+        //เชื่อมต่อกับdatabase
         this.connect();
+        //ดึงข้อมูลUser ด้วยคำสั่ง Select
         this.select(query);
+        //ถ้ายังมีUser
         while(this.rs.next()){
+            //ดึงข้อมูลจากฐานข้อมูลของUser 
             user = new User()
                     .setUserId(this.rs.getInt("user_id"))
                     .setUsername(this.rs.getString("username"))
@@ -34,16 +38,18 @@ public class UserController extends Database implements SQLQueries {
                     .getInstance();
             break;
         }
-
+        //force disconnect
         this.disconnect();
         return user;
     }
 
+
     public User getUser() throws SQLException, JBookException {
+        //ถ้าlogin อยู่เเล้ว
         if(!Authorization.isLoggedIn || Authorization.authorizedUserId <= 0){
             return null;
         }
-
+        //ก็เชื่อมต่อกับdatabase
         return this.getUser("SELECT * FROM users WHERE user_id = " + Authorization.authorizedUserId);
     }
 }

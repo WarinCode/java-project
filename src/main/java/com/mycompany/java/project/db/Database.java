@@ -9,6 +9,7 @@ import com.mycompany.java.project.classes.User;
 import com.mycompany.java.project.interfaces.SQLQueries;
 
 public class Database extends DatabaseProvider implements SQLQueries {
+    //boolean flag เก็บค่าการเปลี่ยนเเปลง
     public boolean isChanged;
 
     public Database(){
@@ -37,7 +38,7 @@ public class Database extends DatabaseProvider implements SQLQueries {
             this.connection.close();
         }
     }
-
+    
     @Override
     public void select(String query) throws SQLException {
         this.rs = this.statement.executeQuery(query);
