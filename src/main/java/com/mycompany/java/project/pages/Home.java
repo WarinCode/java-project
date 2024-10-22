@@ -18,8 +18,10 @@ import com.mycompany.java.project.db.Authorization;
 
 public class Home extends javax.swing.JFrame implements PageHandling, InstanceProvider<Home> {
     public Home(User user, ArrayList<Book> books) {
+        
         this.user = user;
         this.books = books;
+        //
         this.updateBookData();
 
         initComponents();
@@ -596,18 +598,26 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
     }
 
     private void updateBookData(){
+        //2d Array เก็บข้อมูลประเภทหนังสือ
         this.bookSets = new ArrayList<ArrayList<Book>>();
+        //1d Array เก็บข้อมูลประเภทหนังสือ
         ArrayList<Book> set = new ArrayList<Book>();
+        //loop 2d Array  
         for(int i = 0; i < this.books.size(); i++){
+            //add ข้อมูลหนังสือลงArray
             set.add(this.books.get(i));
             if((i + 1) % 6 == 0){
+                //add Arrayของข้อมูลหนังสือลงArray
                 this.bookSets.add(set);
+                //สร้าง Arrayของข้อมูลหนังสือ
                 set = new ArrayList<Book>();
             }
         }
+        
         if(set.size() != 0){
             this.bookSets.add(set);
         }
+        //ตั้งค่าindexสุดท้าย
         this.setLastIndex(this.bookSets.size() - 1);
     }
 
@@ -721,17 +731,27 @@ public class Home extends javax.swing.JFrame implements PageHandling, InstancePr
         return this;
     }
 
+    //run main ของหน้า Home
     public static void main(String []args){
         try {
+            //set login เป็น จริง
             Authorization.isLoggedIn = true;
+            //เตรียมโหลด database ข้อมูลหนังสือ
             UserController userController = new UserController();
+            //เตรียมโหลด database ข้อมูลUser
             BookController bookController = new BookController();
+            //โหลด ข้อมูลUser จาก User
             User user = userController.getUser("SELECT * FROM users WHERE username = 'root'");
+            //set UserId จาก ข้อมูลUser
             Authorization.authorizedUserId = user.getUserId();
+            //โหลดเก็บArray ของข้อมูลหนังสือ เพื่อใช้เเสดงผล
             ArrayList<Book> books = bookController.getBooks("SELECT * FROM books");
+            //refresh หน้า Home
             Home home = new Home(user, books);
+
         } catch(JBookException | SQLException e){
             e.printStackTrace();
+            //login ใหม่
             Login login = new Login();
         }
     }

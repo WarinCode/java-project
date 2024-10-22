@@ -2,6 +2,8 @@ package com.mycompany.java.project.classes;
 import com.mycompany.java.project.classes.customs.exceptions.JBookException;
 import com.mycompany.java.project.interfaces.BookInterface;
 
+
+
 public class Book implements BookInterface{
     private int bookId;
     private String bookName = null;
