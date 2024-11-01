@@ -17,7 +17,7 @@ public abstract class DatabaseProvider {
     protected DatabaseProvider(){
         try {
             this.dotenv = Dotenv.configure().load();
-            this.ci.setUsername(this.dotenv.get("USERNAME"))
+            this.ci.setUsername(this.dotenv.get("USER_NAME"))
                     .setPassword(this.dotenv.get("PASSWORD"))
                     .setDbName(this.dotenv.get("DB_NAME"))
                     .setPort(Integer.parseInt(this.dotenv.get("PORT")))
